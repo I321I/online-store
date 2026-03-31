@@ -1,15 +1,27 @@
+import { getResources, getT, initServerI18next } from "next-i18next/server";
 import "./globals.css";
-import { dir } from "i18next";
-import { languages } from "@/i18n/settings";
+import i18nConfig from "../../../i18n.config";
+import { I18nProvider } from "next-i18next/client";
 
-export default function RootLayout({
+initServerI18next(i18nConfig)
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
+  params: Promise<{ lng: string }>
 }>) {
+  const { lng } = await params
+  const { i18n } = await getT()
+  const resources = getResources(i18n)
+
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang={lng}>
+      <body>
+        <I18nProvider language={lng} resources={resources}>
+          {children}
+        </I18nProvider>
+      </body>
     </html>
   );
 }
