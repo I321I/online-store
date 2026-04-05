@@ -4,6 +4,7 @@ import Link from "next/link"
 // import { getT } from "next-i18next/server"
 import { useT } from "next-i18next/client"
 import LanguagesSelect from "./navigationLanguagesSelector"
+import { Button } from "./ui/button"
 
 
 // export const Navigation = ({ params }: { params: Promise<{ lng: string }> }) => {
@@ -27,9 +28,9 @@ export const Navigation = ({ lng }: { lng: string }) => {
                 </Link >
             </div>
             <div className="flex flex-row flex-wrap gap-10 content-center">
-                {/* <Button onClick={() => changeLanguage("en")} variant="link" size="lg" className="grid decoration-2 text-[2rem] align-middle place-items-center border-t-12">
-                    {t("languages")}
-                </Button> */}
+                <Button  variant="link" size="lg" className="grid decoration-2 text-[2rem] content-center">
+                    {t("login")}
+                </Button>
                 <LanguagesSelect lng={lng} />
             </div>
         </nav>
