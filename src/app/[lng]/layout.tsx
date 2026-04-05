@@ -21,7 +21,8 @@ export default async function RootLayout({
     <html lang={lng}>
       <body>
         <I18nProvider language={lng} resources={resources}>
-          <Navigation params={params} />
+          {/* <Navigation params={params} /> */}
+          <Navigation lng={lng} />
           {children}
         </I18nProvider>
       </body>
