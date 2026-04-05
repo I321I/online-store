@@ -2,6 +2,8 @@ import { getResources, getT, initServerI18next } from "next-i18next/server";
 import "./globals.css";
 import i18nConfig from "../../../i18n.config";
 import { I18nProvider } from "next-i18next/client";
+import { Navigation } from "@/components/navigation";
+import { Suspense } from "react";
 
 initServerI18next(i18nConfig)
 export default async function RootLayout({
@@ -19,6 +21,7 @@ export default async function RootLayout({
     <html lang={lng}>
       <body>
         <I18nProvider language={lng} resources={resources}>
+          <Navigation params={params} />
           {children}
         </I18nProvider>
       </body>
