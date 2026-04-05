@@ -10,6 +10,7 @@ import {
     SelectValue,
 } from "@/components/customUi/navigationLanguageSelect"
 import { usePathname, useRouter } from "next/navigation"
+import { Languages } from "lucide-react"
 
 export default function LanguagesSelect({ lng }: { lng: string }) {
     const { t } = useT('home')
@@ -22,7 +23,7 @@ export default function LanguagesSelect({ lng }: { lng: string }) {
     }
     return (
         <Select defaultValue={lng} onValueChange={switchLocal}>
-            <SelectTrigger className="w-[175px] text-[2rem] border-none content-center underline-offset-3 decoration-2 focus:shadow-none  pt-4
+            <SelectTrigger className="flex w-auto text-[2rem] border-none underline-offset-3 decoration-2 focus:shadow-none
                      max-sm:hidden hover:underline active:not-aria-[haspopup]:translate-y-px">
                 <SelectValue placeholder="Languages" />
             </SelectTrigger>
@@ -33,5 +34,4 @@ export default function LanguagesSelect({ lng }: { lng: string }) {
             </SelectContent>
         </Select>
     )
-
 }

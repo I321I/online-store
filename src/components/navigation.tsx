@@ -5,7 +5,16 @@ import Link from "next/link"
 import { useT } from "next-i18next/client"
 import LanguagesSelect from "./navigationLanguagesSelector"
 import { Button } from "./ui/button"
+import { Languages, ShoppingCart } from "lucide-react"
 
+export interface LucideProps {
+    size?: number | string;
+    color?: string;
+    strokeWidth?: number;
+    absoluteStrokeWidth?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any; // Any other SVG attributes
+}
 
 // export const Navigation = ({ params }: { params: Promise<{ lng: string }> }) => {
 export const Navigation = ({ lng }: { lng: string }) => {
@@ -15,7 +24,7 @@ export const Navigation = ({ lng }: { lng: string }) => {
 
     return (
         <nav className="
-        flex flex-row flex-wrap w-[100vw] h-24 border-solid border-b-2 p-3 pl-6 pb-[1%] justify-between
+        flex flex-row flex-wrap w-[100vw] h-24 border-solid border-b-2 p-3 pl-8  pr-10  justify-between
         max-sm:h-20" >
             <div className="flex flex-row flex-wrap  gap-10 ">
                 <p className="text-[3rem] font-serif content-center
@@ -27,11 +36,13 @@ export const Navigation = ({ lng }: { lng: string }) => {
                     {t("products")}
                 </Link >
             </div>
-            <div className="flex flex-row flex-wrap gap-10 content-center">
-                <Button  variant="link" size="lg" className="grid decoration-2 text-[2rem] content-center">
+            <div className="flex flex-row flex-wrap h-full gap-10 items-center
+            max-sm:hidden max-md:hidden">
+                <LanguagesSelect lng={lng} />
+                <Button variant="link" size="lg" className="grid h-full decoration-2 text-[2rem] items-center">
                     {t("login")}
                 </Button>
-                <LanguagesSelect lng={lng} />
+                <ShoppingCart role="button" size={28} className="h-[42%] hover:shadow-[0_2.5px_0_0_black] active:not-aria-[haspopup]:translate-y-px"/>
             </div>
         </nav>
     )
