@@ -7,9 +7,13 @@
 // }
 
 //SSR
-import { getT } from 'next-i18next/server'
-export default async function Home({ params }: { params: Promise<{ lng: string }> }) {
-  const { lng } = await params
-  const { t } = await getT('home', { lng })
-  return <h1>{t('title')}</h1>
+import { getT } from "next-i18next/server";
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = await params;
+  const { t } = await getT("home", { lng });
+  return <h1>{t("title")}</h1>;
 }
