@@ -1,3 +1,6 @@
 {
-    "title": "Donuts"
+  "title": "Donuts",
+  "products": "products",
+  "languages": "language",
+  "login": "sign in or sign up"
 }

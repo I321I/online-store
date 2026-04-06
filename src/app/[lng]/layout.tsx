@@ -2,23 +2,27 @@ import { getResources, getT, initServerI18next } from "next-i18next/server";
 import "./globals.css";
 import i18nConfig from "../../../i18n.config";
 import { I18nProvider } from "next-i18next/client";
+import { Navigation } from "@/components/navigation";
+import { Suspense } from "react";
 
-initServerI18next(i18nConfig)
+initServerI18next(i18nConfig);
 export default async function RootLayout({
   children,
   params,
 }: Readonly<{
-  children: React.ReactNode
-  params: Promise<{ lng: string }>
+  children: React.ReactNode;
+  params: Promise<{ lng: string }>;
 }>) {
-  const { lng } = await params
-  const { i18n } = await getT()
-  const resources = getResources(i18n)
+  const { lng } = await params;
+  const { i18n } = await getT();
+  const resources = getResources(i18n);
 
   return (
     <html lang={lng}>
       <body>
         <I18nProvider language={lng} resources={resources}>
+          {/* <Navigation params={params} /> */}
+          <Navigation lng={lng} />
           {children}
         </I18nProvider>
       </body>
