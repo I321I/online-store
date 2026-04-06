@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lng}>
-      <body>
+      <body className="overflow-x-hidden">
         <I18nProvider language={lng} resources={resources}>
           {/* <Navigation params={params} /> */}
           <Navigation lng={lng} />
