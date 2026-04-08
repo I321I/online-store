@@ -33,7 +33,7 @@ export const Navigation = ({ lng }: { lng: string }) => {
         <ShoppingCart
           role="button"
           size={28}
-          className="h-[42%] hover:shadow-[0_2.5px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+          className="h-[42%] hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
         />
       </div>
     </nav>
