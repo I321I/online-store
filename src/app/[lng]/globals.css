@@ -135,8 +135,6 @@
   }
 }
 
-/* @utility mobile-hidden {
-  @media (max-width: 850px) {
-    display: none;
-  }
-} */
+@utility h2{
+  @apply flex text-5xl
+}

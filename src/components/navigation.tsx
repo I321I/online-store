@@ -9,7 +9,7 @@ export const Navigation = ({ lng }: { lng: string }) => {
   const { t } = useT("home");
 
   return (
-    <nav className="flex h-24 w-screen flex-row flex-wrap justify-between border-b-2 border-solid p-3 pr-10 pl-8 max-sm:h-20">
+    <nav className="flex h-24 w-screen flex-row flex-wrap justify-between border-b-2 border-solid py-3 pr-12 pl-8 max-sm:h-20">
       <div className="flex flex-row flex-wrap gap-10">
         <p className="content-center font-serif text-5xl max-md:text-3xl">
           {t("title")}
