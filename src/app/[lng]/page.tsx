@@ -31,8 +31,12 @@ export default async function Home({
       <section className="flex flex-col gap-8 pr-12 pl-8">
         <h2 className="h2">{t("categories")}</h2>
         <div className="flex flex-row justify-start gap-8">
-          <IntroCard t={t} category="storage"></IntroCard>
-          <IntroCard t={t} category="table"></IntroCard>
+          <IntroCard
+            t={t}
+            category="storage"
+            tailwindBgColor="bg-amber-900"
+          ></IntroCard>
+          <IntroCard t={t} category="table" tailwindBgColor="bg-[#CCAC90]"></IntroCard>
         </div>
       </section>
     </div>
