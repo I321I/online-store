@@ -1,22 +1,21 @@
-//CSR
-// 'use client'
-// import { useT } from "next-i18next/client"
-// export default  function Home() {
-//   const { t } = useT('home')
-//   return <h1>{t('title')}</h1>
-// }
-//SSR
+"use client";
 import { IntroCard } from "@/components/introCard";
-import { getT } from "next-i18next/server";
 import Image from "next/image";
+//CSR
+import { useT } from "next-i18next/client";
+export default function Home() {
+  const { t } = useT("home");
+  // }
+  //SSR
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ lng: string }>;
-}) {
-  const { lng } = await params;
-  const { t } = await getT("home", { lng });
+  // import { getT } from "next-i18next/server";
+  // export default async function Home({
+  //   params,
+  // }: {
+  //   params: Promise<{ lng: string }>;
+  // }) {
+  // const { lng } = await params;
+  // const { t } = await getT("home", { lng });
   return (
     <div className="flex flex-col gap-8">
       <Image
@@ -36,7 +35,11 @@ export default async function Home({
             category="storage"
             tailwindBgColor="bg-amber-900"
           ></IntroCard>
-          <IntroCard t={t} category="table" tailwindBgColor="bg-[#CCAC90]"></IntroCard>
+          <IntroCard
+            t={t}
+            category="table"
+            tailwindBgColor="bg-[#CCAC90]"
+          ></IntroCard>
         </div>
       </section>
     </div>

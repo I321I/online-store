@@ -1,16 +1,17 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import {
   Card,
   CardAction,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { TFunction } from "i18next";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export const IntroCard = ({
   t,
@@ -23,6 +24,7 @@ export const IntroCard = ({
   tailwindBgColor: string;
   // direction: string;
 }) => {
+  const router = useRouter()
   return (
     <Card className={`mx-fit relative w-full max-w-sm ${tailwindBgColor} pt-0`}>
       <Image
@@ -50,6 +52,7 @@ export const IntroCard = ({
             variant="default"
             size="icon"
             className="dark rounded-full bg-white"
+            onClick={()=>router.push('')}
           >
             <ArrowRight />
           </Button>
