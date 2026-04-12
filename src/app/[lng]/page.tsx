@@ -29,7 +29,7 @@ export default function Home() {
       />
       <section className="flex flex-col gap-8">
         <h2 className="h2 pr-12 pl-8">{t("categories")}</h2>
-        <div className="nowrap flex snap-x scroll-px-12 flex-row justify-start gap-8 overflow-x-scroll pr-12 pb-3 pl-8">
+        <div className="nowrap flex snap-x scroll-px-12 flex-row justify-start gap-8 overflow-x-scroll pr-12 pb-3 pl-8 introCardScrollbar">
           <IntroCard
             t={t}
             category="storage"

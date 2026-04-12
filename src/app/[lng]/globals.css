@@ -135,6 +135,22 @@
   }
 }
 
-@utility h2{
-  @apply flex text-5xl max-md:text-2xl
+@utility h2 {
+  @apply flex text-5xl max-md:text-2xl;
+}
+
+@layer utilities {
+  .introCardScrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .introCardScrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+  }
+
+  .introCardScrollbar::-webkit-scrollbar-thumb {
+    background: rgb(165, 165, 165);
+    border-radius: 100vh;
+  }
 }
