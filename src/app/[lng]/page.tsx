@@ -17,7 +17,7 @@ export default function Home() {
   // const { lng } = await params;
   // const { t } = await getT("home", { lng });
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex w-screen flex-col gap-8">
       <Image
         src="/images/home.jpg"
         width={100}
@@ -25,11 +25,11 @@ export default function Home() {
         sizes="100vw"
         alt="image of home page"
         loading="eager"
-        className="h-auto w-auto"
+        className="h-auto w-screen"
       />
-      <section className="flex flex-col gap-8 pr-12 pl-8">
-        <h2 className="h2">{t("categories")}</h2>
-        <div className="flex flex-row justify-start gap-8">
+      <section className="flex flex-col gap-8">
+        <h2 className="h2 pr-12 pl-8">{t("categories")}</h2>
+        <div className="nowrap flex snap-x scroll-px-12 flex-row justify-start gap-8 overflow-x-scroll pr-12 pb-3 pl-8">
           <IntroCard
             t={t}
             category="storage"

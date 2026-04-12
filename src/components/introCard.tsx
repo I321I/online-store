@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import {
@@ -24,9 +24,11 @@ export const IntroCard = ({
   tailwindBgColor: string;
   // direction: string;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   return (
-    <Card className={`mx-fit relative w-full max-w-sm ${tailwindBgColor} pt-0`}>
+    <Card
+      className={`mx-fit relative w-full max-w-sm shrink-0 ${tailwindBgColor} snap-start pt-0`}
+    >
       <Image
         src={`/images/${category}-intro.jpg`}
         width={100}
@@ -52,7 +54,7 @@ export const IntroCard = ({
             variant="default"
             size="icon"
             className="dark rounded-full bg-white"
-            onClick={()=>router.push('')}
+            onClick={() => router.push("")}
           >
             <ArrowRight />
           </Button>

@@ -136,5 +136,5 @@
 }
 
 @utility h2{
-  @apply flex text-5xl
+  @apply flex text-5xl max-md:text-2xl
 }
