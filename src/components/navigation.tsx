@@ -21,19 +21,19 @@ export const Navigation = ({ lng }: { lng: string }) => {
           {t("products")}
         </Link>
       </div>
-      <div className="flex h-full flex-row flex-wrap items-center gap-10 max-md:hidden">
+      <div className="flex h-full cursor-pointer flex-row flex-wrap items-center gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
         <Button
           variant="link"
           size="lg"
-          className="h-full text-3xl decoration-2"
+          className="h-full cursor-pointer text-3xl decoration-2"
         >
           {t("login")}
         </Button>
         <ShoppingCart
           role="button"
           size={28}
-          className="h-[42%] hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+          className="h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
         />
       </div>
     </nav>
