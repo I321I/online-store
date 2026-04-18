@@ -30,7 +30,7 @@ export const Footer = () => {
           <Button
             variant="ghost"
             size="lg"
-            className="box-border flex w-10 cursor-pointer p-0 text-3xl tracking-widest decoration-2 hover:bg-transparent"
+            className="box-border flex w-10 cursor-pointer p-0 text-3xl tracking-widest hover:bg-transparent"
             onClick={() => switchLocal("en")}
           >
             EN|
@@ -38,14 +38,14 @@ export const Footer = () => {
           <Button
             variant="ghost"
             size="lg"
-            className="box-border flex w-10 cursor-pointer p-0 text-2xl decoration-2 hover:bg-transparent"
+            className="box-border flex w-10 cursor-pointer p-0 text-2xl hover:bg-transparent"
             onClick={() => switchLocal("zh-Hant")}
           >
             中
           </Button>
         </div>
       </div>
-      <div className="mx-auto flex w-2/3 grow-1 flex-wrap content-center justify-center border-t-2 text-3xl">
+      <div className="mx-auto flex w-2/3 grow flex-wrap content-center justify-center border-t-2 text-3xl">
         {t("author")}:i321i(Github)
       </div>
     </footer>
