@@ -9,7 +9,7 @@ export const Navigation = ({ lng }: { lng: string }) => {
   const { t } = useT("home");
 
   return (
-    <nav className="flex h-24 w-screen flex-row flex-wrap justify-between border-b-2 border-solid p-3 pr-10 pl-8 max-sm:h-20">
+    <nav className="flex h-24 w-screen flex-row flex-wrap justify-between border-b-2 border-solid py-3 pr-12 pl-8 max-sm:h-20">
       <div className="flex flex-row flex-wrap gap-10">
         <p className="content-center font-serif text-5xl max-md:text-3xl">
           {t("title")}
@@ -21,19 +21,19 @@ export const Navigation = ({ lng }: { lng: string }) => {
           {t("products")}
         </Link>
       </div>
-      <div className="flex h-full flex-row flex-wrap items-center gap-10 max-md:hidden">
+      <div className="flex h-full cursor-pointer flex-row flex-wrap items-center gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
         <Button
           variant="link"
           size="lg"
-          className="h-full text-3xl decoration-2"
+          className="h-full cursor-pointer text-3xl decoration-2"
         >
           {t("login")}
         </Button>
         <ShoppingCart
           role="button"
           size={28}
-          className="h-[42%] hover:shadow-[0_2.5px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+          className="h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
         />
       </div>
     </nav>

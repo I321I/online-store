@@ -1,6 +1,16 @@
 {
   "title": "Donuts",
   "products": "products",
-  "languages": "language",
-  "login": "sign in or sign up"
+  "languages": "Languages",
+  "login": "sign in or sign up",
+  "categories": "Categories",
+
+  "table": "Table",
+  "storage": "Storage",
+  "card-storage-title": "Finding the Rhythm Between Space and Belongings",
+  "card-storage-content": "Good storage is more than just organizing; it's about redefining the way we live. Whether it's a wall filled with inspiration or a clean, minimalist corner, thoughtful arrangements create a sense of calm, allowing us to find clarity in the midst of a busy day.",
+  "card-table-title": "A Surface for Every Story, a Stage for Every Moment",
+  "card-table-content": "The table is where life unfolds. It serves as a quiet workspace for focus, a gathering spot for shared laughter, or a simple surface to rest on in nature. From the indoors to the great outdoors, it provides the foundation for the moments that truly matter.",
+
+  "author": "Author"
 }

@@ -11,7 +11,7 @@ import {
 } from "@/components/customUi/languageSelect";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function LanguagesSelect({ lng }: { lng: string }) {
+export default function LanguagesSelect({ lng }: { lng?: string }) {
   const { t } = useT("home");
   const pathname = usePathname();
   const router = useRouter();
@@ -22,11 +22,8 @@ export default function LanguagesSelect({ lng }: { lng: string }) {
   };
   return (
     <Select defaultValue={lng} onValueChange={switchLocal}>
-      <SelectTrigger
-        className="flex w-auto text-[2rem] border-none underline-offset-3 decoration-2 focus:shadow-none
-                     max-sm:hidden hover:underline active:not-aria-[haspopup]:translate-y-px"
-      >
-        <SelectValue placeholder="Languages" />
+      <SelectTrigger className="flex w-auto cursor-pointer border-none text-[2rem] decoration-2 underline-offset-3 hover:underline focus:shadow-none active:not-aria-[haspopup]:translate-y-px max-sm:hidden">
+        <SelectValue placeholder={t("languages")} />
       </SelectTrigger>
       <SelectContent position={"popper"}>
         <SelectGroup>
