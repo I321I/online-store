@@ -45,7 +45,7 @@ export const Footer = () => {
           </Button>
         </div>
       </div>
-      <div className="mx-auto flex w-2/3 grow flex-wrap content-center justify-center border-t-2 text-3xl">
+      <div className="mx-auto flex w-2/3 grow text-nowrap flex-wrap content-center justify-center border-t-2 text-3xl">
         {t("author")}:i321i(Github)
       </div>
     </footer>

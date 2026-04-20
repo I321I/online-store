@@ -26,7 +26,7 @@ export default async function RootLayout({
           <Navigation lng={lng} />
           {children}
           <footer>
-            <Footer lng={lng}></Footer>
+            <Footer></Footer>
           </footer>
         </I18nProvider>
       </body>
