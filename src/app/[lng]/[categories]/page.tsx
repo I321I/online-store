@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 // generateStaticParams
-const categories = ["table", "storage"];
+export const categories = ["table", "storage"];
 export default async function Page({
   params,
 }: {

@@ -4,6 +4,8 @@ import { useT } from "next-i18next/client";
 import LanguagesSelect from "./navigationLanguagesSelector";
 import { Button } from "./ui/button";
 import { ShoppingCart } from "lucide-react";
+import { categories } from "@/app/[lng]/[categories]/page";
+import DirectSelector from "./navigationDirectSelector";
 
 export const Navigation = ({ lng }: { lng: string }) => {
   const { t } = useT("home");
@@ -17,12 +19,11 @@ export const Navigation = ({ lng }: { lng: string }) => {
         >
           {t("title")}
         </Link>
-        <Link
-          href="/product"
-          className="font-sans-serif text-3xl/7 decoration-2 underline-offset-3 hover:underline active:not-aria-[haspopup]:translate-y-px max-md:hidden"
-        >
-          {t("products")}
-        </Link>
+        <DirectSelector
+          title={t("products")}
+          selections={categories}
+          witchSegment={2}
+        />
       </div>
       <div className="flex h-full cursor-pointer flex-row flex-wrap items-end gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
