@@ -17,12 +17,12 @@ export const IntroCard = ({
   t,
   category,
   tailwindBgColor,
-  // direction,
+  direction,
 }: {
   t: TFunction<"home", undefined>;
   category: string;
   tailwindBgColor: string;
-  // direction: string;
+  direction: string;
 }) => {
   const router = useRouter();
   return (
@@ -54,7 +54,7 @@ export const IntroCard = ({
             variant="default"
             size="icon"
             className="dark rounded-full bg-white"
-            onClick={() => router.push("")}
+            onClick={() => router.push(direction)}
           >
             <ArrowRight />
           </Button>
