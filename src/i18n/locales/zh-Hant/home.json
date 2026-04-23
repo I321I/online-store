@@ -5,6 +5,9 @@
   "login": "登入或註冊",
   "categories": "類別",
 
+  "en": "English",
+  "zh-Hant": "繁體中文",
+
   "tables": "桌子",
   "storage": "收納空間",
   "card-storage-title": "留白與收藏之間，定義專屬的生活秩序",

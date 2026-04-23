@@ -5,6 +5,9 @@
   "login": "sign in or sign up",
   "categories": "Categories",
 
+  "en": "English",
+  "zh-Hant":"繁體中文",
+
   "tables": "Tables",
   "storage": "Storage",
   "card-storage-title": "Finding the Rhythm Between Space and Belongings",

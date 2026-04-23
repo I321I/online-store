@@ -3,7 +3,6 @@ import { IntroCard } from "@/components/introCard";
 import Image from "next/image";
 //CSR
 import { useT } from "next-i18next/client";
-import { categories } from "./[categories]/page";
 export default function Home() {
   const { t } = useT("home");
   // }
