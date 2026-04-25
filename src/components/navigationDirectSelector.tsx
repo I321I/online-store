@@ -16,7 +16,7 @@ export default function DirectSelector({
   witchSegment,
 }: {
   title: string;
-  selections: string[];
+  selections: readonly string[];
   witchSegment: number;
 }) {
   const { t } = useT("home");
@@ -26,13 +26,6 @@ export default function DirectSelector({
     const segments = pathname.split("/");
     segments[witchSegment] = path;
     router.push(segments.join("/"));
-  };
-  const createGroupItem = (list: string[]) => {
-    return list.map((item) => (
-      <DropdownMenuItem onSelect={direct(item)} key={item}>
-        {t(`${item}`)}
-      </DropdownMenuItem>
-    ));
   };
   return (
     <DropdownMenu>
@@ -45,7 +38,13 @@ export default function DirectSelector({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuGroup>{createGroupItem(selections)}</DropdownMenuGroup>
+        <DropdownMenuGroup>
+          {selections.map((item) => (
+            <DropdownMenuItem onSelect={direct(item)} key={item}>
+              {t(`${item}`)}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
