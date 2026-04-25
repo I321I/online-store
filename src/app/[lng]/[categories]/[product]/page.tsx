@@ -34,6 +34,7 @@ export default async function Page({
         {t("curatedProducts")}
       </div>
       <PageBreadcrumbBasic />
+      
     </div>
   );
 }
