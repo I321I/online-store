@@ -25,14 +25,14 @@ export default function DirectSelector({
   const direct = (path: string) => () => {
     const segments = pathname.split("/");
     segments[witchSegment] = path;
-    router.push(segments.join("/"));
+    router.replace([segments[0],segments[1],segments[2]].join("/"));
   };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="link"
-          className="focus:outliine-none font-sans-serif text-w cursor-pointer text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline active:not-aria-[haspopup]:translate-y-px max-md:hidden"
+          className="focus:outliine-none font-sans-serif text-w cursor-pointer border-none text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline focus-visible:ring-0 active:not-aria-[haspopup]:translate-y-px max-md:hidden"
         >
           {title}
         </Button>

@@ -2,10 +2,11 @@ import { getT } from "next-i18next/server";
 import { notFound } from "next/navigation";
 import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
 import { ProductsList } from "@/components/productsList";
+import { Categories } from "@/types/categories";
 
 // generateStaticParams
 export const categories = ["tables", "storage"] as const;
-export type Categories = (typeof categories)[number];
+
 export default async function Page({
   params,
 }: {

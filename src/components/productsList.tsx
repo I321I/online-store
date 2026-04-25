@@ -1,4 +1,4 @@
-import { Categories } from "@/app/[lng]/[categories]/page";
+import { Categories } from "@/types/categories";
 import { ProductsListItem } from "./productsListItem";
 
 export const ProductsList = ({
