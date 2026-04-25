@@ -3,12 +3,10 @@ import Image from "next/image";
 
 export const ProductsList = ({
   category,
-  rows,
-  columns,
+  max,
 }: {
   category: Categories;
-  rows: number;
-  columns: number;
+  max: number;
 }) => {
   const createListItem = (categoryPathName: string, number: number) => {
     let num: string | number = number;
@@ -27,14 +25,14 @@ export const ProductsList = ({
           sizes="100vw"
           alt={`image of product ${num}`}
           loading="eager"
-          className="h-80 w-auto overflow-hidden object-cover"
+          className="h-auto w-auto overflow-hidden object-cover aspect-square"
         />
         <p>123</p>
       </div>
     );
   };
   return (
-    <div className="w-100% flex flex-row flex-wrap justify-center gap-4 max-md:gap-2 max-[]:">
+    <div className="w-100% flex flex-row flex-wrap justify-between gap-6 max-md:gap-2 ">
       {Array.from({ length: 16 }, (_, i) => createListItem(category, i + 1))}
     </div>
   );

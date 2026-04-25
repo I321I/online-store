@@ -6,16 +6,22 @@ import { Button } from "./ui/button";
 import { ShoppingCart } from "lucide-react";
 import { categories } from "@/app/[lng]/[categories]/page";
 import DirectSelector from "./navigationDirectSelector";
+import { usePathname } from "next/navigation";
 
 export const Navigation = ({ lng }: { lng: string }) => {
   const { t } = useT("home");
-
+  const path = usePathname();
+  const segments = path.split("/");
+  const isHome = !(segments[2] ?? undefined);
+  console.log(segments, isHome);
   return (
-    <nav className="flex h-24 w-screen flex-row flex-wrap justify-between border-b-2 border-solid py-3 pt-0 pr-12 pb-7 pl-8 max-md:h-20">
+    <nav
+      className={`${!isHome && "mb-7"} container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
+    >
       <div className="flex flex-row flex-wrap items-end gap-10">
         <Link
           href={`/${lng}`}
-          className="g-full font-serif text-5xl/9 decoration-2 underline-offset-3 max-md:text-3xl"
+          className="g-full font-serif text-5xl/9 decoration-2 underline-offset-3 "
         >
           {t("title")}
         </Link>

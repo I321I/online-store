@@ -17,12 +17,10 @@ export default async function Page({
   const { lng } = await params;
   const { t } = await getT("common", { lng });
   return (
-    <div className="flex flex-col gap-7 px-8">
-      <div className="flex justify-center pt-7 text-3xl">
-        {t("curatedProducts")}
-      </div>
+    <div className="flex flex-col gap-7 px-8 container-1920">
+      <div className="flex justify-center text-3xl">{t("curatedProducts")}</div>
       <PageBreadcrumbBasic />
-      <ProductsList category={category} rows={4} columns={4} />
+      <ProductsList category={category} max={16} />
     </div>
   );
 }

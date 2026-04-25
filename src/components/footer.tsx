@@ -14,7 +14,7 @@ export const Footer = () => {
     router.push(segments.join("/"));
   };
   return (
-    <footer className="flex h-40 w-screen flex-col justify-center border-t-2 px-5">
+    <footer className="container-1920 mt-7 flex h-40 w-full flex-col justify-center border-t-2 px-5">
       <div className="flex h-23 w-full flex-wrap content-center justify-around">
         <a
           target="_blank"
@@ -45,7 +45,7 @@ export const Footer = () => {
           </Button>
         </div>
       </div>
-      <div className="mx-auto flex w-19/20 grow text-nowrap flex-wrap content-center justify-center border-t-2 text-3xl">
+      <div className="mx-auto flex w-19/20 grow flex-wrap content-center justify-center border-t-2 text-3xl text-nowrap">
         {t("author")}:i321i(Github)
       </div>
     </footer>

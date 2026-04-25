@@ -17,15 +17,27 @@ export default function Home() {
   // const { lng } = await params;
   // const { t } = await getT("home", { lng });
   return (
-    <div className="flex w-screen flex-col gap-8">
+    <div className="container-1920 flex w-screen flex-col gap-8">
+      {/*墊absolute下面空間*/}
       <Image
         src="/images/home.jpg"
-        width={100}
+        width={1920}
         height={100}
         sizes="100vw"
         alt="image of home page"
         loading="eager"
-        className="h-auto w-screen"
+        priority
+        className="relative left-0 mt-[-2] w-screen !max-w-none object-cover"
+      />
+      <Image
+        src="/images/home.jpg"
+        width={1920}
+        height={100}
+        sizes="100vw"
+        alt="image of home page"
+        loading="eager"
+        priority
+        className="absolute left-0 z-10 mt-[-2] w-screen !max-w-none object-cover"
       />
       <section className="flex flex-col gap-8">
         <h2 className="h2 pr-12 pl-8">{t("categories")}</h2>
