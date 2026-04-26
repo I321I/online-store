@@ -4,9 +4,11 @@ import Image from "next/image";
 export const ProductsList = ({
   category,
   max,
+  className,
 }: {
   category: Categories;
   max: number;
+  className?: string;
 }) => {
   const createListItem = (categoryPathName: string, number: number) => {
     let num: string | number = number;
@@ -32,8 +34,10 @@ export const ProductsList = ({
     );
   };
   return (
-    <div className="w-100% flex flex-row flex-wrap justify-between gap-6 max-md:gap-2">
-      {Array.from({ length: 16 }, (_, i) => createListItem(category, i + 1))}
+    <div
+      className={`w-100% flex flex-row flex-wrap justify-center gap-6 max-md:gap-2 ${className}`}
+    >
+      {Array.from({ length: max }, (_, i) => createListItem(category, i + 1))}
     </div>
   );
 };

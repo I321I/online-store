@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 const createProducts = (productName: string, number: number) => {
   let maxNumber = number;
   if (number >= 100) maxNumber = 99;
-  let result: string[] = [];
+  const result: string[] = [];
   for (let i = 1; i <= number; i++) {
     if (i < 10) {
       result.push(`${productName}${"0" + i}`);
@@ -34,7 +34,6 @@ export default async function Page({
         {t("curatedProducts")}
       </div>
       <PageBreadcrumbBasic />
-      
     </div>
   );
 }

@@ -13,7 +13,6 @@ export const Navigation = ({ lng }: { lng: string }) => {
   const path = usePathname();
   const segments = path.split("/");
   const isHome = !(segments[2] ?? undefined);
-  console.log(segments, isHome);
   return (
     <nav
       className={`${!isHome && "mb-7"} container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
