@@ -1,12 +1,14 @@
 import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
+import ProductPageComponent from "@/components/productPageComponent";
 import { getT } from "next-i18next/server";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 const createProducts = (productName: string, number: number) => {
-  let maxNumber = number;
-  if (number >= 100) maxNumber = 99;
+  let num = number;
+  if (number >= 100) num = 99;
   const result: string[] = [];
-  for (let i = 1; i <= number; i++) {
+  for (let i = 1; i <= num; i++) {
     if (i < 10) {
       result.push(`${productName}${"0" + i}`);
       continue;
@@ -29,11 +31,12 @@ export default async function Page({
   const { product } = await params;
   if (!products.find((item) => item === product)) return notFound();
   return (
-    <div className="flex flex-col gap-7 px-8">
+    <div className="container-1920 flex flex-col gap-7 px-8">
       <div className="flex justify-center pt-7 text-3xl">
         {t("curatedProducts")}
       </div>
-      <PageBreadcrumbBasic />
+      <PageBreadcrumbBasic/>
+      <ProductPageComponent/>
     </div>
   );
 }
