@@ -3,7 +3,6 @@ import "./globals.css";
 import i18nConfig from "../../../i18n.config";
 import { I18nProvider } from "next-i18next/client";
 import { Navigation } from "@/components/navigation";
-import { Suspense } from "react";
 import { Footer } from "@/components/footer";
 
 initServerI18next(i18nConfig);
@@ -26,7 +25,7 @@ export default async function RootLayout({
           <Navigation lng={lng} />
           {children}
           <footer>
-            <Footer lng={lng}></Footer>
+            <Footer />
           </footer>
         </I18nProvider>
       </body>
