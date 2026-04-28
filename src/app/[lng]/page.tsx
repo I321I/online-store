@@ -27,7 +27,7 @@ export default function Home() {
         alt="image of home page"
         loading="eager"
         priority
-        className="relative left-0 mt-[-2] w-screen !max-w-none object-cover"
+        className="relative left-0 mt-[-2] w-screen object-cover"
       />
       <Image
         src="/images/home.jpg"
@@ -37,7 +37,7 @@ export default function Home() {
         alt="image of home page"
         loading="eager"
         priority
-        className="absolute left-0 z-10 mt-[-2] w-screen !max-w-none object-cover"
+        className="absolute left-0 z-10 mt-[-2] w-screen  object-cover"
       />
       <section className="flex flex-col gap-8">
         <h2 className="h2 pr-12 pl-8">{t("categories")}</h2>

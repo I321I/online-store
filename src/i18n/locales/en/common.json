@@ -1,3 +1,7 @@
 {
-  "curatedProducts":"Curated Products"
+  "curatedProducts": "Curated Products",
+  "productDescription": "Product Description",
+  "quantity": "Quantity",
+  "addToCart": "Add to Cart",
+  "buyNow": "Buy Now"
 }
