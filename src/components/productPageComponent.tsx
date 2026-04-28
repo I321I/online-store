@@ -75,14 +75,14 @@ export default function ProductPageComponent() {
           </div>
         </div>
         <div className="flex flex-row flex-nowrap gap-3">
-          <Button className="flex h-10 rounded-none text-lg font-normal">
+          <Button className="flex h-10 rounded-none bg-gray-600 text-lg font-normal">
             {t("addToCart")}
           </Button>
-          <Button className="flex h-10 rounded-none text-lg font-normal">
+          <Button className="flex h-10 rounded-none bg-gray-600 text-lg font-normal">
             {t("buyNow")}
           </Button>
         </div>
-        {amount >= 9 && <p>456</p>}
+        {amount >= 9 && <p>{t("whenQuantityLimit")}</p>}
       </div>
     </div>
   );
