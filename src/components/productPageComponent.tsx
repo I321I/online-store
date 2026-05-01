@@ -37,16 +37,16 @@ export default function ProductPageComponent() {
             className="aspect-square h-auto w-auto overflow-hidden object-cover"
           />
         </div>
-        <p>
-          {`[${t("productDescription")}]`}
-          <br />
-          {productObject.description}
-        </p>
       </div>
       <div className="box-border flex w-99/200 flex-col gap-5">
         <h1 className={`${lng === "zh-Hant" ? "-ml-0.5" : undefined} text-2xl`}>
           {productObject.title}
         </h1>
+        <p>
+          {`[${t("productDescription")}]`}
+          <br />
+          {productObject.description}
+        </p>
         <p>{productObject.price}</p>
         <div className="flex h-10 w-full flex-row flex-wrap content-center justify-between bg-gray-200 px-2 align-middle">
           <p className="flex flex-wrap content-center text-lg">
@@ -82,7 +82,9 @@ export default function ProductPageComponent() {
             {t("buyNow")}
           </Button>
         </div>
-        {amount >= 9 && <p>{t("whenQuantityLimit")}</p>}
+        {amount >= 9 && (
+          <p className="text-amber-800">{t("whenQuantityLimit")}</p>
+        )}
       </div>
     </div>
   );

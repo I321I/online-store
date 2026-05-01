@@ -1,7 +1,6 @@
 import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
 import ProductPageComponent from "@/components/productPageComponent";
 import { getT } from "next-i18next/server";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 const createProducts = (productName: string, number: number) => {
@@ -35,8 +34,8 @@ export default async function Page({
       <div className="flex justify-center pt-7 text-3xl">
         {t("curatedProducts")}
       </div>
-      <PageBreadcrumbBasic/>
-      <ProductPageComponent/>
+      <PageBreadcrumbBasic />
+      <ProductPageComponent />
     </div>
   );
 }

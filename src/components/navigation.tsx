@@ -20,7 +20,7 @@ export const Navigation = ({ lng }: { lng: string }) => {
       <div className="flex flex-row flex-wrap items-end gap-10">
         <Link
           href={`/${lng}`}
-          className="g-full font-serif text-5xl/10 decoration-2 underline-offset-3 "
+          className="g-full font-serif text-5xl/10 decoration-2 underline-offset-3"
         >
           {t("title")}
         </Link>
@@ -32,17 +32,16 @@ export const Navigation = ({ lng }: { lng: string }) => {
       </div>
       <div className="flex h-full cursor-pointer flex-row flex-wrap items-end gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
-        <Button
-          variant="link"
-          size="lg"
-          className="h-fit cursor-pointer items-end text-3xl/7 decoration-2 font-normal"
+        <Link
+          href={`/${lng}/login`}
+          className="h-fit cursor-pointer items-end text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline"
         >
           {t("login")}
-        </Button>
+        </Link>
         <ShoppingCart
           role="button"
           size={28}
-          className="h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px -translate-y-0.5"
+          className="h-[42%] -translate-y-0.5 cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
         />
       </div>
     </nav>
