@@ -1,7 +1,8 @@
 import { createProxy } from "next-i18next/proxy";
 import i18nConfig from "../i18n.config";
-export default createProxy(i18nConfig);
-export { auth as proxy } from "@/auth";
+import { auth } from "@/auth";
+const i18nProxy = createProxy(i18nConfig);
+export default auth((req) => i18nProxy(req));
 
 export const config = {
   matcher: [
