@@ -1,23 +1,25 @@
-"use client";
 import Link from "next/link";
-import { useT } from "next-i18next/client";
 import LanguagesSelect from "./navigationLanguagesSelector";
-import { Button } from "./ui/button";
 import { ShoppingCart } from "lucide-react";
 import { categories } from "@/app/[lng]/[categories]/page";
 import DirectSelector from "./navigationDirectSelector";
-import { usePathname } from "next/navigation";
+import { getT } from "next-i18next/server";
+import { headers } from "next/headers";
+import { auth, signOut } from "@/auth";
 
-export const Navigation = ({ lng }: { lng: string }) => {
-  const { t } = useT("home");
-  const path = usePathname();
-  const segments = path.split("/");
-  const isHome = !(segments[2] ?? undefined);
+export async function Navigation({ lng }: { lng: string }) {
+  const { t } = await getT("home", { lng });
+  const headerList = await headers();
+  const path = headerList.get("x-current-path");
+  const segments = path?.split("/");
+  const isHome = !(segments?.[2] ?? undefined);
+  const session = await auth();
   return (
     <nav
       className={`${!isHome && "mb-7"} container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
     >
       <div className="flex flex-row flex-wrap items-end gap-10">
+        {/* {session && "login success!"} */}
         <Link
           href={`/${lng}`}
           className="g-full font-serif text-5xl/10 decoration-2 underline-offset-3"
@@ -32,12 +34,25 @@ export const Navigation = ({ lng }: { lng: string }) => {
       </div>
       <div className="flex h-full cursor-pointer flex-row flex-wrap items-end gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
-        <Link
-          href={`/${lng}/login`}
-          className="h-fit cursor-pointer items-end text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline"
-        >
-          {t("login")}
-        </Link>
+        {!session && (
+          <Link
+            href={`/${lng}/login`}
+            className="h-fit cursor-pointer items-end text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline"
+          >
+            {t("login")}
+          </Link>
+        )}
+        {session?.user?.name}
+        {session && (
+          <form
+            action={async () => {
+              "use server";
+              await signOut();
+            }}
+          >
+            <button type="submit">Sign Out</button>
+          </form>
+        )}
         <ShoppingCart
           role="button"
           size={28}
@@ -46,4 +61,4 @@ export const Navigation = ({ lng }: { lng: string }) => {
       </div>
     </nav>
   );
-};
+}

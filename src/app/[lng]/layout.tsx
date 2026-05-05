@@ -4,6 +4,7 @@ import i18nConfig from "../../../i18n.config";
 import { I18nProvider } from "next-i18next/client";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { SessionProvider } from "next-auth/react";
 
 initServerI18next(i18nConfig);
 export default async function RootLayout({
@@ -22,11 +23,13 @@ export default async function RootLayout({
       <body className="overflow-x-hidden">
         <I18nProvider language={lng} resources={resources}>
           {/* <Navigation params={params} /> */}
-          <Navigation lng={lng} />
-          {children}
-          <footer>
-            <Footer />
-          </footer>
+          <SessionProvider>
+            <Navigation lng={lng} />
+            {children}
+            <footer>
+              <Footer />
+            </footer>
+          </SessionProvider>
         </I18nProvider>
       </body>
     </html>
