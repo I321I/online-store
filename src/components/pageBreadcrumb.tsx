@@ -1,5 +1,5 @@
 "use client";
-import { categories } from "@/app/[lng]/[categories]/page";
+import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import {
   Breadcrumb,
   BreadcrumbItem,

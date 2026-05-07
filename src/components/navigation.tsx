@@ -1,11 +1,17 @@
 import Link from "next/link";
 import LanguagesSelect from "./navigationLanguagesSelector";
-import { ShoppingCart } from "lucide-react";
-import { categories } from "@/app/[lng]/[categories]/page";
+import { LogOut, ShoppingCart } from "lucide-react";
+import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import DirectSelector from "./navigationDirectSelector";
 import { getT } from "next-i18next/server";
 import { headers } from "next/headers";
 import { auth, signOut } from "@/auth";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 export async function Navigation({ lng }: { lng: string }) {
   const { t } = await getT("home", { lng });
@@ -19,10 +25,9 @@ export async function Navigation({ lng }: { lng: string }) {
       className={`${!isHome && "mb-7"} container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
     >
       <div className="flex flex-row flex-wrap items-end gap-10">
-        {/* {session && "login success!"} */}
         <Link
           href={`/${lng}`}
-          className="g-full font-serif text-5xl/10 decoration-2 underline-offset-3"
+          className="g-full font-serif text-5xl/10"
         >
           {t("title")}
         </Link>
@@ -32,7 +37,7 @@ export async function Navigation({ lng }: { lng: string }) {
           witchSegment={2}
         />
       </div>
-      <div className="flex h-full cursor-pointer flex-row flex-wrap items-end gap-10 max-md:hidden">
+      <div className="flex h-full flex-row flex-wrap items-end gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
         {!session && (
           <Link
@@ -42,16 +47,31 @@ export async function Navigation({ lng }: { lng: string }) {
             {t("login")}
           </Link>
         )}
-        {session?.user?.name}
+        <p className="h-fit text-3xl/8 font-normal">{session?.user?.name}</p>
         {session && (
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <button type="submit">Sign Out</button>
-          </form>
+          <TooltipProvider>
+            <Tooltip key="tooltip">
+              <TooltipTrigger asChild>
+                <form
+                  className="flex items-end"
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                >
+                  <button
+                    className="h-[42%] -translate-y-0.5 cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+                    type="submit"
+                  >
+                    <LogOut />
+                  </button>
+                </form>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p>{t("logout")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         )}
         <ShoppingCart
           role="button"
