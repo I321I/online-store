@@ -38,7 +38,7 @@ export default async function Page({
           <CardHeader>
             <CardTitle className="text-2xl">{t("login")}</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex flex-col gap-10">
             <form>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
@@ -60,7 +60,15 @@ export default async function Page({
                 Login
               </Button>
             </form>
-            <p>其他方式登入</p>
+            <p
+              className={cn(
+                "flex text-gray-500",
+                "after:flex after:h-0 after:grow after:-translate-y-0.5 after:flex-wrap after:self-center after:border-b after:border-solid after:border-gray-300",
+                "before:flex before:h-0 before:grow before:-translate-y-0.5 before:flex-wrap before:self-center before:border-b before:border-solid before:border-gray-300",
+              )}
+            >
+              其他方式登入
+            </p>
             <form
               action={async () => {
                 "use server";
