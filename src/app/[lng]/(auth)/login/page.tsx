@@ -1,19 +1,13 @@
+import { signIn } from "@/auth";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { signIn } from "next-auth/react";
 import { getT } from "next-i18next/server";
 import { headers } from "next/headers";
 import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
+import { SiGithub } from "react-icons/si";
 
 export default async function Page({
   params,
@@ -60,32 +54,45 @@ export default async function Page({
                 Login
               </Button>
             </form>
-            <p
-              className={cn(
-                "flex text-gray-500",
-                "after:flex after:h-0 after:grow after:-translate-y-0.5 after:flex-wrap after:self-center after:border-b after:border-solid after:border-gray-300",
-                "before:flex before:h-0 before:grow before:-translate-y-0.5 before:flex-wrap before:self-center before:border-b before:border-solid before:border-gray-300",
-              )}
-            >
-              其他方式登入
-            </p>
-            <form
-              action={async () => {
-                "use server";
-                signIn("github", { redirectTo: `/${lng}` });
-              }}
-            >
-              <button type="submit">github</button>
-            </form>
-            <br />
-            <form
-              action={async () => {
-                "use server";
-                signIn("google", { redirectTo: `/${lng}` });
-              }}
-            >
-              <button type="submit">Google</button>
-            </form>
+            <div className="flex flex-col justify-center gap-4">
+              <p
+                className={cn(
+                  "flex text-gray-500",
+                  "after:flex after:h-0 after:grow after:-translate-y-0.5 after:flex-wrap after:self-center after:border-b after:border-solid after:border-gray-300",
+                  "before:flex before:h-0 before:grow before:-translate-y-0.5 before:flex-wrap before:self-center before:border-b before:border-solid before:border-gray-300",
+                )}
+              >
+                其他方式登入
+              </p>
+              <div className="flex flex-row justify-center gap-2">
+                <form
+                  action={async () => {
+                    "use server";
+                    await signIn("google", { redirectTo: `/${lng}` });
+                  }}
+                >
+                  <button
+                    className="rounded-3xl border border-gray-400 p-1"
+                    type="submit"
+                  >
+                    <FcGoogle size={30} />
+                  </button>
+                </form>
+                <form
+                  action={async () => {
+                    "use server";
+                    await signIn("github", { redirectTo: `/${lng}` });
+                  }}
+                >
+                  <button
+                    className="rounded-3xl border border-gray-400 p-1"
+                    type="submit"
+                  >
+                    <SiGithub size={30} />
+                  </button>
+                </form>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
