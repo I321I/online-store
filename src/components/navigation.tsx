@@ -25,10 +25,7 @@ export async function Navigation({ lng }: { lng: string }) {
       className={`${!isHome && "mb-7"} container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
     >
       <div className="flex flex-row flex-wrap items-end gap-10">
-        <Link
-          href={`/${lng}`}
-          className="g-full font-serif text-5xl/10"
-        >
+        <Link href={`/${lng}`} className="g-full font-serif text-5xl/10">
           {t("title")}
         </Link>
         <DirectSelector
@@ -47,7 +44,10 @@ export async function Navigation({ lng }: { lng: string }) {
             {t("login")}
           </Link>
         )}
-        <p className="h-fit text-3xl/8 font-normal">{session?.user?.name}</p>
+        <p className="h-fit text-3xl/8 font-normal">
+          {session?.user?.name}
+          {session?.user?.id}
+        </p>
         {session && (
           <TooltipProvider>
             <Tooltip key="tooltip">

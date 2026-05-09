@@ -17,8 +17,6 @@ export default async function Page({
   const { lng } = await params;
   const { t } = await getT("common", { lng });
   const { t: tHome } = await getT("home", { lng });
-  const pathname = await headers().then((item) => item.get("x-current-path"));
-  const segments = pathname?.split("/");
   return (
     <div className="flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
       <Link
