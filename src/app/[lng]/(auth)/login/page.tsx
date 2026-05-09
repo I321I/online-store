@@ -33,11 +33,19 @@ export default async function Page({
             <CardTitle className="text-2xl">{t("login")}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-10">
-            <form className="flex flex-col gap-5">
+            <form
+              className="flex flex-col gap-5"
+              action={async (formData) => {
+                "use server";
+                const email = formData.get("email");
+                await signIn("resend", { email, redirectTo: `/${lng}` });
+              }}
+            >
               <div className="relative flex flex-col">
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder=" "
                   required
                   size={100}

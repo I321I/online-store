@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { Categories } from "@/types/categories";
 import { ProductObject } from "@/types/product";
 import { useT } from "next-i18next/client";
@@ -7,11 +8,9 @@ import Image from "next/image";
 export const ProductsList = ({
   category,
   max,
-  className,
 }: {
   category: Categories;
   max: number;
-  className?: string;
 }) => {
   const { t } = useT("products");
   const createListItem = (categoryPathName: string, number: number) => {
@@ -27,7 +26,7 @@ export const ProductsList = ({
     return (
       <div
         key={classification + num}
-        className="box-border flex w-24/100 flex-col border-2 border-solid p-2 max-md:w-49/100"
+        className="box-border flex w-24/100 flex-col border-2 border-solid p-2 max-md:w-49/100 max-sm:w-48/100 "
       >
         <Image
           src={`/images/${categoryPathName}/${num}.jpg`}
@@ -45,7 +44,9 @@ export const ProductsList = ({
   };
   return (
     <div
-      className={`w-100% flex flex-row flex-wrap justify-center gap-6 max-md:gap-2 ${className}`}
+      className={cn(
+        "w-100% max-[1262px]:gap-2, flex flex-row flex-wrap justify-center gap-6 max-[1865px]:gap-4  max-md:gap-2 max-[1262px]:gap-2",
+      )}
     >
       {Array.from({ length: max }, (_, i) => createListItem(category, i + 1))}
     </div>
