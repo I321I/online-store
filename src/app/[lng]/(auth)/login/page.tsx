@@ -33,22 +33,28 @@ export default async function Page({
             <CardTitle className="text-2xl">{t("login")}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-10">
-            <form>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <label htmlFor="email"></label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={t("emailAddress")}
-                    required
-                    size={100}
-                    className={cn(
-                      "h-15 rounded-md border-2 border-solid px-3 text-xl focus-visible:ring-0",
-                    )}
-                  />
-                </div>
-                <div className="grid gap-2"></div>
+            <form className="flex flex-col gap-5">
+              <div className="relative flex flex-col">
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder=" "
+                  required
+                  size={100}
+                  className={cn(
+                    "peer h-15 rounded-md border-2 border-solid px-3 text-xl placeholder-transparent focus-visible:ring-0",
+                  )}
+                />
+                <label
+                  htmlFor="email"
+                  className={cn(
+                    "transistion-all absolute start-4 cursor-text bg-white text-xl text-gray-500 duration-200 select-none peer-placeholder-shown:top-4 dark:bg-black",
+                    "peer-not-placeholder-shown:-translate-y-2 peer-not-placeholder-shown:text-sm",
+                    "peer-focus:top-0 peer-focus:-translate-y-2 peer-focus:text-sm",
+                  )}
+                >
+                  {t("emailAddress")}
+                </label>
               </div>
               <Button type="submit" className="w-full">
                 Login
