@@ -37,8 +37,7 @@ export default async function Page({
               className="flex flex-col gap-5"
               action={async (formData) => {
                 "use server";
-                const email = formData.get("email");
-                await signIn("resend", { email, redirectTo: `/${lng}` });
+                await signIn("resend", formData, { redirectTo: `/${lng}` });
               }}
             >
               <div className="relative flex flex-col">
