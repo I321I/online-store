@@ -1,18 +1,25 @@
-"use client";
 import Link from "next/link";
-import { useT } from "next-i18next/client";
 import LanguagesSelect from "./navigationLanguagesSelector";
-import { Button } from "./ui/button";
-import { ShoppingCart } from "lucide-react";
-import { categories } from "@/app/[lng]/[categories]/page";
+import { LogOut, ShoppingCart } from "lucide-react";
+import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import DirectSelector from "./navigationDirectSelector";
-import { usePathname } from "next/navigation";
+import { getT } from "next-i18next/server";
+import { headers } from "next/headers";
+import { auth, signOut } from "@/auth";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
-export const Navigation = ({ lng }: { lng: string }) => {
-  const { t } = useT("home");
-  const path = usePathname();
-  const segments = path.split("/");
-  const isHome = !(segments[2] ?? undefined);
+export async function Navigation({ lng }: { lng: string }) {
+  const { t } = await getT("home", { lng });
+  const headerList = await headers();
+  const path = headerList.get("x-current-path");
+  const segments = path?.split("/");
+  const isHome = !(segments?.[2] ?? undefined);
+  const session = await auth();
   return (
     <nav
       className={`${!isHome && "mb-7"} container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
@@ -20,7 +27,7 @@ export const Navigation = ({ lng }: { lng: string }) => {
       <div className="flex flex-row flex-wrap items-end gap-10">
         <Link
           href={`/${lng}`}
-          className="g-full font-serif text-5xl/10 decoration-2 underline-offset-3"
+          className="g-full font-serif text-5xl/10"
         >
           {t("title")}
         </Link>
@@ -30,14 +37,42 @@ export const Navigation = ({ lng }: { lng: string }) => {
           witchSegment={2}
         />
       </div>
-      <div className="flex h-full cursor-pointer flex-row flex-wrap items-end gap-10 max-md:hidden">
+      <div className="flex h-full flex-row flex-wrap items-end gap-10 max-md:hidden">
         <LanguagesSelect lng={lng} />
-        <Link
-          href={`/${lng}/login`}
-          className="h-fit cursor-pointer items-end text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline"
-        >
-          {t("login")}
-        </Link>
+        {!session && (
+          <Link
+            href={`/${lng}/login`}
+            className="h-fit cursor-pointer items-end text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline"
+          >
+            {t("login")}
+          </Link>
+        )}
+        <p className="h-fit text-3xl/8 font-normal">{session?.user?.name}</p>
+        {session && (
+          <TooltipProvider>
+            <Tooltip key="tooltip">
+              <TooltipTrigger asChild>
+                <form
+                  className="flex items-end"
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                >
+                  <button
+                    className="h-[42%] -translate-y-0.5 cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+                    type="submit"
+                  >
+                    <LogOut />
+                  </button>
+                </form>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p>{t("logout")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
         <ShoppingCart
           role="button"
           size={28}
@@ -46,4 +81,4 @@ export const Navigation = ({ lng }: { lng: string }) => {
       </div>
     </nav>
   );
-};
+}

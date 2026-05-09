@@ -1,4 +1,6 @@
 {
+  "login": "登入",
+  "emailAddress": "電子郵件地址",
   "curatedProducts": "精選商品",
   "productDescription": "商品描述",
   "quantity": "數量",

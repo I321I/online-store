@@ -3,7 +3,6 @@ import { SiGithub } from "react-icons/si";
 import { Button } from "./ui/button";
 import { useT } from "next-i18next/client";
 import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
 export const Footer = () => {
   const { t } = useT("home");
   const pathname = usePathname();

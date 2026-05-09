@@ -1,4 +1,6 @@
 {
+  "login":"Sign In",
+  "emailAddress":"Email address",
   "curatedProducts": "Curated Products",
   "productDescription": "Product Description",
   "quantity": "Quantity",

@@ -11,7 +11,7 @@ import {
 import { TFunction } from "i18next";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const IntroCard = ({
   t,
@@ -24,6 +24,9 @@ export const IntroCard = ({
   tailwindBgColor: string;
   direction: string;
 }) => {
+  const path = usePathname();
+  const segments = path.split("/");
+  const lng = segments[1];
   const router = useRouter();
   return (
     <Card
@@ -54,7 +57,7 @@ export const IntroCard = ({
             variant="default"
             size="icon"
             className="dark rounded-full bg-white"
-            onClick={() => router.push(direction)}
+            onClick={() => router.replace(`/${lng}/${direction}`)}
           >
             <ArrowRight />
           </Button>
