@@ -26,7 +26,7 @@ export default async function Page({
         {tHome("title")}
       </Link>
       <div className="flex flex-wrap justify-center">
-        <Card className="h-110 w-100 p-6 py-9">
+        <Card className="h-90 w-100 p-6 py-9">
           <CardHeader>
             <CardTitle className="text-2xl">{t("login")}</CardTitle>
           </CardHeader>
