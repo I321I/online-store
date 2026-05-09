@@ -6,7 +6,13 @@ import { FirestoreAdapter } from "@auth/firebase-adapter";
 import { cert } from "firebase-admin/app";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [Github, Google, Resend],
+  providers: [
+    Github,
+    Google,
+    Resend({
+      from: "no-reply@i321ionline.store",
+    }),
+  ],
   adapter: FirestoreAdapter({
     credential: cert({
       projectId: process.env.AUTH_FIREBASE_PROJECT_ID,
