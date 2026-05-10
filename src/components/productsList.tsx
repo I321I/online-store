@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Categories } from "@/types/categories";
 import { ProductObject } from "@/types/product";
 import { useT } from "next-i18next/client";
+import products from "@/i18n/locales/en/products.json";
 import Image from "next/image";
 
 export const ProductsList = ({

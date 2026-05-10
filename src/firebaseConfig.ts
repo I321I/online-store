@@ -3,4 +3,3 @@ import { getFirestore } from "firebase-admin/firestore";
 
 const app = getApp();
 export const db = getFirestore(app);
-console.log(db);
