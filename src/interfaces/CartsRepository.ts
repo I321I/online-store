@@ -1,20 +1,20 @@
 export interface IChartsDB {
   getCart: (
     userId: string,
-  ) => Promise<{ productId: string; quantity: number }[]>;
+  ) => Promise<{ id: string; quantity: number }[]>;
   getCartQuantity: (
     userId: string,
     productId: string,
-  ) => Promise<{ productId: string; quantity: number }>;
+  ) => Promise<{ id: string; quantity: number }>;
   addProduct: (
     userId: string,
     productId: string,
     body: { quantity: number },
-  ) => Promise<{ productId: string; quantity: number }>;
+  ) => Promise<{ id: string; quantity: number }>;
   removeProduct: (userId: string, productId: string) => Promise<void>;
-  updateCartStock: (
+  updateCartQuantity: (
     userId: string,
     productId: string,
     body: { quantity: number },
-  ) => Promise<{ productId: string; quantity: number }>;
+  ) => Promise<{ id: string; quantity: number }>;
 }
