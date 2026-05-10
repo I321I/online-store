@@ -26,10 +26,10 @@ export const ProductsList = ({
     return (
       <div
         key={classification + num}
-        className="box-border flex w-24/100 flex-col border-2 border-solid p-2 max-md:w-49/100 max-sm:w-48/100 "
+        className="box-border flex w-24/100 flex-col border-2 border-solid p-2 max-md:w-49/100 max-sm:w-48/100"
       >
         <Image
-          src={`/images/${categoryPathName}/${num}.jpg`}
+          src={`/images/${categoryPathName}/${classification}${numberStr}.jpg`}
           width={0}
           height={0}
           sizes="100vw"
@@ -45,7 +45,7 @@ export const ProductsList = ({
   return (
     <div
       className={cn(
-        "w-100% max-[1262px]:gap-2, flex flex-row flex-wrap justify-center gap-6 max-[1865px]:gap-4  max-md:gap-2 max-[1262px]:gap-2",
+        "w-100% max-[1262px]:gap-2, flex flex-row flex-wrap justify-center gap-6 max-[1865px]:gap-4 max-[1262px]:gap-2 max-md:gap-2",
       )}
     >
       {Array.from({ length: max }, (_, i) => createListItem(category, i + 1))}
