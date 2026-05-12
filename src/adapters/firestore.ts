@@ -1,12 +1,18 @@
-import { db } from "@/firebaseConfig";
 import { IChartDB } from "@/interfaces/CartsRepository";
 import { IProductsDB, ProductItem } from "@/interfaces/ProductsRepository";
 
-export class Firestore implements IChartDB, IProductsDB {
+export class FirestoreAdapter implements IChartDB, IProductsDB {
   //Products
+  #db;
+  constructor(firestore: FirebaseFirestore.Firestore) {
+    this.#db = firestore;
+  }
   getStock = async (productId: string) => {
     try {
-      const productSnap = await db.collection("products").doc(productId).get();
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
       const data = productSnap.data() as Pick<ProductItem, "stock"> | undefined;
       if (data == null) throw new Error("getStock Failed");
       return { id: productId, stock: data.stock };
@@ -19,11 +25,14 @@ export class Firestore implements IChartDB, IProductsDB {
     body: { stock: ProductItem["stock"] },
   ) => {
     try {
-      await db
+      await this.#db
         .collection("products")
         .doc(productId)
         .set({ stock: body.stock }, { merge: true });
-      const productSnap = await db.collection("products").doc(productId).get();
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
       const data = productSnap.data() as Pick<ProductItem, "stock"> | undefined;
       if (data == null) throw new Error("updateStock Failed");
       return { id: productId, stock: data.stock };
@@ -35,7 +44,7 @@ export class Firestore implements IChartDB, IProductsDB {
   //Cart
   getCart = async (userId: string) => {
     try {
-      const cartSnap = await db
+      const cartSnap = await this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
@@ -50,7 +59,7 @@ export class Firestore implements IChartDB, IProductsDB {
   };
   removeCartItem = async (userId: string, productId: string) => {
     try {
-      const itemRef = db
+      const itemRef = this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
@@ -70,7 +79,7 @@ export class Firestore implements IChartDB, IProductsDB {
     body: { quantity: number },
   ) => {
     try {
-      const itemSnap = await db
+      const itemSnap = await this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
@@ -78,7 +87,7 @@ export class Firestore implements IChartDB, IProductsDB {
         .get();
       const data = itemSnap.data();
       if (data == null) {
-        await db
+        await this.#db
           .collection("cart")
           .doc(userId)
           .collection("items")
@@ -88,7 +97,7 @@ export class Firestore implements IChartDB, IProductsDB {
       }
       if (data.quantity + body.quantity > 9)
         throw new Error("quantity exceed 9");
-      await db
+      await this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
