@@ -48,7 +48,22 @@ export class Firestore implements IChartDB, IProductsDB {
       throw error;
     }
   };
-  removeCartItem: (userId: string, productId: string) => Promise<void>;
+  removeCartItem = async (userId: string, productId: string) => {
+    try {
+      const itemRef = db
+        .collection("cart")
+        .doc(userId)
+        .collection("items")
+        .doc(productId);
+      const itemSnap = await itemRef.get();
+      const data = itemSnap.data();
+      if (data == null) throw new Error(`${productId} isnt't exist in cart`);
+      await itemRef.delete();
+      return { id: productId, quantity: data.quantity };
+    } catch (error) {
+      throw error;
+    }
+  };
   updateCartItemQuantity = async (
     userId: string,
     productId: string,
