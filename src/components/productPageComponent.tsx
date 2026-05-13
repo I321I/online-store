@@ -16,27 +16,22 @@ export default function ProductPageComponent() {
   const lng = segments[1];
   const categoryPathName = segments[2];
   const product = segments[3];
-  const productNum = /([0-9]+)$/.exec(product)?.[1];
   const productObject = tProduct(product, {
     returnObjects: true,
   }) as ProductObject;
-  let num;
-  if (productNum) num = parseInt(productNum);
   return (
     <div className="flex flex-row justify-between">
-      <div className="flex w-99/200 flex-col gap-6">
-        <div className="box-border flex border-2 p-2">
+      <div className="flex w-99/200 flex-col gap-6 border-2 p-2 aspect-square">
           {/* sm */}
           <Image
-            src={`/images/${categoryPathName}/${num}.jpg`}
+            src={`/images/${categoryPathName}/${product}.jpg`}
             width={0}
             height={0}
             sizes="100vw"
-            alt={`image of product ${num}`}
+            alt={`image of product ${product}`}
             loading="eager"
             className="aspect-square h-auto w-auto overflow-hidden object-cover"
           />
-        </div>
       </div>
       <div className="box-border flex w-99/200 flex-col gap-5">
         <h1 className={`${lng === "zh-Hant" ? "-ml-0.5" : undefined} text-2xl`}>
