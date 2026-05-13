@@ -81,6 +81,8 @@ export default function ProductPageComponent() {
           <p className="text-amber-800">{t("whenQuantityLimit")}</p>
         )}
       </div>
+      <button onClick={() => fetch(`/api/products/${product}`)}>get</button>
+      
     </div>
   );
 }

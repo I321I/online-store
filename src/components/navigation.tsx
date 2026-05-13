@@ -36,7 +36,7 @@ export async function Navigation({ lng }: { lng: string }) {
           {!session && (
             <Link
               href={`/${lng}/login`}
-              className="h-fit cursor-pointer items-end text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline"
+              className="h-fit cursor-pointer items-end text-3xl/8 font-normal decoration-2 underline-offset-3 hover:underline"
             >
               {t("login")}
             </Link>

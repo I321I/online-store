@@ -1,14 +1,17 @@
 import { ProductItem } from "@/interfaces/ProductsRepository";
 import { database } from "@/lib/firestore-adapter-instance";
-export async function GET({
-  params,
-}: {
-  params: Promise<{ productId: string }>;
-}) {
+export async function GET(
+  _request: Request,
+  {
+    params,
+  }: {
+    params: Promise<{ productId: string }>;
+  },
+) {
   const { productId } = await params;
-  await database
+  return await database
     .getStock(productId)
-    .then((result) => result)
+    .then((result: { id: string; stock: number }) => Response.json(result))
     .catch((reason) => {
       const message =
         reason instanceof Error ? reason.message : "getStock failed";
