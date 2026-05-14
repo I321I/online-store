@@ -33,6 +33,10 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
         data.stock + body.amount_change < 0
       )
         throw new Error("updateStock refused");
+      await this.#db
+        .collection("products")
+        .doc(productId)
+        .set({ stock: data.stock + body.amount_change }, { merge: true });
       return { id: productId, stock: data.stock + body.amount_change };
     } catch (error) {
       throw error;
