@@ -27,11 +27,12 @@ export async function PATCH(
   },
 ) {
   const { productId } = await params;
-  const body: { stock: ProductItem["stock"] } = await request.json();
-  if (!body.stock) return new Response("body content error", { status: 400 });
-  await database
+  const body: { amount_change: number } = await request.json();
+  if (body.amount_change == null || body.amount_change === 0)
+    return new Response("body content error", { status: 400 });
+  return await database
     .updateStock(productId, body)
-    .then((result) => result)
+    .then((result) => Response.json(result))
     .catch((reason) => {
       const message =
         reason instanceof Error ? reason.message : "updataStock failed";

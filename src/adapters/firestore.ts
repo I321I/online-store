@@ -20,22 +20,20 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
       throw error;
     }
   };
-  updateStock = async (
-    productId: string,
-    body: { stock: ProductItem["stock"] },
-  ) => {
+  updateStock = async (productId: string, body: { amount_change: number }) => {
     try {
-      await this.#db
-        .collection("products")
-        .doc(productId)
-        .set({ stock: body.stock }, { merge: true });
       const productSnap = await this.#db
         .collection("products")
         .doc(productId)
         .get();
       const data = productSnap.data() as Pick<ProductItem, "stock"> | undefined;
       if (data == null) throw new Error("updateStock Failed");
-      return { id: productId, stock: data.stock };
+      if (
+        data.stock + body.amount_change > 999 ||
+        data.stock + body.amount_change < 0
+      )
+        throw new Error("updateStock refused");
+      return { id: productId, stock: data.stock + body.amount_change };
     } catch (error) {
       throw error;
     }

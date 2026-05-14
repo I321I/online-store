@@ -11,6 +11,6 @@ export interface IProductsDB {
   ) => Promise<{ id: string; stock: ProductItem["stock"] }>;
   updateStock: (
     productId: string,
-    body: { stock: ProductItem["stock"] },
+    body: { amount_change: number },
   ) => Promise<{ id: string; stock: ProductItem["stock"] }>;
 }
