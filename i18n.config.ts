@@ -4,7 +4,7 @@ const i18nConfig: I18nConfig = {
   supportedLngs: ["zh-Hant", "en"],
   fallbackLng: "zh-Hant",
   defaultNS: "common",
-  ns: ["common", "home","breadcrumb","products"],
+  ns: ["common", "home","breadcrumb","products","shoppingCart"],
   resourceLoader: (language, namespace) =>
     import(`./src/i18n/locales/${language}/${namespace}.json`),
 };

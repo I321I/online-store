@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { getT } from "next-i18next/server";
-import { headers } from "next/headers";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { SiGithub } from "react-icons/si";

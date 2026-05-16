@@ -32,7 +32,7 @@ export default async function Page({
   if (!products.find((item) => item === product)) return notFound();
   return (
     <div className="container-1920 flex flex-col gap-7 px-8">
-      <div className="flex justify-center pt-7 text-3xl">
+      <div className="flex justify-center text-3xl">
         {t("curatedProducts")}
       </div>
       <PageBreadcrumbBasic />
