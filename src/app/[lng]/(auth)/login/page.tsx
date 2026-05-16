@@ -18,7 +18,7 @@ export default async function Page({
   const { t } = await getT("common", { lng });
   const { t: tHome } = await getT("home", { lng });
   return (
-    <div className="flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
+    <div className="container-1920 flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
       <Link
         href={`/${lng}`}
         className="g-full mt-15 mb-5 flex justify-center font-serif text-5xl"
@@ -62,7 +62,7 @@ export default async function Page({
                   {t("emailAddress")}
                 </label>
               </div>
-              <Button type="submit" className="w-full">
+              <Button className="flex h-10 rounded-none bg-gray-600 text-lg font-normal">
                 Login
               </Button>
             </form>

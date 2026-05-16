@@ -11,7 +11,6 @@ export const ProductsListImage = ({
   const pathname = usePathname();
   const router = useRouter();
   const direct = `${pathname}/${productId}`;
-  console.log(direct);
   return (
     <label htmlFor={`${productId}imageButton`}>
       <Image
@@ -27,7 +26,7 @@ export const ProductsListImage = ({
         className="hidden"
         id={`${productId}imageButton`}
         onClick={() => {
-          router.replace(direct);
+          router.push(direct);
         }}
       />
     </label>
