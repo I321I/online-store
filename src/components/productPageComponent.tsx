@@ -21,17 +21,17 @@ export default function ProductPageComponent() {
   }) as ProductObject;
   return (
     <div className="flex flex-row justify-between">
-      <div className="flex w-99/200 flex-col gap-6 border-2 p-2 aspect-square">
-          {/* sm */}
-          <Image
-            src={`/images/${categoryPathName}/${product}.jpg`}
-            width={0}
-            height={0}
-            sizes="100vw"
-            alt={`image of product ${product}`}
-            loading="eager"
-            className="aspect-square h-auto w-auto overflow-hidden object-cover"
-          />
+      <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2">
+        {/* sm */}
+        <Image
+          src={`/images/${categoryPathName}/${product}.jpg`}
+          width={0}
+          height={0}
+          sizes="100vw"
+          alt={`image of product ${product}`}
+          loading="eager"
+          className="aspect-square h-auto w-auto overflow-hidden object-cover"
+        />
       </div>
       <div className="box-border flex w-99/200 flex-col gap-5">
         <h1 className={`${lng === "zh-Hant" ? "-ml-0.5" : undefined} text-2xl`}>
@@ -70,10 +70,10 @@ export default function ProductPageComponent() {
           </div>
         </div>
         <div className="flex flex-row flex-nowrap gap-3">
-          <Button className="flex h-10 rounded-none bg-gray-600 text-lg font-normal">
+          <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
             {t("addToCart")}
           </Button>
-          <Button className="flex h-10 rounded-none bg-gray-600 text-lg font-normal">
+          <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
             {t("buyNow")}
           </Button>
         </div>

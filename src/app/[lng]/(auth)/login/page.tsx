@@ -61,7 +61,7 @@ export default async function Page({
                   {t("emailAddress")}
                 </label>
               </div>
-              <Button className="flex h-10 rounded-none bg-gray-600 text-lg font-normal">
+              <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
                 Login
               </Button>
             </form>
