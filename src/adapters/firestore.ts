@@ -59,6 +59,21 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
       throw error;
     }
   };
+  getCartItem = async (userId: string, productId: string) => {
+    try {
+      const itemSnap = await this.#db
+        .collection("cart")
+        .doc(userId)
+        .collection("items")
+        .doc(productId)
+        .get();
+      const data = itemSnap.data() as { quantity: number };
+      if (data == null) return { id: productId, quantity: 0 };
+      return { id: productId, quantity: data.quantity };
+    } catch (error) {
+      throw error;
+    }
+  };
   removeCartItem = async (userId: string, productId: string) => {
     try {
       const itemRef = this.#db

@@ -1,4 +1,3 @@
-import { ProductItem } from "@/interfaces/ProductsRepository";
 import { database } from "@/lib/firestore-adapter-instance";
 export async function GET(
   _request: Request,

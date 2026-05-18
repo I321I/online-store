@@ -12,7 +12,12 @@ export default function ShoppingcartTabs({
 }: {
   session: Session | null;
 }) {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const callCartApi = async (id: string | undefined) => {
+      return await fetch(`/api/users/${id}/cart`);
+    };
+    callCartApi(session?.user?.id);
+  }, []);
   const { t } = useT("shoppingCart");
   const [activeTab, setActiveTab] = useState("cart");
   const handleSwitchTab = (tab: string) => {

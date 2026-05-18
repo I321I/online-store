@@ -6,8 +6,13 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Session } from "next-auth";
 
-export default function ProductPageComponent() {
+export default function ProductPageComponent({
+  session,
+}: {
+  session: Session | null;
+}) {
   const [amount, setAmount] = useState(1);
   const [stock, setStock] = useState<number | string>("");
   const { t } = useT("common");
@@ -86,7 +91,22 @@ export default function ProductPageComponent() {
           </div>
         </div>
         <div className="flex flex-row flex-nowrap gap-3">
-          <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
+          <Button
+            className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+            onClick={async () => {
+              const callItemApi = await fetch(
+                `/api/users/${session?.user?.id}/cart/${product}`,
+              );
+              const data: { id: string; quantity: number } =
+                await callItemApi.json();
+              if (data.quantity + amount > 0 && data.quantity + amount < 10)
+                await fetch(`/api/users/${session?.user?.id}/cart/${product}`, {
+                  method: "PATCH",
+                  body: JSON.stringify({ quantity: amount }),
+                });
+                
+            }}
+          >
             {t("addToCart")}
           </Button>
           <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
