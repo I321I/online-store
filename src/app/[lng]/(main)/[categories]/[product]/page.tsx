@@ -1,7 +1,6 @@
 import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
 import ProductPageComponent from "@/components/productPageComponent";
 import { getT } from "next-i18next/server";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 const createProducts = (productName: string, number: number) => {

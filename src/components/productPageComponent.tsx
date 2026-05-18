@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function ProductPageComponent() {
   const [amount, setAmount] = useState(1);
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState<number | string>("");
   const { t } = useT("common");
   const { t: tProduct } = useT("products");
   const path = usePathname();
