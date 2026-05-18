@@ -7,6 +7,17 @@ import { Button } from "./ui/button";
 import { Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function ProductPageComponent({
   session,
@@ -15,6 +26,7 @@ export default function ProductPageComponent({
 }) {
   const [amount, setAmount] = useState(1);
   const [stock, setStock] = useState<number | string>("");
+  const [warning, setWarning] = useState<boolean>(false);
   const { t } = useT("common");
   const { t: tProduct } = useT("products");
   const path = usePathname();
@@ -32,7 +44,8 @@ export default function ProductPageComponent({
       setStock(data.stock);
     };
     callStockApi();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="flex flex-row justify-between">
       <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2">
@@ -99,16 +112,36 @@ export default function ProductPageComponent({
               );
               const data: { id: string; quantity: number } =
                 await callItemApi.json();
-              if (data.quantity + amount > 0 && data.quantity + amount < 10)
+              if (data.quantity + amount > 0 && data.quantity + amount < 10) {
                 await fetch(`/api/users/${session?.user?.id}/cart/${product}`, {
                   method: "PATCH",
                   body: JSON.stringify({ quantity: amount }),
                 });
-                
+                return;
+              }
+              setWarning(true);
             }}
           >
             {t("addToCart")}
           </Button>
+          <AlertDialog open={warning}>
+            <AlertDialogContent>
+              <AlertDialogHeader className="flex justify-center">
+                <AlertDialogTitle className="text-2xl font-normal">
+                  {t("exceed")}
+                </AlertDialogTitle>
+                <AlertDialogDescription className="hidden"></AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="flex justify-center sm:justify-center">
+                <Button
+                  className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+                  onClick={() => setWarning(false)}
+                >
+                  {t("confirm")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
             {t("buyNow")}
           </Button>

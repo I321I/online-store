@@ -7,5 +7,7 @@
   "addToCart": "加入購物車",
   "buyNow": "立刻購買",
   "whenQuantityLimit": "若需要大量訂購，請直接來電聯繫。",
-  "storage":"庫存："
+  "storage": "庫存：",
+  "exceed": "已達該商品購買上限",
+  "confirm": "確認"
 }
