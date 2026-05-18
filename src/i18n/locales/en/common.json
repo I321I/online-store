@@ -6,5 +6,6 @@
   "quantity": "Quantity",
   "addToCart": "Add to Cart",
   "buyNow": "Buy Now",
-  "whenQuantityLimit": "For large quantity orders, please call us for more information."
+  "whenQuantityLimit": "For large quantity orders, please call us for more information.",
+  "storage":"In stock: "
 }

@@ -5,10 +5,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductPageComponent() {
   const [amount, setAmount] = useState(1);
+  const [stock, setStock] = useState(0);
   const { t } = useT("common");
   const { t: tProduct } = useT("products");
   const path = usePathname();
@@ -19,6 +20,14 @@ export default function ProductPageComponent() {
   const productObject = tProduct(product, {
     returnObjects: true,
   }) as ProductObject;
+  useEffect(() => {
+    const callStockApi = async () => {
+      const response = await fetch(`/api/products/${product}`);
+      const data = await response.json();
+      setStock(data.stock);
+    };
+    callStockApi();
+  });
   return (
     <div className="flex flex-row justify-between">
       <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2">
@@ -42,7 +51,14 @@ export default function ProductPageComponent() {
           <br />
           {productObject.description}
         </p>
-        <p>{productObject.price}</p>
+        <div>
+          {productObject.price}
+          <br />
+          <p className="text-gray-500">
+            {t("storage")}
+            {stock}
+          </p>
+        </div>
         <div className="flex h-10 w-full flex-row flex-wrap content-center justify-between bg-gray-200 px-2 align-middle">
           <p className="flex flex-wrap content-center text-lg">
             {t("quantity")}

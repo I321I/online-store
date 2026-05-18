@@ -1,11 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Table } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { useT } from "next-i18next/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  useEffect(() => {}, []);
   const { t } = useT("shoppingCart");
   const [activeTab, setActiveTab] = useState("cart");
   const handleSwitchTab = (tab: string) => {
@@ -59,7 +61,9 @@ export default function Page() {
             {t("confirmation")}
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="cart">1</TabsContent>
+        <TabsContent value="cart">
+          <Table></Table>
+        </TabsContent>
         <TabsContent value="information">2</TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>
