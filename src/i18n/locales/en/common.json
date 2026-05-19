@@ -8,6 +8,7 @@
   "buyNow": "Buy Now",
   "whenQuantityLimit": "For large quantity orders, please call us for more information.",
   "storage": "In stock: ",
+  "success": "Added to cart!",
   "exceed": "Maximum quantity in cart reached",
   "confirm": "Confirm"
 }

@@ -7,17 +7,8 @@ import { Button } from "./ui/button";
 import { Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { ProductPageFailedAlert } from "./productPageFailedAlert";
+import { ProductPageSuccessAlert } from "./productPageSuccessAlert";
 
 export default function ProductPageComponent({
   session,
@@ -27,6 +18,7 @@ export default function ProductPageComponent({
   const [amount, setAmount] = useState(1);
   const [stock, setStock] = useState<number | string>("");
   const [warning, setWarning] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
   const { t } = useT("common");
   const { t: tProduct } = useT("products");
   const path = usePathname();
@@ -81,7 +73,7 @@ export default function ProductPageComponent({
           <p className="flex flex-wrap content-center text-lg">
             {t("quantity")}
           </p>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row flex-wrap content-center gap-2">
             <Button
               variant="default"
               size="icon"
@@ -117,6 +109,7 @@ export default function ProductPageComponent({
                   method: "PATCH",
                   body: JSON.stringify({ quantity: amount }),
                 });
+                setSuccess(true);
                 return;
               }
               setWarning(true);
@@ -124,24 +117,8 @@ export default function ProductPageComponent({
           >
             {t("addToCart")}
           </Button>
-          <AlertDialog open={warning}>
-            <AlertDialogContent>
-              <AlertDialogHeader className="flex justify-center">
-                <AlertDialogTitle className="text-2xl font-normal">
-                  {t("exceed")}
-                </AlertDialogTitle>
-                <AlertDialogDescription className="hidden"></AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter className="flex justify-center sm:justify-center">
-                <Button
-                  className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
-                  onClick={() => setWarning(false)}
-                >
-                  {t("confirm")}
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <ProductPageFailedAlert warning={warning} setWarning={setWarning} />
+          <ProductPageSuccessAlert success={success} setSuccess={setSuccess} />
           <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
             {t("buyNow")}
           </Button>
