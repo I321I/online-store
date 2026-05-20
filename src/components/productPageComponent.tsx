@@ -2,7 +2,7 @@
 import { ProductObject } from "@/types/product";
 import { useT } from "next-i18next/client";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -22,6 +22,7 @@ export default function ProductPageComponent({
   const { t } = useT("common");
   const { t: tProduct } = useT("products");
   const path = usePathname();
+  const router = useRouter();
   const segments = path.split("/");
   const lng = segments[1];
   const categoryPathName = segments[2];
@@ -99,6 +100,7 @@ export default function ProductPageComponent({
           <Button
             className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
             onClick={async () => {
+              if (!session) router.push(`/${lng}/login`);
               const callItemApi = await fetch(
                 `/api/users/${session?.user?.id}/cart/${product}`,
               );
@@ -119,7 +121,26 @@ export default function ProductPageComponent({
           </Button>
           <ProductPageFailedAlert warning={warning} setWarning={setWarning} />
           <ProductPageSuccessAlert success={success} setSuccess={setSuccess} />
-          <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
+          <Button
+            className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+            onClick={async () => {
+              if (!session) router.push(`/${lng}/login`);
+              const callItemApi = await fetch(
+                `/api/users/${session?.user?.id}/cart/${product}`,
+              );
+              const data: { id: string; quantity: number } =
+                await callItemApi.json();
+              if (data.quantity + amount > 0 && data.quantity + amount < 10) {
+                await fetch(`/api/users/${session?.user?.id}/cart/${product}`, {
+                  method: "PATCH",
+                  body: JSON.stringify({ quantity: amount }),
+                });
+                router.push(`/${lng}/shoppingcart`)
+                return;
+              }
+              setWarning(true);
+            }}
+          >
             {t("buyNow")}
           </Button>
         </div>
