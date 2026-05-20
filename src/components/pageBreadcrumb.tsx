@@ -35,7 +35,7 @@ export function PageBreadcrumbBasic() {
   const direct = (path: string) => () => {
     const segments = pathname.split("/");
     segments[2] = path;
-    router.replace([segments[0], segments[1], segments[2]].join("/"));
+    router.push([segments[0], segments[1], segments[2]].join("/"));
   };
 
   return (

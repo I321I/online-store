@@ -1,10 +1,14 @@
 {
-  "login":"Sign In",
-  "emailAddress":"Email address",
+  "login": "Sign In",
+  "emailAddress": "Email address",
   "curatedProducts": "Curated Products",
   "productDescription": "Product Description",
   "quantity": "Quantity",
   "addToCart": "Add to Cart",
   "buyNow": "Buy Now",
-  "whenQuantityLimit": "For large quantity orders, please call us for more information."
+  "whenQuantityLimit": "For large quantity orders, please call us for more information.",
+  "storage": "In stock: ",
+  "success": "Added to cart!",
+  "exceed": "Maximum quantity in cart reached",
+  "confirm": "Confirm"
 }

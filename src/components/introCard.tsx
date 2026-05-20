@@ -57,7 +57,7 @@ export const IntroCard = ({
             variant="default"
             size="icon"
             className="dark rounded-full bg-white"
-            onClick={() => router.replace(`/${lng}/${direction}`)}
+            onClick={() => router.push(`/${lng}/${direction}`)}
           >
             <ArrowRight />
           </Button>

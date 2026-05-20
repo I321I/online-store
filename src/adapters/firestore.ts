@@ -20,7 +20,7 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
       throw error;
     }
   };
-  updateStock = async (productId: string, body: { amount_change: number }) => {
+  updateStock = async (productId: string, amount_change: number) => {
     try {
       const productSnap = await this.#db
         .collection("products")
@@ -28,16 +28,13 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
         .get();
       const data = productSnap.data() as Pick<ProductItem, "stock"> | undefined;
       if (data == null) throw new Error("updateStock Failed");
-      if (
-        data.stock + body.amount_change > 999 ||
-        data.stock + body.amount_change < 0
-      )
+      if (data.stock + amount_change > 999 || data.stock + amount_change < 0)
         throw new Error("updateStock refused");
       await this.#db
         .collection("products")
         .doc(productId)
-        .set({ stock: data.stock + body.amount_change }, { merge: true });
-      return { id: productId, stock: data.stock + body.amount_change };
+        .set({ stock: data.stock + amount_change }, { merge: true });
+      return { id: productId, stock: data.stock + amount_change };
     } catch (error) {
       throw error;
     }
@@ -55,6 +52,21 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
         return { id: doc.id, quantity: doc.data().quantity };
       });
       return data;
+    } catch (error) {
+      throw error;
+    }
+  };
+  getCartItem = async (userId: string, productId: string) => {
+    try {
+      const itemSnap = await this.#db
+        .collection("cart")
+        .doc(userId)
+        .collection("items")
+        .doc(productId)
+        .get();
+      const data = itemSnap.data() as { quantity: number };
+      if (data == null) return { id: productId, quantity: 0 };
+      return { id: productId, quantity: data.quantity };
     } catch (error) {
       throw error;
     }
@@ -78,7 +90,7 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   updateCartItemQuantity = async (
     userId: string,
     productId: string,
-    body: { quantity: number },
+    quantity: number,
   ) => {
     try {
       const itemSnap = await this.#db
@@ -94,18 +106,17 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
           .doc(userId)
           .collection("items")
           .doc(productId)
-          .set({ quantity: body.quantity });
-        return { id: productId, quantity: body.quantity };
+          .set({ quantity: quantity });
+        return { id: productId, quantity: quantity };
       }
-      if (data.quantity + body.quantity > 9)
-        throw new Error("quantity exceed 9");
+      if (data.quantity + quantity > 9) throw new Error("quantity exceed 9");
       await this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
         .doc(productId)
-        .set({ quantity: data.quantity + body.quantity }, { merge: true });
-      return { id: productId, quantity: data.quantity + body.quantity };
+        .set({ quantity: data.quantity + quantity }, { merge: true });
+      return { id: productId, quantity: data.quantity + quantity };
     } catch (error) {
       throw error;
     }

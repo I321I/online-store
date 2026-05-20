@@ -58,7 +58,7 @@ export async function Navigation({ lng }: { lng: string }) {
                     }}
                   >
                     <button
-                      className="h-[42%] -translate-y-0.5 cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+                      className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
                       type="submit"
                     >
                       <LogOut />
@@ -71,11 +71,12 @@ export async function Navigation({ lng }: { lng: string }) {
               </Tooltip>
             </TooltipProvider>
           )}
-          <ShoppingCart
-            role="button"
-            size={28}
-            className="flex h-[42%] -translate-y-0.5 cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
-          />
+          <Link
+            href={`/${lng}/shoppingcart`}
+            className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
+          >
+            <ShoppingCart role="button" size={28} />
+          </Link>
         </div>
       </div>
       <NavigationMargin />

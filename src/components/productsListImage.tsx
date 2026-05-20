@@ -11,7 +11,6 @@ export const ProductsListImage = ({
   const pathname = usePathname();
   const router = useRouter();
   const direct = `${pathname}/${productId}`;
-  console.log(direct);
   return (
     <label htmlFor={`${productId}imageButton`}>
       <Image
@@ -21,13 +20,13 @@ export const ProductsListImage = ({
         sizes="100vw"
         alt={`image of product ${productId}`}
         loading="eager"
-        className="aspect-square h-auto w-auto cursor-pointer overflow-hidden object-cover"
+        className="aspect-square h-full w-full cursor-pointer overflow-hidden object-cover"
       />
       <button
         className="hidden"
         id={`${productId}imageButton`}
         onClick={() => {
-          router.replace(direct);
+          router.push(direct);
         }}
       />
     </label>

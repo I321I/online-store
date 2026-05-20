@@ -1,4 +1,3 @@
-import { ProductItem } from "@/interfaces/ProductsRepository";
 import { database } from "@/lib/firestore-adapter-instance";
 export async function GET(
   _request: Request,
@@ -31,7 +30,7 @@ export async function PATCH(
   if (body.amount_change == null || body.amount_change === 0)
     return new Response("body content error", { status: 400 });
   return await database
-    .updateStock(productId, body)
+    .updateStock(productId, body.amount_change)
     .then((result) => Response.json(result))
     .catch((reason) => {
       const message =

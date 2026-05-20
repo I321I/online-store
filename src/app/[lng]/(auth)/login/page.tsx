@@ -1,11 +1,11 @@
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { getT } from "next-i18next/server";
-import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { SiGithub } from "react-icons/si";
 
@@ -17,8 +17,10 @@ export default async function Page({
   const { lng } = await params;
   const { t } = await getT("common", { lng });
   const { t: tHome } = await getT("home", { lng });
+  const session = await auth();
+  if (session != null) redirect("/");
   return (
-    <div className="flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
+    <div className="container-1920 flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
       <Link
         href={`/${lng}`}
         className="g-full mt-15 mb-5 flex justify-center font-serif text-5xl"
@@ -62,7 +64,7 @@ export default async function Page({
                   {t("emailAddress")}
                 </label>
               </div>
-              <Button type="submit" className="w-full">
+              <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
                 Login
               </Button>
             </form>
