@@ -2,13 +2,14 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ProductObject } from "@/types/product";
 import { Session } from "next-auth";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 
 export function ShoppingcartTable({ session }: { session: Session }) {
@@ -33,27 +34,50 @@ export function ShoppingcartTable({ session }: { session: Session }) {
     };
     callCartApi();
   }, []);
+  const { t } = useT("shoppingCart");
+  const { t: tProducts } = useT("products");
+  const mergeProductsInformation = (
+    shoppingcart: {
+      id: string;
+      quantity: number;
+    }[],
+  ) => {
+    const data = shoppingcart.map((item) => {
+      return {
+        ...item,
+        ...(tProducts(item.id, { returnObjects: true }) as ProductObject),
+      };
+    });
+    return data;
+  };
+  const data = mergeProductsInformation(cart);
   return (
-    <Table>
-      <TableCaption>結帳金額</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>圖示</TableHead>
-          <TableHead>商品名稱</TableHead>
-          <TableHead>單價</TableHead>
-          <TableHead>數量</TableHead>
-          <TableHead>價格</TableHead>
-          <TableHead>刪除</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {cart.map((invoice) => (
-          <TableRow key={invoice.id}>
-            <TableCell>{invoice.id}</TableCell>
-            <TableCell>{invoice.quantity}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <div>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow className="hover:bg-none">
+              <TableHead className="text-center">{t("image")}</TableHead>
+              <TableHead className="text-center">{t("product")}</TableHead>
+              <TableHead className="text-center">{t("price")}</TableHead>
+              <TableHead className="text-center">{t("quantity")}</TableHead>
+              <TableHead className="text-center">{t("subtotal")}</TableHead>
+              <TableHead className="text-center">{t("remove")}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell className="text-center">{item.id}</TableCell>
+                <TableCell className="text-center">{item.title}</TableCell>
+                <TableCell className="text-center">{item.price}</TableCell>
+                <TableCell className="text-center">{item.quantity}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      {t("total")}
+    </div>
   );
 }

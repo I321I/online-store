@@ -1,5 +1,12 @@
 {
   "cart": "Cart",
   "information": "Information",
-  "confirmation": "Confirmation"
+  "confirmation": "Confirmation",
+  "image": "Image",
+  "product": "Product",
+  "price": "Price",
+  "quantity": "Quantity",
+  "subtotal": "Subtotal",
+  "remove": "Remove",
+  "total": "Total"
 }
