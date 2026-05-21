@@ -1,17 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Table } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
+import { ShoppingcartTable } from "./shoppingcartTable";
 
-export default function ShoppingcartTabs({
-  session,
-}: {
-  session: Session | null;
-}) {
+export default function ShoppingcartTabs({ session }: { session: Session }) {
   useEffect(() => {
     const callCartApi = async (id: string | undefined) => {
       return await fetch(`/api/users/${id}/cart`);
@@ -72,7 +68,7 @@ export default function ShoppingcartTabs({
           </TabsTrigger>
         </TabsList>
         <TabsContent value="cart">
-          <Table></Table>
+          <ShoppingcartTable session={session} />
         </TabsContent>
         <TabsContent value="information">2</TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
