@@ -8,11 +8,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ProductObject } from "@/types/product";
+import { Trash2 } from "lucide-react";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 
 export function ShoppingcartTable({ session }: { session: Session }) {
+  const [remove, setRemove] = useState(0);
   const userId = session.user?.id;
   const [cart, setCart] = useState<
     | {
@@ -33,7 +35,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
       setCart(data);
     };
     callCartApi();
-  }, []);
+  }, [remove]);
   const { t } = useT("shoppingCart");
   const { t: tProducts } = useT("products");
   const convertNumWithNtAndComma = (num: string) => {
@@ -84,6 +86,18 @@ export function ShoppingcartTable({ session }: { session: Session }) {
                 <TableCell className="text-center">{item.quantity}</TableCell>
                 <TableCell className="text-center">
                   NT$ {item.subtotal.toLocaleString()}
+                </TableCell>
+                <TableCell className="flex justify-center">
+                  <Trash2
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      await fetch(
+                        `/api/users/${session.user?.id}/cart/${item.id}`,
+                        { method: "DELETE" },
+                      );
+                      setRemove(remove + 1);
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}
