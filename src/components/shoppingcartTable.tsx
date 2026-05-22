@@ -36,6 +36,11 @@ export function ShoppingcartTable({ session }: { session: Session }) {
   }, []);
   const { t } = useT("shoppingCart");
   const { t: tProducts } = useT("products");
+  const convertNumWithNtAndComma = (num: string) => {
+    const strNumberWithComma = /([0-9,]+)/.exec(num)?.[0] ?? "";
+    const strNumber = strNumberWithComma.replace(/,/g, "");
+    return Number.parseInt(strNumber);
+  };
   const mergeProductsInformation = (
     shoppingcart: {
       id: string;
@@ -43,9 +48,14 @@ export function ShoppingcartTable({ session }: { session: Session }) {
     }[],
   ) => {
     const data = shoppingcart.map((item) => {
+      const localInformation = tProducts(item.id, {
+        returnObjects: true,
+      }) as ProductObject;
       return {
         ...item,
-        ...(tProducts(item.id, { returnObjects: true }) as ProductObject),
+        ...localInformation,
+        subtotal:
+          convertNumWithNtAndComma(localInformation.price) * item.quantity,
       };
     });
     return data;
@@ -53,7 +63,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
   const data = mergeProductsInformation(cart);
   return (
     <div>
-      <div className="rounded-md border">
+      <div className="mx-10 rounded-md border">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-none">
@@ -72,6 +82,9 @@ export function ShoppingcartTable({ session }: { session: Session }) {
                 <TableCell className="text-center">{item.title}</TableCell>
                 <TableCell className="text-center">{item.price}</TableCell>
                 <TableCell className="text-center">{item.quantity}</TableCell>
+                <TableCell className="text-center">
+                  NT$ {item.subtotal.toLocaleString()}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
