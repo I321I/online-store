@@ -21,7 +21,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     if (tab === "information") setActiveTab("confirmation");
   };
   return (
-    <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center gap-8">
+    <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center gap-8 px-10">
       <Tabs value={activeTab} className="flex w-full gap-8">
         <TabsList
           variant={null}

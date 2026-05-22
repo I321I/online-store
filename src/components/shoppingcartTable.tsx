@@ -65,7 +65,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
   const data = mergeProductsInformation(cart);
   return (
     <div>
-      <div className="mx-10 rounded-md border">
+      <div className=" rounded-md border">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-none">
