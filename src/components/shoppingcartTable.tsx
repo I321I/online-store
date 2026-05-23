@@ -2,19 +2,38 @@
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { ProductObject } from "@/types/product";
-import { Trash2 } from "lucide-react";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ShoppingcartTableItem } from "./shoppingcartTableItem";
 
 export function ShoppingcartTable({ session }: { session: Session }) {
-  const [remove, setRemove] = useState(0);
+  const [update, setUpdate] = useState(0);
+  const debounce = <T extends (...args: unknown[]) => unknown>(
+    func: T,
+    wait = 500,
+  ) => {
+    let time: ReturnType<typeof setTimeout> | undefined;
+
+    return (...arg: Parameters<T>) => {
+      if (time != null) clearTimeout(time);
+      time = setTimeout(() => {
+        func(...arg);
+      }, wait);
+    };
+  };
+  const updateDebounce = useMemo(()=>
+    debounce(() => {
+      setUpdate((count) => count + 1);
+    }, 500),
+    [],
+  );
+
   const userId = session.user?.id;
   const [cart, setCart] = useState<
     | {
@@ -35,7 +54,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
       setCart(data);
     };
     callCartApi();
-  }, [remove, userId]);
+  }, [update, userId]);
   const { t } = useT("shoppingCart");
   const { t: tProducts } = useT("products");
   const convertNumWithNtAndComma = (num: string) => {
@@ -82,27 +101,12 @@ export function ShoppingcartTable({ session }: { session: Session }) {
             </TableHeader>
             <TableBody>
               {data.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell className="text-center">{item.id}</TableCell>
-                  <TableCell className="text-center">{item.title}</TableCell>
-                  <TableCell className="text-center">{item.price}</TableCell>
-                  <TableCell className="text-center">{item.quantity}</TableCell>
-                  <TableCell className="text-center">
-                    NT$ {item.subtotal.toLocaleString()}
-                  </TableCell>
-                  <TableCell className="flex justify-center">
-                    <Trash2
-                      className="cursor-pointer"
-                      onClick={async () => {
-                        await fetch(
-                          `/api/users/${session.user?.id}/cart/${item.id}`,
-                          { method: "DELETE" },
-                        );
-                        setRemove(remove + 1);
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
+                <ShoppingcartTableItem
+                  key={item.id}
+                  productInformation={item}
+                  updatePage={updateDebounce}
+                  session={session}
+                />
               ))}
             </TableBody>
           </Table>
