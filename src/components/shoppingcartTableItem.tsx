@@ -2,7 +2,7 @@
 import { ProductObject } from "@/types/product";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import {  useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Session } from "next-auth";
 import { Button } from "./ui/button";
 
@@ -23,6 +23,42 @@ export const ShoppingcartTableItem = ({
 }) => {
   const item = { ...productInformation };
   const [quantity, setQuantity] = useState<number>(item.quantity);
+  const debounce = <T extends (...args: unknown[]) => unknown>(
+    fn: T,
+    wait = 300,
+  ) => {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    return (...args: Parameters<T>) => {
+      if (timer != null) clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn(...args);
+      }, wait);
+    };
+  };
+  const updateQuantity = useMemo(
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
+    () =>
+      debounce(async (targetQuantity, productId) => {
+        if (targetQuantity === 0) {
+          await fetch(`/api/users/${session.user?.id}/cart/${productId}`, {
+            method: "DELETE",
+          });
+          return;
+        }
+        await fetch(`/api/users/${session.user?.id}/cart/${productId}`, {
+          method: "PATCH",
+          body: JSON.stringify({ targetQuantity }),
+        });
+      }),
+    [],
+  );
+  useEffect(() => {
+    updateQuantity(quantity, item.id);
+  }, [quantity]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setQuantity(item.quantity);
+  }, [item.quantity]);
   return (
     <TableRow key={item.id}>
       <TableCell className="text-center">{item.id}</TableCell>
@@ -35,9 +71,11 @@ export const ShoppingcartTableItem = ({
             size="icon"
             disabled={quantity <= 0}
             className="h-6 w-3 cursor-pointer rounded-none"
-            onClick={() =>
-              quantity > 0 ? setQuantity(quantity - 1) : undefined
-            }
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              quantity > 0 ? setQuantity(quantity - 1) : undefined;
+              updatePage();
+            }}
           >
             <Minus />
           </Button>
@@ -47,7 +85,10 @@ export const ShoppingcartTableItem = ({
             size="icon"
             disabled={quantity >= 9}
             className="h-6 w-3 cursor-pointer rounded-none"
-            onClick={() => setQuantity(quantity + 1)}
+            onClick={() => {
+              setQuantity(quantity + 1);
+              updatePage();
+            }}
           >
             <Plus />
           </Button>

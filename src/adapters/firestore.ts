@@ -90,33 +90,51 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   updateCartItemQuantity = async (
     userId: string,
     productId: string,
-    quantity: number,
+    quantity?: number,
+    targetQuantity?: number,
   ) => {
-    try {
-      const itemSnap = await this.#db
-        .collection("cart")
-        .doc(userId)
-        .collection("items")
-        .doc(productId)
-        .get();
-      const data = itemSnap.data();
-      if (data == null) {
+    if (quantity && targetQuantity == null)
+      try {
+        const itemSnap = await this.#db
+          .collection("cart")
+          .doc(userId)
+          .collection("items")
+          .doc(productId)
+          .get();
+        const data = itemSnap.data();
+        if (data == null) {
+          await this.#db
+            .collection("cart")
+            .doc(userId)
+            .collection("items")
+            .doc(productId)
+            .set({ quantity: quantity });
+          return { id: productId, quantity: quantity };
+        }
+        if (data.quantity + quantity > 9) throw new Error("quantity exceed 9");
         await this.#db
           .collection("cart")
           .doc(userId)
           .collection("items")
           .doc(productId)
-          .set({ quantity: quantity });
-        return { id: productId, quantity: quantity };
+          .set({ quantity: data.quantity + quantity }, { merge: true });
+        return { id: productId, quantity: data.quantity + quantity };
+      } catch (error) {
+        throw error;
       }
-      if (data.quantity + quantity > 9) throw new Error("quantity exceed 9");
+
+    if (targetQuantity == null)
+      throw new Error("quantity == null && targetQuantity == null");
+    try {
+      if (targetQuantity < 1 || targetQuantity > 9)
+        throw new Error("quantity exceed 9");
       await this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
         .doc(productId)
-        .set({ quantity: data.quantity + quantity }, { merge: true });
-      return { id: productId, quantity: data.quantity + quantity };
+        .set({ quantity: targetQuantity }, { merge: true });
+      return { id: productId, quantity: targetQuantity };
     } catch (error) {
       throw error;
     }

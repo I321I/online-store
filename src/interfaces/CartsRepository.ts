@@ -11,6 +11,7 @@ export interface IChartDB {
   updateCartItemQuantity: (
     userId: string,
     productId: string,
-    quantity: number,
+    quantity?: number,
+    targetQuantity?: number,
   ) => Promise<{ id: string; quantity: number }>;
 }
