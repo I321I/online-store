@@ -8,5 +8,6 @@
   "quantity": "數量",
   "subtotal": "價格",
   "remove": "刪除",
-  "total": "結帳金額："
+  "total": "結帳金額：",
+  "calculating": "計算中"
 }

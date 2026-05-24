@@ -9,8 +9,9 @@ import {
 import { ProductObject } from "@/types/product";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ShoppingcartTableItem } from "./shoppingcartTableItem";
+import { cn } from "@/lib/utils";
 
 export function ShoppingcartTable({ session }: { session: Session }) {
   const [update, setUpdate] = useState(0);
@@ -27,12 +28,6 @@ export function ShoppingcartTable({ session }: { session: Session }) {
       }, wait);
     };
   };
-  const updateDebounce = useMemo(()=>
-    debounce(() => {
-      setUpdate((count) => count + 1);
-    }, 500),
-    [],
-  );
 
   const userId = session.user?.id;
   const [cart, setCart] = useState<
@@ -83,14 +78,31 @@ export function ShoppingcartTable({ session }: { session: Session }) {
     return data;
   };
   const data = mergeProductsInformation(cart);
-  const total = data.reduce((sum, item) => sum + item.subtotal, 0);
+  const [total, setTotal] = useState<number | string>(
+    data.reduce((sum, item) => sum + item.subtotal, 0),
+  );
+  const updateDebounce = useMemo(
+    () =>
+      debounce(() => {
+        setUpdate((count) => count + 1);
+      }, 500),
+    [],
+  );
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTotal(data.reduce((sum, item) => sum + item.subtotal, 0));
+  }, [cart]);
+  const updatePage = () => {
+    setTotal(t("calculating"));
+    updateDebounce();
+  };
   return (
     cart.length > 0 && (
       <div className="flex flex-col justify-center gap-4">
         <div className="rounded-md border">
           <Table>
             <TableHeader>
-              <TableRow className="hover:bg-none">
+              <TableRow className="hover:bg-inherit">
                 <TableHead className="text-center">{t("image")}</TableHead>
                 <TableHead className="text-center">{t("product")}</TableHead>
                 <TableHead className="text-center">{t("price")}</TableHead>
@@ -104,16 +116,31 @@ export function ShoppingcartTable({ session }: { session: Session }) {
                 <ShoppingcartTableItem
                   key={item.id}
                   productInformation={item}
-                  updatePage={updateDebounce}
+                  updatePage={updatePage}
                   session={session}
                 />
               ))}
             </TableBody>
           </Table>
         </div>
-        <p className="m-auto w-fit text-lg text-gray-500">
-          {`${t("total")}NT$ ${total.toLocaleString()}`}
-        </p>
+        <div className="m-auto flex w-fit flex-row text-lg text-gray-500">
+          {typeof total === "number" ? (
+            `${t("total")}NT$ ${total.toLocaleString()}`
+          ) : (
+            <>
+              <p
+                className={cn(
+                  `peer hidden ${typeof total === "number" ? "hidden" : "block"}`,
+                )}
+              >
+                {total}
+              </p>
+              <span className="animate-dotAppear opacity-0 delay-150">.</span>
+              <span className="animate-dotAppear opacity-0 delay-250">.</span>
+              <span className="animate-dotAppear opacity-0 delay-350">.</span>
+            </>
+          )}
+        </div>
       </div>
     )
   );

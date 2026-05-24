@@ -94,7 +94,7 @@ export const ShoppingcartTableItem = ({
           </Button>
         </div>
       </TableCell>
-      <TableCell className="text-center">
+      <TableCell className="text-center w-[20%]">
         NT$ {item.subtotal.toLocaleString()}
       </TableCell>
       <TableCell className="flex justify-center">
