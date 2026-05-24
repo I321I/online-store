@@ -12,6 +12,7 @@ import { TFunction } from "i18next";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export const IntroCard = ({
   t,
@@ -53,14 +54,15 @@ export const IntroCard = ({
           {t(`card-${category}-content`)}
         </CardDescription>
         <div className="flex flex-col gap-8">
-          <Button
-            variant="default"
-            size="icon"
-            className="dark rounded-full bg-white"
-            onClick={() => router.push(`/${lng}/${direction}`)}
-          >
-            <ArrowRight />
-          </Button>
+          <Link href={`/${lng}/${direction}`}>
+            <Button
+              variant="default"
+              size="icon"
+              className="dark rounded-full bg-white"
+            >
+              <ArrowRight />
+            </Button>
+          </Link>
         </div>
       </CardHeader>
     </Card>

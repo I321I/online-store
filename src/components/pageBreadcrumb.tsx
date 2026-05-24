@@ -17,11 +17,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ProductObject } from "@/types/product";
 import { useT } from "next-i18next/client";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 export function PageBreadcrumbBasic() {
   const pathname = usePathname();
-  const router = useRouter();
   const segments = pathname.split("/");
   const lng = segments[1];
   const category = segments[2];
@@ -32,10 +32,10 @@ export function PageBreadcrumbBasic() {
   const productObject = tProducts(product, {
     returnObjects: true,
   }) as ProductObject;
-  const direct = (path: string) => () => {
+  const direct = (path: string) => {
     const segments = pathname.split("/");
     segments[2] = path;
-    router.push([segments[0], segments[1], segments[2]].join("/"));
+    return [segments[0], segments[1], segments[2]].join("/");
   };
 
   return (
@@ -55,8 +55,8 @@ export function PageBreadcrumbBasic() {
             <DropdownMenuContent align="center">
               <DropdownMenuGroup>
                 {categories.map((item) => (
-                  <DropdownMenuItem onSelect={direct(item)} key={item}>
-                    {tHome(`${item}`)}
+                  <DropdownMenuItem asChild key={item}>
+                    <Link href={direct(item)}>{tHome(`${item}`)}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
@@ -72,7 +72,9 @@ export function PageBreadcrumbBasic() {
         {product && (
           <>
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/${lng}/${category}`}>{t(`${category}`)}</BreadcrumbLink>
+              <BreadcrumbLink href={`/${lng}/${category}`}>
+                {t(`${category}`)}
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

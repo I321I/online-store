@@ -8,7 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function DirectSelector({
   title,
@@ -21,18 +22,18 @@ export default function DirectSelector({
 }) {
   const { t } = useT("home");
   const pathname = usePathname();
-  const router = useRouter();
-  const direct = (path: string) => () => {
+  const direct = (path: string) => {
     const segments = pathname.split("/");
     segments[witchSegment] = path;
-    router.push([segments[0],segments[1],segments[2]].join("/"));
+    const targetPath = [segments[0], segments[1], segments[2]].join("/");
+    return targetPath;
   };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="link"
-          className="focus:outliine-none font-sans-serif text-w cursor-pointer border-none text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline focus-visible:ring-0 active:not-aria-[haspopup]:translate-y-px max-md:hidden"
+          className="focus:outliine-none font-sans-serif cursor-pointer border-none text-3xl/7 font-normal decoration-2 underline-offset-3 hover:underline focus-visible:ring-0 active:translate-y-px max-md:hidden"
         >
           {title}
         </Button>
@@ -40,8 +41,8 @@ export default function DirectSelector({
       <DropdownMenuContent>
         <DropdownMenuGroup>
           {selections.map((item) => (
-            <DropdownMenuItem onSelect={direct(item)} key={item}>
-              {t(`${item}`)}
+            <DropdownMenuItem asChild key={item}>
+              <Link href={`${direct(item)}`}>{t(`${item}`)}</Link>
             </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>
