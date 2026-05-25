@@ -59,55 +59,62 @@ export const ShoppingcartTableItem = ({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setQuantity(item.quantity);
   }, [item.quantity]);
-  return (
-    <TableRow key={item.id}>
-      <TableCell className="text-center">{item.id}</TableCell>
-      <TableCell className="text-center">{item.title}</TableCell>
-      <TableCell className="text-center">{item.price}</TableCell>
-      <TableCell>
-        <div className="m-auto flex h-fit w-fit flex-row flex-wrap content-center justify-center gap-3 rounded-sm p-0">
-          <Button
-            variant={null}
-            size="icon"
-            disabled={quantity <= 0}
-            className="h-6 w-3 cursor-pointer rounded-none"
-            onClick={() => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              quantity > 0 ? setQuantity(quantity - 1) : undefined;
-              updatePage();
-            }}
-          >
-            <Minus />
-          </Button>
-          <p className="flex flex-wrap content-center">{quantity}</p>
-          <Button
-            variant={null}
-            size="icon"
-            disabled={quantity >= 9}
-            className="h-6 w-3 cursor-pointer rounded-none"
-            onClick={() => {
-              setQuantity(quantity + 1);
-              updatePage();
-            }}
-          >
-            <Plus />
-          </Button>
-        </div>
-      </TableCell>
-      <TableCell className="text-center w-[20%]">
-        NT$ {item.subtotal.toLocaleString()}
-      </TableCell>
-      <TableCell className="flex justify-center">
-        <Trash2
-          className="cursor-pointer"
-          onClick={async () => {
-            await fetch(`/api/users/${session.user?.id}/cart/${item.id}`, {
-              method: "DELETE",
-            });
-            updatePage();
-          }}
-        />
-      </TableCell>
-    </TableRow>
-  );
+  const [isDeleted, setDeleted] = useState<boolean>(false);
+  const result = (product: ProductInformation, isDeleted: boolean) => {
+    if (isDeleted === false)
+      return (
+        <TableRow key={product.id}>
+          <TableCell className="text-center">{product.id}</TableCell>
+          <TableCell className="text-center">{product.title}</TableCell>
+          <TableCell className="text-center">{product.price}</TableCell>
+          <TableCell>
+            <div className="m-auto flex h-fit w-fit flex-row flex-wrap content-center justify-center gap-3 rounded-sm p-0">
+              <Button
+                variant={null}
+                size="icon"
+                disabled={quantity <= 0}
+                className="h-6 w-3 cursor-pointer rounded-none"
+                onClick={() => {
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                  quantity > 0 ? setQuantity(quantity - 1) : undefined;
+                  updatePage();
+                }}
+              >
+                <Minus />
+              </Button>
+              <p className="flex flex-wrap content-center">{quantity}</p>
+              <Button
+                variant={null}
+                size="icon"
+                disabled={quantity >= 9}
+                className="h-6 w-3 cursor-pointer rounded-none"
+                onClick={() => {
+                  setQuantity(quantity + 1);
+                  updatePage();
+                }}
+              >
+                <Plus />
+              </Button>
+            </div>
+          </TableCell>
+          <TableCell className="w-[20%] text-center">
+            NT$ {product.subtotal.toLocaleString()}
+          </TableCell>
+          <TableCell className="flex justify-center">
+            <Trash2
+              className="cursor-pointer"
+              onClick={() => {
+                setDeleted(true);
+                fetch(`/api/users/${session.user?.id}/cart/${product.id}`, {
+                  method: "DELETE",
+                });
+                updatePage();
+              }}
+            />
+          </TableCell>
+        </TableRow>
+      );
+    return <></>;
+  };
+  return result(item, isDeleted);
 };
