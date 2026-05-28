@@ -9,5 +9,7 @@
   "subtotal": "Subtotal",
   "remove": "Remove",
   "total": "Total: ",
-  "calculating": "Calculating"
+  "calculating": "Calculating",
+  "next": "Next",
+  "exceedWarning": "Your order total exceeds NT$80,000. For bulk purchases, please contact us directly by phone"
 }

@@ -13,7 +13,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ShoppingcartTableItem } from "./shoppingcartTableItem";
 import { cn } from "@/lib/utils";
 
-export function ShoppingcartTable({ session }: { session: Session }) {
+export function ShoppingcartTable({
+  session,
+  emitTotal,
+}: {
+  session: Session;
+  emitTotal: (total: number | string) => number | string;
+}) {
   const [update, setUpdate] = useState(0);
   const debounce = <T extends (...args: unknown[]) => unknown>(
     func: T,
@@ -37,6 +43,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
       }[]
     | []
   >([]);
+
   useEffect(() => {
     const callCartApi = async () => {
       const response = await fetch(`/api/users/${userId}/cart/`);
@@ -50,6 +57,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
     };
     callCartApi();
   }, [update, userId]);
+
   const { t } = useT("shoppingCart");
   const { t: tProducts } = useT("products");
   const convertNumWithNtAndComma = (num: string) => {
@@ -81,6 +89,7 @@ export function ShoppingcartTable({ session }: { session: Session }) {
   const [total, setTotal] = useState<number | string>(
     data.reduce((sum, item) => sum + item.subtotal, 0),
   );
+
   const updateDebounce = useMemo(
     () =>
       debounce(() => {
@@ -88,14 +97,21 @@ export function ShoppingcartTable({ session }: { session: Session }) {
       }, 500),
     [],
   );
+
   useEffect(() => {
+    const tempTotol = data.reduce((sum, item) => sum + item.subtotal, 0);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTotal(data.reduce((sum, item) => sum + item.subtotal, 0));
+    setTotal(tempTotol);
+    emitTotal(tempTotol);
   }, [cart]);
+
   const updatePage = () => {
-    setTotal(t("calculating"));
+    const tempTotal = t("calculating");
+    setTotal(tempTotal);
+    emitTotal(tempTotal);
     updateDebounce();
   };
+
   return (
     cart.length > 0 && (
       <div className="flex flex-col justify-center gap-4">

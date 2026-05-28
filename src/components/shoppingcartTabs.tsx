@@ -6,8 +6,11 @@ import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 import { ShoppingcartTable } from "./shoppingcartTable";
+import { Separator } from "./ui/separator";
+import { File } from "lucide-react";
 
 export default function ShoppingcartTabs({ session }: { session: Session }) {
+  const [total, setTotal] = useState<number | string>(0);
   useEffect(() => {
     const callCartApi = async (id: string | undefined) => {
       return await fetch(`/api/users/${id}/cart`);
@@ -20,8 +23,35 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     if (tab === "cart") setActiveTab("information");
     if (tab === "information") setActiveTab("confirmation");
   };
+  const nextButton = (
+    handleSwitchTab: (activeTab: string) => void,
+    activeTab: string,
+    total: number | string,
+  ) => {
+    if (typeof total === "string" || total > 80000)
+      return (
+        <Button
+          disabled
+          className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+        >
+          {t("next")}
+        </Button>
+      );
+    return (
+      <Button
+        className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+        onClick={() => handleSwitchTab(activeTab)}
+      >
+        {t("next")}
+      </Button>
+    );
+  };
+  const returnTotal = (total: number | string) => {
+    setTotal(total);
+    return total;
+  };
   return (
-    <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center gap-8 px-10">
+    <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center px-10">
       <Tabs value={activeTab} className="flex w-full gap-8">
         <TabsList
           variant={null}
@@ -68,17 +98,27 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="cart">
-          <ShoppingcartTable session={session} />
+          <ShoppingcartTable session={session} emitTotal={returnTotal} />
         </TabsContent>
-        <TabsContent value="information">2</TabsContent>
+        <TabsContent
+          value="information"
+          className="m-auto flex w-full max-w-110 flex-col gap-4"
+        >
+          <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
+          <div className="flex w-full flex-col gap-2 border border-black p-3">
+            <h2 className="flex flex-row text-xl">
+              <File />
+              訂購資料
+            </h2>
+            <Separator />
+          </div>
+        </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>
-      <Button
-        className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
-        onClick={() => handleSwitchTab(activeTab)}
-      >
-        next
-      </Button>
+      <p className="m-auto h-8 text-red-600">
+        {typeof total === "number" && total > 80000 && t("exceedWarning")}
+      </p>
+      {nextButton(handleSwitchTab, activeTab, total)}
     </div>
   );
 }
