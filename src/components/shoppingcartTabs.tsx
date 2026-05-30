@@ -6,8 +6,7 @@ import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 import { ShoppingcartTable } from "./shoppingcartTable";
-import { Separator } from "./ui/separator";
-import { File } from "lucide-react";
+import { ShoppoingcartInformation } from "./shoppingcartInforamtion";
 
 export default function ShoppingcartTabs({ session }: { session: Session }) {
   const [total, setTotal] = useState<number | string>(0);
@@ -105,13 +104,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           className="m-auto flex w-full max-w-110 flex-col gap-4"
         >
           <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
-          <div className="flex w-full flex-col gap-2 border border-black p-3">
-            <h2 className="flex flex-row text-xl">
-              <File />
-              訂購資料
-            </h2>
-            <Separator />
-          </div>
+          <ShoppoingcartInformation />
         </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>

@@ -11,5 +11,11 @@
   "total": "Total: ",
   "calculating": "Calculating",
   "next": "Next",
-  "exceedWarning": "Your order total exceeds NT$80,000. For bulk purchases, please contact us directly by phone"
+  "exceedWarning": "Your order total exceeds NT$80,000. For bulk purchases, please contact us directly by phone",
+  "orderer": "Orderer's Name",
+  "ordererEmail": "Orderer's Email Address",
+  "ordererNumber": "Orderer's Mobile Number",
+  "recipient": "Recipient's Name",
+  "recipientNumber": "Recipient's Mobile Number",
+  "recipientAddress": "Recipient's Address"
 }
