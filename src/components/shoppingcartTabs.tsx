@@ -7,21 +7,34 @@ import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 import { ShoppingcartTable } from "./shoppingcartTable";
 import { ShoppoingcartInformation } from "./shoppingcartInforamtion";
+import { success } from "zod";
 
 export default function ShoppingcartTabs({ session }: { session: Session }) {
   const [total, setTotal] = useState<number | string>(0);
+  const returnTotal = (total: number | string) => {
+    setTotal(total);
+    return total;
+  };
+
+  const [isInformationValid, setIsInformationValid] = useState<boolean>(false);
+  const returnIsInformationValid = (success: boolean) =>
+    setIsInformationValid(success);
+
   useEffect(() => {
     const callCartApi = async (id: string | undefined) => {
       return await fetch(`/api/users/${id}/cart`);
     };
     callCartApi(session?.user?.id);
   }, []);
+
   const { t } = useT("shoppingCart");
   const [activeTab, setActiveTab] = useState("cart");
   const handleSwitchTab = (tab: string) => {
     if (tab === "cart") setActiveTab("information");
-    if (tab === "information") setActiveTab("confirmation");
+    if (tab === "information" && isInformationValid)
+      setActiveTab("confirmation");
   };
+
   const nextButton = (
     handleSwitchTab: (activeTab: string) => void,
     activeTab: string,
@@ -44,10 +57,6 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
         {t("next")}
       </Button>
     );
-  };
-  const returnTotal = (total: number | string) => {
-    setTotal(total);
-    return total;
   };
   return (
     <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center px-10">
@@ -104,7 +113,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           className="m-auto flex w-full max-w-110 flex-col gap-4"
         >
           <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
-          <ShoppoingcartInformation />
+          <ShoppoingcartInformation emitIsValid={returnIsInformationValid } />
         </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>

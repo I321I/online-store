@@ -17,5 +17,7 @@
   "ordererNumber": "訂購人手機號碼",
   "recipient": "收件人名稱",
   "recipientNumber": "收件人手機號碼",
-  "recipientAddress": "收件人地址"
+  "recipientAddress": "收件人地址",
+  "numberInvalid": "格式不符(09開頭，共10個數字)！",
+  "requiredFieldInvalid": "必填欄位！"
 }

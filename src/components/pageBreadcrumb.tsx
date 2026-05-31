@@ -18,7 +18,7 @@ import {
 import { ProductObject } from "@/types/product";
 import { useT } from "next-i18next/client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export function PageBreadcrumbBasic() {
   const pathname = usePathname();

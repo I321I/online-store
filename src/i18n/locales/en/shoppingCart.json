@@ -17,5 +17,7 @@
   "ordererNumber": "Orderer's Mobile Number",
   "recipient": "Recipient's Name",
   "recipientNumber": "Recipient's Mobile Number",
-  "recipientAddress": "Recipient's Address"
+  "recipientAddress": "Recipient's Address",
+  "numberInvalid": "Incorrect format (Starts with 09, 10 digits total)!",
+  "requiredFieldInvalid": "Required field!"
 }
