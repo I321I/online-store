@@ -16,7 +16,6 @@ export const isCartInformationValid =
         errors: validatedFields.error.flatten().fieldErrors,
       };
 
-    console.log("action success");
     return {
       message: "成功",
       success: true,

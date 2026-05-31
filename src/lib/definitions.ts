@@ -13,6 +13,10 @@ export const cartInformationSchema = async (t: TFunction) => {
   });
 };
 
+export type CartInformationSchema = z.infer<
+  Awaited<ReturnType<typeof cartInformationSchema>>
+>;
+
 export type FormState = {
   message?: string;
   success: boolean;

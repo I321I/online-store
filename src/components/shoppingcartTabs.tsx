@@ -4,10 +4,38 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShoppingcartTable } from "./shoppingcartTable";
-import { ShoppoingcartInformation } from "./shoppingcartInforamtion";
-import { success } from "zod";
+import { ShoppoingcartInformation } from "./shoppingcartInformation";
+
+const NextButton = ({
+  handleSwitchTab,
+  activeTab,
+  total,
+}: {
+  handleSwitchTab: (activeTab: string) => void;
+  activeTab: string;
+  total: number | string;
+}) => {
+  const { t } = useT("shoppingCart");
+  if (typeof total === "string" || total > 80000)
+    return (
+      <Button
+        disabled
+        className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+      >
+        {t("next")}
+      </Button>
+    );
+  return (
+    <Button
+      className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+      onClick={() => handleSwitchTab(activeTab)}
+    >
+      {t("next")}
+    </Button>
+  );
+};
 
 export default function ShoppingcartTabs({ session }: { session: Session }) {
   const [total, setTotal] = useState<number | string>(0);
@@ -16,9 +44,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     return total;
   };
 
-  const [isInformationValid, setIsInformationValid] = useState<boolean>(false);
-  const returnIsInformationValid = (success: boolean) =>
-    setIsInformationValid(success);
+  const informationButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const callCartApi = async (id: string | undefined) => {
@@ -31,33 +57,13 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   const [activeTab, setActiveTab] = useState("cart");
   const handleSwitchTab = (tab: string) => {
     if (tab === "cart") setActiveTab("information");
-    if (tab === "information" && isInformationValid)
-      setActiveTab("confirmation");
+    if (tab === "information") {
+      informationButtonRef.current?.click();
+
+      // setActiveTab("confirmation");
+    }
   };
 
-  const nextButton = (
-    handleSwitchTab: (activeTab: string) => void,
-    activeTab: string,
-    total: number | string,
-  ) => {
-    if (typeof total === "string" || total > 80000)
-      return (
-        <Button
-          disabled
-          className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
-        >
-          {t("next")}
-        </Button>
-      );
-    return (
-      <Button
-        className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
-        onClick={() => handleSwitchTab(activeTab)}
-      >
-        {t("next")}
-      </Button>
-    );
-  };
   return (
     <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center px-10">
       <Tabs value={activeTab} className="flex w-full gap-8">
@@ -113,14 +119,19 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           className="m-auto flex w-full max-w-110 flex-col gap-4"
         >
           <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
-          <ShoppoingcartInformation emitIsValid={returnIsInformationValid } />
+          <ShoppoingcartInformation ref={informationButtonRef} />
         </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>
       <p className="m-auto h-8 text-red-600">
         {typeof total === "number" && total > 80000 && t("exceedWarning")}
       </p>
-      {nextButton(handleSwitchTab, activeTab, total)}
+
+      <NextButton
+        handleSwitchTab={handleSwitchTab}
+        activeTab={activeTab}
+        total={total}
+      />
     </div>
   );
 }
