@@ -44,6 +44,10 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     return total;
   };
 
+  const [FormValid, setFromValid] = useState<boolean>(false);
+  const returnFormValid = (isValid: boolean) => {
+    setFromValid(isValid);
+  };
   const informationButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -59,8 +63,8 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     if (tab === "cart") setActiveTab("information");
     if (tab === "information") {
       informationButtonRef.current?.click();
-
-      // setActiveTab("confirmation");
+      console.log(FormValid)
+      if (FormValid) setActiveTab("confirmation");
     }
   };
 
@@ -119,7 +123,10 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           className="m-auto flex w-full max-w-110 flex-col gap-4"
         >
           <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
-          <ShoppoingcartInformation ref={informationButtonRef} />
+          <ShoppoingcartInformation
+            ref={informationButtonRef}
+            emitFormValid={setFromValid}
+          />
         </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>
