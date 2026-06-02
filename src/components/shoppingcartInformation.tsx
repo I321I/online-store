@@ -5,13 +5,19 @@ import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { useT } from "next-i18next/client";
 import { signOut, useSession } from "next-auth/react";
-import { forwardRef, useActionState, useImperativeHandle, useRef } from "react";
+import {
+  forwardRef,
+  useActionState,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { isCartInformationValid } from "@/app/actions/isCartInformationValid";
 import { ShoppingcartInformationInput } from "./shoppingcartInformationInput";
 
 export const ShoppoingcartInformation = forwardRef<
   { click: () => void },
-  { emitFormValid: (success: boolean) => void }
+  { switchTab: () => void }
 >((props, ref) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   useImperativeHandle(ref, () => ({
@@ -33,6 +39,10 @@ export const ShoppoingcartInformation = forwardRef<
     initialState,
   );
 
+  useEffect(() => {
+    if (state.success) props.switchTab();
+  }, [state]);
+
   if (session.data?.user?.name == null || session.data.user.email == null) {
     (() => {
       const answer = confirm("用戶資料錯誤，請登出重試");
@@ -46,9 +56,16 @@ export const ShoppoingcartInformation = forwardRef<
     return;
   }
 
-  props.emitFormValid(state.success);
   return (
-    <form className="m-auto flex flex-col gap-4" action={action}>
+    <form
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
+      }}
+      className="m-auto flex flex-col gap-4"
+      action={action}
+    >
       <div className="flex w-full flex-col gap-8 border border-black p-3">
         <div className="flex flex-col gap-2">
           <h2 className="flex flex-row text-xl">

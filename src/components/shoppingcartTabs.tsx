@@ -59,13 +59,14 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
 
   const { t } = useT("shoppingCart");
   const [activeTab, setActiveTab] = useState("cart");
-  const handleSwitchTab = (tab: string) => {
+  const handleSwitchTab = async (tab: string) => {
     if (tab === "cart") setActiveTab("information");
     if (tab === "information") {
       informationButtonRef.current?.click();
-      console.log(FormValid)
-      if (FormValid) setActiveTab("confirmation");
     }
+  };
+  const handleFormValid = () => {
+    if (activeTab === "information") setActiveTab("confirmation");
   };
 
   return (
@@ -125,7 +126,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
           <ShoppoingcartInformation
             ref={informationButtonRef}
-            emitFormValid={setFromValid}
+            switchTab={handleFormValid}
           />
         </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
