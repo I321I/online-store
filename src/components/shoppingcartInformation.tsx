@@ -1,5 +1,5 @@
 "use client";
-import { File } from "lucide-react";
+import { File, Truck } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ import {
   useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from "react";
 import { isCartInformationValid } from "@/app/actions/isCartInformationValid";
 import { ShoppingcartInformationInput } from "./shoppingcartInformationInput";
@@ -70,13 +71,13 @@ export const ShoppoingcartInformation = forwardRef<
         <div className="flex flex-col gap-2">
           <h2 className="flex flex-row text-xl">
             <File />
-            訂購資料
+            {t("billingInformation")}
           </h2>
           <Separator />
         </div>
         <div className="relative flex flex-col">
           <Input
-            id="orderer"
+            id="billing"
             type="text"
             placeholder={session.data?.user?.name}
             required
@@ -87,13 +88,13 @@ export const ShoppoingcartInformation = forwardRef<
             )}
           />
           <label
-            htmlFor="orderer"
+            htmlFor="billing"
             className={cn(
               "transistion-all absolute cursor-text text-xl text-gray-500 duration-200 select-none peer-placeholder-shown:top-2 dark:bg-black",
               "peer-placeholder-shown:-translate-y-5 peer-placeholder-shown:text-sm",
             )}
           >
-            {"*" + t("orderer")}
+            {"*" + t("billing")}
           </label>
         </div>
         <div className="relative flex flex-col">
@@ -116,23 +117,37 @@ export const ShoppoingcartInformation = forwardRef<
               "peer-placeholder-shown:-translate-y-5 peer-placeholder-shown:text-sm",
             )}
           >
-            {"*" + t("ordererEmail")}
+            {"*" + t("billingEmail")}
           </label>
         </div>
         <ShoppingcartInformationInput
           state={state}
-          TitleByi18n="ordererNumber"
-          name="number"
+          TitleByi18n="billingNumber"
+          name="billingNumber"
           type="tel"
         />
+      </div>
 
+      <div className="flex w-full flex-col gap-8 border border-black p-3">
+        <div className="flex flex-col gap-2">
+          <h2 className="flex flex-row text-xl">
+            <Truck />
+            {t("shippingInformation")}
+          </h2>
+          <Separator />
+        </div>
         <ShoppingcartInformationInput
           state={state}
           TitleByi18n="recipient"
           name="name"
           type="text"
         />
-
+        <ShoppingcartInformationInput
+          state={state}
+          TitleByi18n="recipientNumber"
+          name="recipientNumber"
+          type="tel"
+        />
         <ShoppingcartInformationInput
           state={state}
           TitleByi18n="recipientAddress"
@@ -140,6 +155,7 @@ export const ShoppoingcartInformation = forwardRef<
           type="text"
         />
       </div>
+      
       <button ref={buttonRef} type="submit" />
     </form>
   );

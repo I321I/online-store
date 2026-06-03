@@ -12,12 +12,15 @@
   "calculating": "計算中",
   "next": "下一步",
   "exceedWarning": "您的結帳金額超過 8 萬元(大量訂購)，欲購買請直接致電與我們聯繫！",
-  "orderer": "訂購人名稱",
-  "ordererEmail": "訂購人電子郵件地址",
-  "ordererNumber": "訂購人手機號碼",
+  "billing": "訂購人名稱",
+  "billingEmail": "訂購人電子郵件地址",
+  "billingNumber": "訂購人手機號碼",
   "recipient": "收件人名稱",
   "recipientNumber": "收件人手機號碼",
   "recipientAddress": "收件人地址",
   "numberInvalid": "格式不符(09開頭，共10個數字)！",
-  "requiredFieldInvalid": "必填欄位！"
+  "requiredFieldInvalid": "必填欄位！",
+  "billingInformation": "訂購資料",
+  "shippingInformation": "運送資料",
+  "checkInformation": "進到下一步前，請檢查上方表格資訊是否正確！"
 }

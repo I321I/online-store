@@ -5,6 +5,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Session } from "next-auth";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 interface ProductInformation extends ProductObject {
   id: string;
@@ -60,11 +61,23 @@ export const ShoppingcartTableItem = ({
     setQuantity(item.quantity);
   }, [item.quantity]);
   const [isDeleted, setDeleted] = useState<boolean>(false);
+  const catogoryPathName =
+    /[A-Za-z]+/.exec(item.id)?.[0] === "table" ? "tables" : "storage";
   const result = (product: ProductInformation, isDeleted: boolean) => {
     if (isDeleted === false)
       return (
         <TableRow key={product.id}>
-          <TableCell className="text-center">{product.id}</TableCell>
+          <TableCell className="flex justify-center p-1">
+            <Image
+              src={`/images/${catogoryPathName}/${product.id}.jpg`}
+              width={0}
+              height={0}
+              alt={`image of product ${product.id}`}
+              sizes="100vw"
+              loading="eager"
+              className="aspect-square h-13 w-13 overflow-hidden object-cover"
+            />
+          </TableCell>
           <TableCell className="text-center">{product.title}</TableCell>
           <TableCell className="text-center">{product.price}</TableCell>
           <TableCell>
@@ -100,9 +113,9 @@ export const ShoppingcartTableItem = ({
           <TableCell className="w-[20%] text-center">
             NT$ {product.subtotal.toLocaleString()}
           </TableCell>
-          <TableCell className="flex justify-center">
+          <TableCell>
             <Trash2
-              className="cursor-pointer"
+              className="m-auto cursor-pointer"
               onClick={() => {
                 setDeleted(true);
                 fetch(`/api/users/${session.user?.id}/cart/${product.id}`, {

@@ -4,7 +4,12 @@ import { z } from "zod";
 export const cartInformationSchema = async (t: TFunction) => {
   return z.object({
     name: z.string().min(1, { message: t("requiredFieldInvalid") }),
-    number: z
+    recipientNumber: z
+      .string()
+      .trim()
+      .regex(/^09/, { message: t("numberInvalid") })
+      .length(10, { message: t("numberInvalid") }),
+    billingNumber: z
       .string()
       .trim()
       .regex(/^09/, { message: t("numberInvalid") })

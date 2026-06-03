@@ -7,6 +7,7 @@ import { useT } from "next-i18next/client";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingcartTable } from "./shoppingcartTable";
 import { ShoppoingcartInformation } from "./shoppingcartInformation";
+import { Check } from "lucide-react";
 
 const NextButton = ({
   handleSwitchTab,
@@ -18,7 +19,7 @@ const NextButton = ({
   total: number | string;
 }) => {
   const { t } = useT("shoppingCart");
-  if (typeof total === "string" || total > 80000)
+  if (typeof total === "string" || total > 80000 || total === 0)
     return (
       <Button
         disabled
@@ -44,10 +45,6 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     return total;
   };
 
-  const [FormValid, setFromValid] = useState<boolean>(false);
-  const returnFormValid = (isValid: boolean) => {
-    setFromValid(isValid);
-  };
   const informationButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -80,11 +77,27 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
         >
           <TabsTrigger
             value="cart"
-            className={cn(
-              "flex h-auto max-w-20 flex-col text-lg font-light text-gray-400 data-active:text-gray-600",
-              `before:flex before:h-6 before:w-6 before:flex-wrap before:content-center before:justify-center before:rounded-4xl before:border-0 before:bg-gray-400 before:text-sm before:text-white before:content-["1"] data-active:before:bg-gray-600`,
-            )}
+            className="group flex h-auto max-w-20 flex-col items-center gap-1 text-lg font-light text-gray-400 data-active:text-gray-600"
           >
+            {activeTab !== "cart" ? (
+              <Check
+                className={cn(
+                  "size-6 stroke-[3px] text-white",
+                  "flex items-center justify-center rounded-full",
+                  "bg-gray-400 group-data-active:bg-gray-600",
+                )}
+              />
+            ) : (
+              <p
+                className={cn(
+                  "text-white",
+                  "flex h-6 w-6 items-center justify-center rounded-full",
+                  "bg-gray-400 group-data-active:bg-gray-600",
+                )}
+              >
+                1
+              </p>
+            )}
             {t("cart")}
           </TabsTrigger>
           <div
@@ -94,12 +107,28 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           />
           <TabsTrigger
             value="information"
-            className={cn(
-              "flex h-auto max-w-20 flex-col text-lg font-light text-gray-400 data-active:text-gray-600",
-              `before:flex before:h-6 before:w-6 before:flex-wrap before:content-center before:justify-center before:rounded-4xl before:border-0 before:bg-gray-400 before:text-sm before:text-white before:content-["2"] data-active:before:bg-gray-600`,
-            )}
+            className="group flex h-auto max-w-20 flex-col items-center gap-1 text-lg font-light text-gray-400 data-active:text-gray-600"
           >
-            {t("information")}
+            {activeTab !== "cart" && activeTab !== "information" ? (
+              <Check
+                className={cn(
+                  "size-6 stroke-[3px] text-white",
+                  "flex items-center justify-center rounded-full",
+                  "bg-gray-400 group-data-active:bg-gray-600",
+                )}
+              />
+            ) : (
+              <p
+                className={cn(
+                  "text-white",
+                  "flex h-6 w-6 items-center justify-center rounded-full",
+                  "bg-gray-400 group-data-active:bg-gray-600",
+                )}
+              >
+                2
+              </p>
+            )}
+            {t("cart")}
           </TabsTrigger>
           <div
             className={cn(
@@ -128,6 +157,9 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             ref={informationButtonRef}
             switchTab={handleFormValid}
           />
+          <p className="h-15 content-center bg-amber-700/10 text-amber-700 text-center text-lg font-light">
+            {t("checkInformation")}
+          </p>
         </TabsContent>
         <TabsContent value="confirmation">3</TabsContent>
       </Tabs>

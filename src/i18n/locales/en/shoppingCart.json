@@ -12,12 +12,15 @@
   "calculating": "Calculating",
   "next": "Next",
   "exceedWarning": "Your order total exceeds NT$80,000. For bulk purchases, please contact us directly by phone",
-  "orderer": "Orderer's Name",
-  "ordererEmail": "Orderer's Email Address",
-  "ordererNumber": "Orderer's Mobile Number",
+  "billing": "Billing Name",
+  "billingEmail": "Billing Email Address",
+  "billingNumber": "Billing Mobile Number",
   "recipient": "Recipient's Name",
   "recipientNumber": "Recipient's Mobile Number",
   "recipientAddress": "Recipient's Address",
   "numberInvalid": "Incorrect format (Starts with 09, 10 digits total)!",
-  "requiredFieldInvalid": "Required field!"
+  "requiredFieldInvalid": "Required field!",
+  "billingInformation": "Billing Informatioin",
+  "shippingInformation": "Shipping Information",
+  "checkInformation": "Please verify that the above information is correct before moving to the next step!"
 }
