@@ -37,7 +37,6 @@ export const ShoppingcartTableItem = ({
     };
   };
   const updateQuantity = useMemo(
-    // eslint-disable-next-line react-hooks/preserve-manual-memoization
     () =>
       debounce(async (targetQuantity, productId) => {
         if (targetQuantity === 0) {
@@ -51,13 +50,14 @@ export const ShoppingcartTableItem = ({
           body: JSON.stringify({ targetQuantity }),
         });
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
   useEffect(() => {
     updateQuantity(quantity, item.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity]);
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setQuantity(item.quantity);
   }, [item.quantity]);
   const [isDeleted, setDeleted] = useState<boolean>(false);

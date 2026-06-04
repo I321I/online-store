@@ -45,6 +45,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
       return await fetch(`/api/users/${id}/cart`);
     };
     callCartApi(session?.user?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { t } = useT("shoppingCart");

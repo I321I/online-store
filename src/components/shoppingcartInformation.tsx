@@ -11,7 +11,6 @@ import {
   useEffect,
   useImperativeHandle,
   useRef,
-  useState,
 } from "react";
 import { isCartInformationValid } from "@/app/actions/isCartInformationValid";
 import { ShoppingcartInformationInput } from "./shoppingcartInformationInput";
@@ -35,13 +34,14 @@ export const ShoppoingcartInformation = forwardRef<
     errors: {},
     field: {},
   };
-  const [state, action, isPeding] = useActionState(
+  const [state, action] = useActionState(
     isCartInformationValid(t),
     initialState,
   );
 
   useEffect(() => {
     if (state.success) props.switchTab();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   if (session.data?.user?.name == null || session.data.user.email == null) {
@@ -155,7 +155,7 @@ export const ShoppoingcartInformation = forwardRef<
           type="text"
         />
       </div>
-      
+
       <button ref={buttonRef} type="submit" />
     </form>
   );

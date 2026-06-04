@@ -11,7 +11,7 @@ import {
 import { TFunction } from "i18next";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname} from "next/navigation";
 import Link from "next/link";
 
 export const IntroCard = ({
@@ -28,7 +28,6 @@ export const IntroCard = ({
   const path = usePathname();
   const segments = path.split("/");
   const lng = segments[1];
-  const router = useRouter();
   return (
     <Card
       className={`mx-fit relative w-full max-w-sm shrink-0 ${tailwindBgColor} snap-start pt-0`}
