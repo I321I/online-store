@@ -33,8 +33,8 @@ export type FormState = {
   };
   errors?: {
     name?: string[];
-    recipientNumber?: string;
-    billingNumber?: string;
+    recipientNumber?: string[];
+    billingNumber?: string[];
     address?: string[];
   };
 };
