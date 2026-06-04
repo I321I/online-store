@@ -14,4 +14,5 @@ export interface IChartDB {
     quantity?: number,
     targetQuantity?: number,
   ) => Promise<{ id: string; quantity: number }>;
+  checkout: (userId: string) => Promise<{ id: string; quantity: number }[]>;
 }

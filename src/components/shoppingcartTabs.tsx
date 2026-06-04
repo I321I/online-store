@@ -55,8 +55,11 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
       informationButtonRef.current?.click();
     }
   };
-  const handleFormValid = () => {
-    if (activeTab === "information") setActiveTab("confirmation");
+  const handleFormValid = async () => {
+    if (activeTab === "information") {
+      await fetch(`/api/users/${session.user?.id}/cart`, { method: "POST" });
+      setActiveTab("confirmation");
+    }
   };
 
   return (
