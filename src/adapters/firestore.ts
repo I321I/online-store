@@ -28,6 +28,8 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
         .get();
       const data = productSnap.data() as Pick<ProductItem, "stock"> | undefined;
       if (data == null) throw new Error("updateStock Failed");
+      if (amount_change < -9 || amount_change > 9)
+        throw new Error("updateStock refused");
       if (data.stock + amount_change > 999 || data.stock + amount_change < 0)
         throw new Error("updateStock refused");
       await this.#db

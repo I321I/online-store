@@ -124,7 +124,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
                 2
               </p>
             )}
-            {t("cart")}
+            {t("information")}
           </TabsTrigger>
           <div
             className={cn(
@@ -157,18 +157,30 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             {t("checkInformation")}
           </p>
         </TabsContent>
-        <TabsContent value="confirmation">3</TabsContent>
+        <TabsContent
+          value="confirmation"
+          className="m-auto flex w-full max-w-110 flex-col gap-7"
+        >
+          {" "}
+          <p className="h-15 content-center bg-slate-200 text-center text-lg font-light">
+            {t("thanks")}
+          </p>
+          <p className="m-auto pt-8 text-lg font-light">{t("ship")}</p>
+          <p className="m-auto text-xl text-green-800/50">Have a nice day!</p>
+        </TabsContent>
       </Tabs>
       <p className="m-auto h-8 text-red-600">
         {typeof total === "number" && total > 80000 && t("exceedWarning")}
       </p>
-      <div className="flex flex-row">
-        <NextButton
-          handleSwitchTab={handleSwitchTab}
-          activeTab={activeTab}
-          total={total}
-        />
-      </div>
+      {activeTab !== "confirmation" && (
+        <div className="flex flex-row">
+          <NextButton
+            handleSwitchTab={handleSwitchTab}
+            activeTab={activeTab}
+            total={total}
+          />
+        </div>
+      )}
     </div>
   );
 }
