@@ -25,6 +25,16 @@ export type CartInformationSchema = z.infer<
 export type FormState = {
   message?: string;
   success: boolean;
-  field?: { name?: string; number?: string; address?: string };
-  errors?: { name?: string[]; number?: string[]; address?: string[] };
+  field?: {
+    name?: string;
+    recipientNumber?: string;
+    billingNumber?: string;
+    address?: string;
+  };
+  errors?: {
+    name?: string[];
+    recipientNumber?: string;
+    billingNumber?: string;
+    address?: string[];
+  };
 };

@@ -9,7 +9,7 @@ import {
 import { ProductObject } from "@/types/product";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ShoppingcartTableItem } from "./shoppingcartTableItem";
 import { cn } from "@/lib/utils";
 
@@ -103,9 +103,9 @@ export function ShoppingcartTable({
 
   useEffect(() => {
     const tempTotol = data.reduce((sum, item) => sum + item.subtotal, 0);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTotal(tempTotol);
     emitTotal(tempTotol);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   const updatePage = () => {
