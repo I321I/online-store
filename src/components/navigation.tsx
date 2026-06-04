@@ -42,7 +42,7 @@ export async function Navigation({ lng }: { lng: string }) {
             </Link>
           )}
           {session && (
-            <p className="flex h-fit text-3xl/8 font-normal">
+            <p className="flex h-fit text-3xl/8 font-normal cursor-default">
               {session?.user?.name}
             </p>
           )}

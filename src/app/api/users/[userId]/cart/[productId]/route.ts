@@ -33,18 +33,57 @@ export async function PATCH(
 ) {
   const { userId } = await params;
   const { productId } = await params;
-  const body: { quantity: number } = await request.json();
+  const body: { quantity?: number; targetQuantity?: number } =
+    await request.json();
+  const { quantity } = body;
+  const { targetQuantity } = body;
+  if (
+    (quantity && targetQuantity) ||
+    (quantity == null && targetQuantity == null)
+  )
+    return new Response("body content error", { status: 400 });
   const session = await auth();
   if (userId !== session?.user?.id)
     return new Response("user mismatch", { status: 401 });
+  if (quantity)
+    return await database
+      .updateCartItemQuantity(userId, productId, quantity)
+      .then((result) => Response.json(result))
+      .catch((reason) => {
+        const message =
+          reason instanceof Error
+            ? reason.message
+            : "updateCartItemQuantity failed";
+        return new Response(message, { status: 400 });
+      });
+  if (targetQuantity)
+    return await database
+      .updateCartItemQuantity(userId, productId, undefined, targetQuantity)
+      .then((result) => Response.json(result))
+      .catch((reason) => {
+        const message =
+          reason instanceof Error
+            ? reason.message
+            : "updateCartItemQuantity failed";
+        return new Response(message, { status: 400 });
+      });
+}
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ userId: string; productId: string }> },
+) {
+  const { userId } = await params;
+  const { productId } = await params;
+  const session = await auth();
+  if (session?.user?.id !== userId)
+    return new Response("user mismatch", { status: 401 });
   return await database
-    .updateCartItemQuantity(userId, productId, body.quantity)
+    .removeCartItem(userId, productId)
     .then((result) => Response.json(result))
     .catch((reason) => {
       const message =
-        reason instanceof Error
-          ? reason.message
-          : "updateCartItemQuantity failed";
+        reason instanceof Error ? reason.message : "removeCartItem failed";
       return new Response(message, { status: 400 });
     });
 }

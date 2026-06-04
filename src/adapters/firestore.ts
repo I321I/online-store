@@ -28,6 +28,8 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
         .get();
       const data = productSnap.data() as Pick<ProductItem, "stock"> | undefined;
       if (data == null) throw new Error("updateStock Failed");
+      if (amount_change < -9 || amount_change > 9)
+        throw new Error("updateStock refused");
       if (data.stock + amount_change > 999 || data.stock + amount_change < 0)
         throw new Error("updateStock refused");
       await this.#db
@@ -58,6 +60,13 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   };
   getCartItem = async (userId: string, productId: string) => {
     try {
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
+      if (productSnap.data() == null)
+        throw new Error(`${productId} isnt't exist`);
+
       const itemSnap = await this.#db
         .collection("cart")
         .doc(userId)
@@ -73,6 +82,13 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   };
   removeCartItem = async (userId: string, productId: string) => {
     try {
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
+      if (productSnap.data() == null)
+        throw new Error(`${productId} isnt't exist`);
+
       const itemRef = this.#db
         .collection("cart")
         .doc(userId)
@@ -90,33 +106,85 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   updateCartItemQuantity = async (
     userId: string,
     productId: string,
-    quantity: number,
+    quantity?: number,
+    targetQuantity?: number,
   ) => {
     try {
-      const itemSnap = await this.#db
-        .collection("cart")
-        .doc(userId)
-        .collection("items")
+      const productSnap = await this.#db
+        .collection("products")
         .doc(productId)
         .get();
-      const data = itemSnap.data();
-      if (data == null) {
+      if (productSnap.data() == null)
+        throw new Error(`${productId} isnt't exist`);
+    } catch (error) {
+      throw error;
+    }
+
+    if (quantity && targetQuantity == null)
+      try {
+        const itemSnap = await this.#db
+          .collection("cart")
+          .doc(userId)
+          .collection("items")
+          .doc(productId)
+          .get();
+        const data = itemSnap.data();
+        if (data == null) {
+          await this.#db
+            .collection("cart")
+            .doc(userId)
+            .collection("items")
+            .doc(productId)
+            .set({ quantity: quantity });
+          return { id: productId, quantity: quantity };
+        }
+        if (data.quantity + quantity > 9) throw new Error("quantity exceed 9");
         await this.#db
           .collection("cart")
           .doc(userId)
           .collection("items")
           .doc(productId)
-          .set({ quantity: quantity });
-        return { id: productId, quantity: quantity };
+          .set({ quantity: data.quantity + quantity }, { merge: true });
+        return { id: productId, quantity: data.quantity + quantity };
+      } catch (error) {
+        throw error;
       }
-      if (data.quantity + quantity > 9) throw new Error("quantity exceed 9");
+
+    if (targetQuantity == null)
+      throw new Error("quantity == null && targetQuantity == null");
+    try {
+      if (targetQuantity < 1 || targetQuantity > 9)
+        throw new Error("quantity exceed 9");
       await this.#db
         .collection("cart")
         .doc(userId)
         .collection("items")
         .doc(productId)
-        .set({ quantity: data.quantity + quantity }, { merge: true });
-      return { id: productId, quantity: data.quantity + quantity };
+        .set({ quantity: targetQuantity }, { merge: true });
+      return { id: productId, quantity: targetQuantity };
+    } catch (error) {
+      throw error;
+    }
+  };
+  checkout = async (userId: string) => {
+    try {
+      const cartSnap = await this.#db
+        .collection("cart")
+        .doc(userId)
+        .collection("items")
+        .get();
+      const data = await Promise.all(
+        cartSnap.docs.map(async (doc) => {
+          await this.updateStock(doc.id, -doc.data().quantity);
+          return { id: doc.id, quantity: doc.data().quantity };
+        }),
+      );
+      const cartRef = this.#db
+        .collection("cart")
+        .doc(userId)
+        .collection("items");
+      await this.#db.recursiveDelete(cartRef);
+      return data;
     } catch (error) {
       throw error;
     }
