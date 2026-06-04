@@ -22,5 +22,6 @@
   "requiredFieldInvalid": "必填欄位！",
   "billingInformation": "訂購資料",
   "shippingInformation": "運送資料",
-  "checkInformation": "進到下一步前，請檢查上方表格資訊是否正確！"
+  "checkInformation": "進到下一步前，請檢查上方表格資訊是否正確！",
+  "cartEmpty": "購物車目前是空的，去逛逛吧！"
 }

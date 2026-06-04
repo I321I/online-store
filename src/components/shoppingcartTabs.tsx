@@ -19,17 +19,10 @@ const NextButton = ({
   total: number | string;
 }) => {
   const { t } = useT("shoppingCart");
-  if (typeof total === "string" || total > 80000 || total === 0)
-    return (
-      <Button
-        disabled
-        className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
-      >
-        {t("next")}
-      </Button>
-    );
+
   return (
     <Button
+      disabled={typeof total === "string" || total > 80000 || total === 0}
       className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
       onClick={() => handleSwitchTab(activeTab)}
     >
@@ -157,7 +150,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             ref={informationButtonRef}
             switchTab={handleFormValid}
           />
-          <p className="h-15 content-center bg-amber-700/10 text-amber-700 text-center text-lg font-light">
+          <p className="h-15 content-center bg-amber-700/10 text-center text-lg font-light text-amber-700">
             {t("checkInformation")}
           </p>
         </TabsContent>
@@ -166,12 +159,13 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
       <p className="m-auto h-8 text-red-600">
         {typeof total === "number" && total > 80000 && t("exceedWarning")}
       </p>
-
-      <NextButton
-        handleSwitchTab={handleSwitchTab}
-        activeTab={activeTab}
-        total={total}
-      />
+      <div className="flex flex-row">
+        <NextButton
+          handleSwitchTab={handleSwitchTab}
+          activeTab={activeTab}
+          total={total}
+        />
+      </div>
     </div>
   );
 }

@@ -22,5 +22,6 @@
   "requiredFieldInvalid": "Required field!",
   "billingInformation": "Billing Informatioin",
   "shippingInformation": "Shipping Information",
-  "checkInformation": "Please verify that the above information is correct before moving to the next step!"
+  "checkInformation": "Please verify that the above information is correct before moving to the next step!",
+  "cartEmpty": "Your shopping cart is empty. Explore our shop!"
 }

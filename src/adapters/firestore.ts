@@ -58,6 +58,13 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   };
   getCartItem = async (userId: string, productId: string) => {
     try {
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
+      if (productSnap.data() == null)
+        throw new Error(`${productId} isnt't exist`);
+
       const itemSnap = await this.#db
         .collection("cart")
         .doc(userId)
@@ -73,6 +80,13 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   };
   removeCartItem = async (userId: string, productId: string) => {
     try {
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
+      if (productSnap.data() == null)
+        throw new Error(`${productId} isnt't exist`);
+
       const itemRef = this.#db
         .collection("cart")
         .doc(userId)
@@ -93,6 +107,17 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
     quantity?: number,
     targetQuantity?: number,
   ) => {
+    try {
+      const productSnap = await this.#db
+        .collection("products")
+        .doc(productId)
+        .get();
+      if (productSnap.data() == null)
+        throw new Error(`${productId} isnt't exist`);
+    } catch (error) {
+      throw error;
+    }
+
     if (quantity && targetQuantity == null)
       try {
         const itemSnap = await this.#db

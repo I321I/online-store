@@ -36,6 +36,8 @@ export function ShoppingcartTable({
   };
 
   const userId = session.user?.id;
+  const [show, setShow] = useState<boolean>(false);
+
   const [cart, setCart] = useState<
     | {
         id: string;
@@ -54,6 +56,7 @@ export function ShoppingcartTable({
           }[]
         | [];
       setCart(data);
+      setShow(true);
     };
     callCartApi();
   }, [update, userId]);
@@ -112,52 +115,54 @@ export function ShoppingcartTable({
     updateDebounce();
   };
 
-  return (
-    cart.length > 0 && (
-      <div className="flex flex-col justify-center gap-4">
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow className="hover:bg-inherit">
-                <TableHead className="text-center">{t("image")}</TableHead>
-                <TableHead className="text-center">{t("product")}</TableHead>
-                <TableHead className="text-center">{t("price")}</TableHead>
-                <TableHead className="text-center">{t("quantity")}</TableHead>
-                <TableHead className="text-center">{t("subtotal")}</TableHead>
-                <TableHead className="text-center">{t("remove")}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.map((item) => (
-                <ShoppingcartTableItem
-                  key={item.id}
-                  productInformation={item}
-                  updatePage={updatePage}
-                  session={session}
-                />
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <div className="m-auto flex w-fit flex-row text-lg text-gray-500">
-          {typeof total === "number" ? (
-            `${t("total")}NT$ ${total.toLocaleString()}`
-          ) : (
-            <>
-              <p
-                className={cn(
-                  `peer hidden ${typeof total === "number" ? "hidden" : "block"}`,
-                )}
-              >
-                {total}
-              </p>
-              <span className="animate-dotAppear opacity-0 delay-150">.</span>
-              <span className="animate-dotAppear opacity-0 delay-250">.</span>
-              <span className="animate-dotAppear opacity-0 delay-350">.</span>
-            </>
-          )}
-        </div>
+  return cart.length > 0 ? (
+    <div className="flex flex-col justify-center gap-4">
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow className="hover:bg-inherit">
+              <TableHead className="text-center">{t("image")}</TableHead>
+              <TableHead className="text-center">{t("product")}</TableHead>
+              <TableHead className="text-center">{t("price")}</TableHead>
+              <TableHead className="text-center">{t("quantity")}</TableHead>
+              <TableHead className="text-center">{t("subtotal")}</TableHead>
+              <TableHead className="text-center">{t("remove")}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((item) => (
+              <ShoppingcartTableItem
+                key={item.id}
+                productInformation={item}
+                updatePage={updatePage}
+                session={session}
+              />
+            ))}
+          </TableBody>
+        </Table>
       </div>
+      <div className="m-auto flex w-fit flex-row text-lg text-gray-500">
+        {typeof total === "number" ? (
+          `${t("total")}NT$ ${total.toLocaleString()}`
+        ) : (
+          <>
+            <p
+              className={cn(
+                `peer hidden ${typeof total === "number" ? "hidden" : "block"}`,
+              )}
+            >
+              {total}
+            </p>
+            <span className="animate-dotAppear opacity-0 delay-150">.</span>
+            <span className="animate-dotAppear opacity-0 delay-250">.</span>
+            <span className="animate-dotAppear opacity-0 delay-350">.</span>
+          </>
+        )}
+      </div>
+    </div>
+  ) : (
+    show && (
+      <p className="m-auto w-fit text-xl text-amber-800">{t("cartEmpty")}</p>
     )
   );
 }
