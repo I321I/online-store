@@ -28,7 +28,7 @@ export default function Home() {
           alt="image of home page"
           loading="eager"
           priority
-          className="absolute left-0 z-10 mt-[-2] w-screen object-cover "
+          className="absolute left-0 mt-[-2] w-screen object-cover"
         />
       </div>
       <section className="flex flex-col gap-8">

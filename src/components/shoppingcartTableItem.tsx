@@ -2,7 +2,7 @@
 import { ProductObject } from "@/types/product";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Session } from "next-auth";
 import { Button } from "./ui/button";
 import Image from "next/image";
@@ -36,9 +36,14 @@ export const ShoppingcartTableItem = ({
       }, wait);
     };
   };
+  const notExecuteFirstTime = useRef<boolean>(true);
   const updateQuantity = useMemo(
     () =>
       debounce(async (targetQuantity, productId) => {
+        if (notExecuteFirstTime.current) {
+          notExecuteFirstTime.current = false;
+          return;
+        }
         if (targetQuantity === 0) {
           await fetch(`/api/users/${session.user?.id}/cart/${productId}`, {
             method: "DELETE",

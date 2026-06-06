@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { ShoppingcartTable } from "./shoppingcartTable";
 import { ShoppoingcartInformation } from "./shoppingcartInformation";
 import { Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NextButton = ({
   handleSwitchTab,
@@ -23,7 +24,7 @@ const NextButton = ({
   return (
     <Button
       disabled={typeof total === "string" || total > 80000 || total === 0}
-      className="m-auto flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+      className="flex h-10 w-20 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
       onClick={() => handleSwitchTab(activeTab)}
     >
       {t("next")}
@@ -49,18 +50,34 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   }, []);
 
   const { t } = useT("shoppingCart");
-  const [activeTab, setActiveTab] = useState("cart");
-  const handleSwitchTab = async (tab: string) => {
-    if (tab === "cart") setActiveTab("information");
+  const [{ activeTab, direction }, setActiveTab] = useState<{
+    activeTab: "cart" | "information" | "confirmation";
+    direction: -1 | 1;
+  }>({ activeTab: "cart", direction: -1 });
+  const handleNextSwitchTab = (tab: string) => {
+    if (tab === "cart")
+      setActiveTab({ activeTab: "information", direction: -1 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (tab === "information") {
       informationButtonRef.current?.click();
     }
   };
+
   const handleFormValid = async () => {
     if (activeTab === "information") {
       await fetch(`/api/users/${session.user?.id}/cart`, { method: "POST" });
-      setActiveTab("confirmation");
+      setActiveTab({ activeTab: "confirmation", direction: -1 });
     }
+  };
+
+  const variants = {
+    enter: (dir: number) => {
+      return { x: dir < 0 ? "120%" : "-120%", opacity: 1 };
+    },
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => {
+      return { x: dir < 0 ? "-120%" : "120%", opacity: 1 };
+    },
   };
 
   return (
@@ -142,41 +159,84 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             {t("confirmation")}
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="cart">
-          <ShoppingcartTable session={session} emitTotal={returnTotal} />
-        </TabsContent>
-        <TabsContent
-          value="information"
-          className="m-auto flex w-full max-w-110 flex-col gap-4"
-        >
-          <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
-          <ShoppoingcartInformation
-            ref={informationButtonRef}
-            switchTab={handleFormValid}
-          />
-          <p className="h-15 content-center bg-amber-700/10 text-center text-lg font-light text-amber-700">
-            {t("checkInformation")}
-          </p>
-        </TabsContent>
-        <TabsContent
-          value="confirmation"
-          className="m-auto flex w-full max-w-110 flex-col gap-7"
-        >
-          {" "}
-          <p className="h-15 content-center bg-slate-200 text-center text-lg font-light">
-            {t("thanks")}
-          </p>
-          <p className="m-auto pt-8 text-lg font-light">{t("ship")}</p>
-          <p className="m-auto text-xl text-green-800/50">Have a nice day!</p>
-        </TabsContent>
+        <AnimatePresence mode="popLayout" custom={direction}>
+          {activeTab === "cart" && (
+            <motion.div
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              key="cart"
+              className="w-full"
+            >
+              <ShoppingcartTable session={session} emitTotal={returnTotal} />
+            </motion.div>
+          )}
+          {activeTab === "information" && (
+            <motion.div
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="m-auto flex w-full flex-col gap-4"
+              key="information"
+            >
+              <div className="m-auto flex w-full max-w-110 flex-col gap-4">
+                <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
+                <ShoppoingcartInformation
+                  ref={informationButtonRef}
+                  switchTab={handleFormValid}
+                />
+                <p className="h-15 content-center bg-amber-700/10 text-center text-lg font-light text-amber-700">
+                  {t("checkInformation")}
+                </p>
+              </div>
+            </motion.div>
+          )}
+          {activeTab === "confirmation" && (
+            <motion.div
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="m-auto flex w-full max-w-110 flex-col gap-7"
+              key="confirmation"
+            >
+              <p className="h-15 content-center bg-slate-200 text-center text-lg font-light">
+                {t("thanks")}
+              </p>
+              <p className="m-auto pt-8 text-lg font-light">{t("ship")}</p>
+              <p className="m-auto text-xl text-green-800/50">
+                Have a nice day!
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Tabs>
       <p className="m-auto h-8 text-red-600">
         {typeof total === "number" && total > 80000 && t("exceedWarning")}
       </p>
       {activeTab !== "confirmation" && (
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-center gap-2">
+          {activeTab !== "cart" && (
+            <Button
+              className="flex h-10 w-20 cursor-pointer rounded-none border border-gray-600 bg-white text-lg font-normal text-black"
+              onClick={() => {
+                setActiveTab({ activeTab: "cart", direction: 1 });
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              {t("back")}
+            </Button>
+          )}
           <NextButton
-            handleSwitchTab={handleSwitchTab}
+            handleSwitchTab={handleNextSwitchTab}
             activeTab={activeTab}
             total={total}
           />
