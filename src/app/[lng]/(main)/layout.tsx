@@ -20,9 +20,8 @@ export default async function RootLayout({
 
   return (
     <html lang={lng}>
-      <body className="overflow-x-hidden">
+      <body className="overflow-y-scroll overflow-x-hidden">
         <I18nProvider language={lng} resources={resources}>
-          {/* <Navigation params={params} /> */}
           <SessionProvider>
             <Navigation lng={lng} />
             {children}
