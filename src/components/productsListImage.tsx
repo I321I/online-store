@@ -23,6 +23,7 @@ export const ProductsListImage = ({
           alt={`image of product ${productId}`}
           loading="eager"
           className="aspect-square h-full w-full cursor-pointer overflow-hidden object-cover"
+          priority
         />
         <button
           className="hidden"

@@ -11,6 +11,7 @@
   "total": "Total: ",
   "calculating": "Calculating",
   "next": "Next",
+  "back": "Back",
   "exceedWarning": "Your order total exceeds NT$80,000. For bulk purchases, please contact us directly by phone",
   "billing": "Billing Name",
   "billingEmail": "Billing Email Address",
