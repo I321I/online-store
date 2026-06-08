@@ -65,7 +65,7 @@ export default async function Page({
                 </label>
               </div>
               <Button className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal">
-                Login
+                {t("continue")}
               </Button>
             </form>
             <div className="flex flex-col justify-center gap-4">
@@ -76,7 +76,7 @@ export default async function Page({
                   "before:flex before:h-0 before:grow before:-translate-y-0.5 before:flex-wrap before:self-center before:border-b before:border-solid before:border-gray-300",
                 )}
               >
-                其他方式登入
+                {t("orContinueWith")}
               </p>
               <div className="flex flex-row justify-center gap-2">
                 <form
