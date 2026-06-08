@@ -2,9 +2,8 @@
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Session } from "next-auth";
-import { useAppSelector } from "@/lib/hook";
 import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 export const NavigationCart = ({
@@ -21,10 +20,10 @@ export const NavigationCart = ({
   const path = usePathname();
 
   const defferredData = useDeferredValue(data?.length);
-  const displayData = data?.length ?? defferredData;
+  const displayData = userId ? (data?.length ?? defferredData) : undefined;
   useEffect(() => {
-    refetch();
-  }, [path, refetch]);
+    if (userId) refetch();
+  }, [path, refetch, userId]);
 
   return (
     <Link
@@ -32,7 +31,7 @@ export const NavigationCart = ({
       className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px max-md:hidden"
     >
       <div
-        className={`absolute start-4 -top-2 flex h-5 w-5 flex-wrap content-center justify-center rounded-2xl bg-gray-400 text-sm text-white ring-2`}
+        className={`${!displayData ? "hidden" : "flex"} absolute start-4 -top-2 flex h-5 w-5 flex-wrap content-center justify-center rounded-2xl bg-gray-400 text-sm text-white ring-2`}
       >
         {displayData}
       </div>
