@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Session } from "next-auth";
 import { useAppSelector } from "@/lib/hook";
 import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export const NavigationCart = ({
   session,
@@ -13,10 +15,15 @@ export const NavigationCart = ({
   lng: string;
 }) => {
   const userId = session?.user?.id;
-  const { data } = useGetQuantityQuery(userId ?? "", {
+  const { data, refetch } = useGetQuantityQuery(userId ?? "", {
     skip: !userId,
   });
+  const path = usePathname();
 
+  useEffect(() => {
+    refetch();
+  }, [path, refetch]);
+  
   return (
     <Link
       href={`/${lng}/shoppingcart`}

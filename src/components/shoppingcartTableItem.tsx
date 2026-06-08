@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Session } from "next-auth";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
 
 interface ProductInformation extends ProductObject {
   id: string;
@@ -36,6 +37,9 @@ export const ShoppingcartTableItem = ({
       }, wait);
     };
   };
+  const { refetch } = useGetQuantityQuery(session.user?.id ?? "", {
+    skip: !session.user?.id,
+  });
   const notExecuteFirstTime = useRef<boolean>(true);
   const updateQuantity = useMemo(
     () =>
@@ -48,6 +52,7 @@ export const ShoppingcartTableItem = ({
           await fetch(`/api/users/${session.user?.id}/cart/${productId}`, {
             method: "DELETE",
           });
+          refetch();
           return;
         }
         await fetch(`/api/users/${session.user?.id}/cart/${productId}`, {
