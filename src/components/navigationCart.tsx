@@ -29,6 +29,9 @@ export const NavigationCart = ({
     <Link
       href={`/${lng}/shoppingcart`}
       className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px max-md:hidden"
+      onClick={() => {
+        if (path === `/${lng}/shoppingcart`) window.location.reload();
+      }}
     >
       <div
         className={`${!displayData ? "hidden" : "flex"} absolute start-4 -top-2 flex h-5 w-5 flex-wrap content-center justify-center rounded-2xl bg-gray-400 text-sm text-white ring-2`}
