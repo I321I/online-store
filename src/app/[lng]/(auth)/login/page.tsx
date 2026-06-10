@@ -86,7 +86,7 @@ export default async function Page({
                   }}
                 >
                   <button
-                    className="rounded-3xl border border-gray-400 p-1"
+                    className="rounded-3xl border border-gray-400 p-1 cursor-pointer"
                     type="submit"
                   >
                     <FcGoogle size={30} />
@@ -99,7 +99,7 @@ export default async function Page({
                   }}
                 >
                   <button
-                    className="rounded-3xl border border-gray-400 p-1"
+                    className="rounded-3xl border border-gray-400 p-1 cursor-pointer"
                     type="submit"
                   >
                     <SiGithub size={30} />
