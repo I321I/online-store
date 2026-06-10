@@ -174,6 +174,7 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
           .doc(userId)
           .collection("items")
           .get();
+        if (cartSnap.docs.length === 0) throw new Error("cart is empity");
         const data = await Promise.all(
           cartSnap.docs.map(async (doc) => {
             try {

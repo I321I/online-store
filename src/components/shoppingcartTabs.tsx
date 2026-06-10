@@ -9,6 +9,14 @@ import { ShoppingcartTable } from "./shoppingcartTable";
 import { ShoppoingcartInformation } from "./shoppingcartInformation";
 import { Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const NextButton = ({
   handleSwitchTab,
@@ -38,7 +46,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     setTotal(total);
     return total;
   };
-
+  const [warning, setWarning] = useState<boolean>(false);
   const informationButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -65,7 +73,13 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
 
   const handleFormValid = async () => {
     if (activeTab === "information") {
-      await fetch(`/api/users/${session.user?.id}/cart`, { method: "POST" });
+      const res = await fetch(`/api/users/${session.user?.id}/cart`, {
+        method: "POST",
+      });
+      if (!res.ok) {
+        setWarning(true);
+        return;
+      }
       setActiveTab({ activeTab: "confirmation", direction: -1 });
     }
   };
@@ -240,6 +254,27 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             activeTab={activeTab}
             total={total}
           />
+          <AlertDialog open={warning}>
+            <AlertDialogContent>
+              <AlertDialogHeader className="flex justify-center">
+                <AlertDialogTitle className="text-2xl font-normal">
+                  {t("warning")}
+                </AlertDialogTitle>
+                <AlertDialogDescription className="hidden"></AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="flex justify-center sm:justify-center">
+                <Button
+                  className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
+                  onClick={() => {
+                    setWarning(false);
+                    window.location.reload()
+                  }}
+                >
+                  {t("tryAgain")}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       )}
     </div>

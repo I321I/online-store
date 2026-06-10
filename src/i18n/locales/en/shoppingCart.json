@@ -26,5 +26,7 @@
   "checkInformation": "Please verify that the above information is correct before moving to the next step!",
   "cartEmpty": "Your shopping cart is empty. Explore our shop!",
   "thanks": "Thank you for your order!",
-  "ship": "Your items will ship within 5 business days"
+  "ship": "Your items will ship within 5 business days",
+  "warning": "Transaction Failed",
+  "tryAgain": "Please try again"
 }
