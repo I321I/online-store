@@ -1,5 +1,5 @@
 {
-  "login": "登入",
+  "login": "登入/註冊",
   "emailAddress": "電子郵件地址",
   "curatedProducts": "精選商品",
   "productDescription": "商品描述",
@@ -10,5 +10,7 @@
   "storage": "庫存：",
   "success": "已成功加入購物車！",
   "exceed": "已達該商品購買上限",
-  "confirm": "確認"
+  "confirm": "確認",
+  "continue": "下一步",
+  "orContinueWith":"第三方登入/註冊"
 }

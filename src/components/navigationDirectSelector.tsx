@@ -42,7 +42,9 @@ export default function DirectSelector({
         <DropdownMenuGroup>
           {selections.map((item) => (
             <DropdownMenuItem asChild key={item}>
-              <Link href={`${direct(item)}`}>{t(`${item}`)}</Link>
+              <Link prefetch={true} href={`${direct(item)}`}>
+                {t(`${item}`)}
+              </Link>
             </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>

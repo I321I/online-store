@@ -1,5 +1,5 @@
 {
-  "login": "Sign In",
+  "login": "Sign In / Sign up",
   "emailAddress": "Email address",
   "curatedProducts": "Curated Products",
   "productDescription": "Product Description",
@@ -10,5 +10,7 @@
   "storage": "In stock: ",
   "success": "Added to cart!",
   "exceed": "Maximum quantity in cart reached",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "continue": "Continue",
+  "orContinueWith": "Or continue with"
 }

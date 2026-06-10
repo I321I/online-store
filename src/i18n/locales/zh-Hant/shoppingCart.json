@@ -11,6 +11,7 @@
   "total": "結帳金額：",
   "calculating": "計算中",
   "next": "下一步",
+  "back": "上一步",
   "exceedWarning": "您的結帳金額超過 8 萬元(大量訂購)，欲購買請直接致電與我們聯繫！",
   "billing": "訂購人名稱",
   "billingEmail": "訂購人電子郵件地址",
@@ -25,5 +26,7 @@
   "checkInformation": "進到下一步前，請檢查上方表格資訊是否正確！",
   "cartEmpty": "購物車目前是空的，去逛逛吧！",
   "thanks": "感謝您的訂購！",
-  "ship": "商品將於 5 個工作日內寄出"
+  "ship": "商品將於 5 個工作日內寄出",
+  "warning": "交易失敗",
+  "tryAgain": "請重新嘗試"
 }

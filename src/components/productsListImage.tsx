@@ -1,6 +1,9 @@
+import ProductsListImageSkeleton from "@/components/productsListImageSkeleton";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 export const ProductsListImage = ({
   imagePath,
@@ -12,9 +15,13 @@ export const ProductsListImage = ({
   const pathname = usePathname();
   const router = useRouter();
   const direct = `${pathname}/${productId}`;
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   return (
-    <>
+    <Suspense fallback={<ProductsListImageSkeleton />}>
       <Link href={`${direct}`}>
+        <Skeleton
+          className={`${isLoading ? "flex" : "hidden"} aspect-square h-auto w-full overflow-hidden`}
+        />
         <Image
           src={imagePath}
           width={0}
@@ -22,7 +29,9 @@ export const ProductsListImage = ({
           sizes="100vw"
           alt={`image of product ${productId}`}
           loading="eager"
-          className="aspect-square h-full w-full cursor-pointer overflow-hidden object-cover"
+          className={`${isLoading ? "hidden" : "flex"} aspect-square h-full w-full cursor-pointer overflow-hidden object-cover`}
+          priority
+          onLoad={() => setIsLoading(false)}
         />
         <button
           className="hidden"
@@ -32,6 +41,6 @@ export const ProductsListImage = ({
           }}
         />
       </Link>
-    </>
+    </Suspense>
   );
 };

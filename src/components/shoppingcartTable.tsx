@@ -48,7 +48,7 @@ export function ShoppingcartTable({
 
   useEffect(() => {
     const callCartApi = async () => {
-      const response = await fetch(`/api/users/${userId}/cart/`);
+      const response = await fetch(`/api/users/${userId}/cart`);
       const data = (await response.json()) as
         | {
             id: string;

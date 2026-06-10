@@ -5,8 +5,22 @@ import { I18nProvider } from "next-i18next/client";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SessionProvider } from "next-auth/react";
+import StoreProvider from "./storeProvider";
+import { Inter, Noto_Sans_TC } from "next/font/google";
 
 initServerI18next(i18nConfig);
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const notoFont = Noto_Sans_TC({
+  subsets: ["latin"],
+  variable: "--font-noto",
+  adjustFontFallback: false,
+});
+
 export default async function RootLayout({
   children,
   params,
@@ -19,15 +33,17 @@ export default async function RootLayout({
   const resources = getResources(i18n);
 
   return (
-    <html lang={lng}>
-      <body className="overflow-y-scroll overflow-x-hidden">
+    <html lang={lng} className={`${inter.variable} ${notoFont.variable}`}>
+      <body className="overflow-x-hidden overflow-y-scroll">
         <I18nProvider language={lng} resources={resources}>
           <SessionProvider>
-            <Navigation lng={lng} />
-            {children}
-            <footer>
-              <Footer />
-            </footer>
+            <StoreProvider>
+              <Navigation lng={lng} />
+              {children}
+              <footer>
+                <Footer />
+              </footer>
+            </StoreProvider>
           </SessionProvider>
         </I18nProvider>
       </body>

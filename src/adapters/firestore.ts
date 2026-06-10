@@ -168,23 +168,30 @@ export class FirestoreAdapter implements IChartDB, IProductsDB {
   };
   checkout = async (userId: string) => {
     try {
-      const cartSnap = await this.#db
-        .collection("cart")
-        .doc(userId)
-        .collection("items")
-        .get();
-      const data = await Promise.all(
-        cartSnap.docs.map(async (doc) => {
-          await this.updateStock(doc.id, -doc.data().quantity);
-          return { id: doc.id, quantity: doc.data().quantity };
-        }),
-      );
-      const cartRef = this.#db
-        .collection("cart")
-        .doc(userId)
-        .collection("items");
-      await this.#db.recursiveDelete(cartRef);
-      return data;
+      return await this.#db.runTransaction(async () => {
+        const cartSnap = await this.#db
+          .collection("cart")
+          .doc(userId)
+          .collection("items")
+          .get();
+        if (cartSnap.docs.length === 0) throw new Error("cart is empity");
+        const data = await Promise.all(
+          cartSnap.docs.map(async (doc) => {
+            try {
+              await this.updateStock(doc.id, -doc.data().quantity);
+              return { id: doc.id, quantity: doc.data().quantity };
+            } catch (error) {
+              throw error;
+            }
+          }),
+        );
+        const cartRef = this.#db
+          .collection("cart")
+          .doc(userId)
+          .collection("items");
+        await this.#db.recursiveDelete(cartRef);
+        return data;
+      });
     } catch (error) {
       throw error;
     }

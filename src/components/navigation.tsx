@@ -1,6 +1,6 @@
 import Link from "next/link";
 import LanguagesSelect from "./navigationLanguagesSelector";
-import { LogOut, ShoppingCart } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import DirectSelector from "./navigationDirectSelector";
 import { getT } from "next-i18next/server";
@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import NavigationMargin from "./navigationMargin";
+import { NavigationCart } from "./navigationCart";
 
 export async function Navigation({ lng }: { lng: string }) {
   const { t } = await getT("home", { lng });
@@ -31,18 +32,18 @@ export async function Navigation({ lng }: { lng: string }) {
             witchSegment={2}
           />
         </div>
-        <div className="flex h-full flex-row flex-wrap items-end gap-10 max-md:hidden">
+        <div className="flex h-full flex-row flex-wrap items-end gap-10">
           <LanguagesSelect lng={lng} />
           {!session && (
             <Link
               href={`/${lng}/login`}
-              className="h-fit cursor-pointer items-end text-3xl/8 font-normal decoration-2 underline-offset-3 hover:underline"
+              className="h-fit cursor-pointer items-end text-3xl/8 font-normal decoration-2 underline-offset-3 hover:underline max-md:hidden"
             >
               {t("login")}
             </Link>
           )}
           {session && (
-            <p className="flex h-fit text-3xl/8 font-normal cursor-default">
+            <p className="flex h-fit cursor-default text-3xl/8 font-normal">
               {session?.user?.name}
             </p>
           )}
@@ -71,12 +72,7 @@ export async function Navigation({ lng }: { lng: string }) {
               </Tooltip>
             </TooltipProvider>
           )}
-          <Link
-            href={`/${lng}/shoppingcart`}
-            className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
-          >
-            <ShoppingCart role="button" size={28} />
-          </Link>
+          <NavigationCart session={session} lng={lng} />
         </div>
       </div>
       <NavigationMargin />

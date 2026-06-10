@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Session } from "next-auth";
 import { ProductPageFailedAlert } from "./productPageFailedAlert";
 import { ProductPageSuccessAlert } from "./productPageSuccessAlert";
+import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
 
 export default function ProductPageComponent({
   session,
@@ -30,6 +31,10 @@ export default function ProductPageComponent({
   const productObject = tProduct(product, {
     returnObjects: true,
   }) as ProductObject;
+  const { refetch } = useGetQuantityQuery(session?.user?.id ?? "", {
+    skip: !session?.user?.id,
+  });
+
   useEffect(() => {
     const callStockApi = async () => {
       const response = await fetch(`/api/products/${product}`);
@@ -112,6 +117,7 @@ export default function ProductPageComponent({
                   body: JSON.stringify({ quantity: amount }),
                 });
                 setSuccess(true);
+                refetch();
                 return;
               }
               setWarning(true);
@@ -135,7 +141,7 @@ export default function ProductPageComponent({
                   method: "PATCH",
                   body: JSON.stringify({ quantity: amount }),
                 });
-                router.push(`/${lng}/shoppingcart`)
+                router.push(`/${lng}/shoppingcart`);
                 return;
               }
               setWarning(true);
