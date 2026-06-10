@@ -126,11 +126,12 @@ export const ShoppingcartTableItem = ({
           <TableCell>
             <Trash2
               className="m-auto cursor-pointer"
-              onClick={() => {
+              onClick={async () => {
                 setDeleted(true);
-                fetch(`/api/users/${session.user?.id}/cart/${product.id}`, {
+                await fetch(`/api/users/${session.user?.id}/cart/${product.id}`, {
                   method: "DELETE",
                 });
+                refetch();
                 updatePage();
               }}
             />
