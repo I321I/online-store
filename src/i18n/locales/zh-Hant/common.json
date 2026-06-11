@@ -12,5 +12,9 @@
   "exceed": "已達該商品購買上限",
   "confirm": "確認",
   "continue": "下一步",
-  "orContinueWith":"第三方登入/註冊"
+  "orContinueWith":"第三方登入/註冊",
+
+  "about": "關於我們",
+  "logistics": "寄送方式",
+  "payment": "付費管道"
 }

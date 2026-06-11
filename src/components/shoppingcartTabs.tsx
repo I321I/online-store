@@ -5,7 +5,10 @@ import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
 import { useEffect, useRef, useState } from "react";
-import { ShoppingcartTable } from "./shoppingcartTable";
+import {
+  mergeProductsInformation,
+  ShoppingcartTable,
+} from "./shoppingcartTable";
 import { ShoppoingcartInformation } from "./shoppingcartInformation";
 import { Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,6 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { TFunction } from "i18next";
 
 const NextButton = ({
   handleSwitchTab,
@@ -58,6 +62,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   }, []);
 
   const { t } = useT("shoppingCart");
+  const { t: tProducts } = useT("products");
   const [{ activeTab, direction }, setActiveTab] = useState<{
     activeTab: "cart" | "information" | "confirmation";
     direction: -1 | 1;
@@ -71,18 +76,34 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     }
   };
 
-  const handleFormValid = async () => {
-    if (activeTab === "information") {
-      const res = await fetch(`/api/users/${session.user?.id}/cart`, {
-        method: "POST",
-      });
-      if (!res.ok) {
-        setWarning(true);
-        return;
+  const handleFormValid =
+    (tProducts: TFunction<"products", undefined>) => async () => {
+      if (activeTab === "information") {
+        const cartResponse = await fetch(`/api/users/${session.user?.id}/cart`);
+        const dbCart = (await cartResponse.json()) as
+          | {
+              id: string;
+              quantity: number;
+            }[]
+          | [];
+        const total = mergeProductsInformation(dbCart, tProducts).reduce(
+          (sum, item) => sum + item.subtotal,
+          0,
+        );
+        if (total > 80000) {
+          setWarning(true);
+          return;
+        }
+        const res = await fetch(`/api/users/${session.user?.id}/cart`, {
+          method: "POST",
+        });
+        if (!res.ok) {
+          setWarning(true);
+          return;
+        }
+        setActiveTab({ activeTab: "confirmation", direction: -1 });
       }
-      setActiveTab({ activeTab: "confirmation", direction: -1 });
-    }
-  };
+    };
 
   const variants = {
     enter: (dir: number) => {
@@ -203,7 +224,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
                 <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
                 <ShoppoingcartInformation
                   ref={informationButtonRef}
-                  switchTab={handleFormValid}
+                  switchTab={handleFormValid(tProducts)}
                 />
                 <p className="h-15 content-center bg-amber-700/10 text-center text-lg font-light text-amber-700">
                   {t("checkInformation")}
@@ -267,7 +288,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
                   className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
                   onClick={() => {
                     setWarning(false);
-                    window.location.reload()
+                    window.location.reload();
                   }}
                 >
                   {t("tryAgain")}

@@ -13,7 +13,7 @@ export const Footer = () => {
     router.push(segments.join("/"));
   };
   return (
-    <footer className="container-1920 mt-7 flex h-40 w-full flex-col justify-center border-t-2">
+    <footer className="container-1920 mt-7 flex h-35 w-full flex-col justify-center border-t-2">
       <div className="flex w-full h-full grow flex-wrap content-center justify-around">
         <a
           target="_blank"

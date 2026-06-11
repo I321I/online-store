@@ -12,5 +12,9 @@
   "exceed": "Maximum quantity in cart reached",
   "confirm": "Confirm",
   "continue": "Continue",
-  "orContinueWith": "Or continue with"
+  "orContinueWith": "Or continue with",
+
+  "about": "About Us",
+  "logistics": "Shipping Methods",
+  "payment": "Payment Methods"
 }

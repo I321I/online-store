@@ -18,7 +18,6 @@ export default function Home() {
   // const { t } = await getT("home", { lng });
   return (
     <div className="container-1920 flex w-screen flex-col gap-8 ">
-      {/*墊absolute下面空間*/}
       <div className="h-[46vw] ">
         <Image
           src="/images/home.jpg"
