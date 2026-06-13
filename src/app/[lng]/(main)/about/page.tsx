@@ -21,7 +21,7 @@ export default async function Page({
         <br />
         網站內的產品均為模擬資料，可隨意瀏覽操作點擊。
         <br /> <br />
-        登入/註冊方面，採取email或OAuth，使用時除了Email及ID外，未經使用者授權的第三方帳戶資料不會被開發者存取，請放心使用登入/註冊的功能。
+        登入/註冊方面，採取Magic Link和OAuth，使用時除了Email及ID外，未經使用者授權的第三方帳戶資料不會被開發者存取，請放心使用登入/註冊的功能。
       </p>
       <Image
         src={aboutImage}
