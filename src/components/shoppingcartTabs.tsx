@@ -263,7 +263,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             <Button
               className="flex h-10 w-20 cursor-pointer rounded-none border border-gray-600 bg-white text-lg font-normal text-black"
               onClick={() => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                window.scrollTo({ top: 0 });
                 setActiveTab({ activeTab: "cart", direction: 1 });
               }}
             >
