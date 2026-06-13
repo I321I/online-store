@@ -14,7 +14,7 @@ export const Footer = () => {
   };
   return (
     <footer className="container-1920 mt-7 flex h-35 w-full flex-col justify-center border-t-2">
-      <div className="flex w-full h-full grow flex-wrap content-center justify-around">
+      <div className="flex h-full w-full grow flex-wrap content-center justify-around">
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -44,7 +44,7 @@ export const Footer = () => {
           </Button>
         </div>
       </div>
-      <div className="mx-auto flex h-13 w-full flex-wrap content-center justify-center text-xs border-t-2 text-nowrap bg-[rgb(85,96,97)] text-white">
+      <div className="mx-auto flex h-13 w-full flex-wrap content-center justify-center border-t-2 bg-[rgb(85,96,97)] text-xs text-nowrap text-white">
         Copyright © 2026 i321i. All RIGHTS RESERVED.
       </div>
     </footer>

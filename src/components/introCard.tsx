@@ -29,10 +29,11 @@ export const IntroCard = ({
   const segments = path.split("/");
   const lng = segments[1];
   return (
-    <Link href={`/${lng}/${direction}`}>
-      <Card
-        className={`mx-fit relative w-full max-w-sm shrink-0 ${tailwindBgColor} snap-start pt-0`}
-      >
+    <Link
+      href={`/${lng}/${direction}`}
+      className={`mx-fit relative w-full max-w-sm shrink-0 snap-start`}
+    >
+      <Card className={`${tailwindBgColor} snap-start pt-0`}>
         <Image
           src={`/images/${category}-intro.jpg`}
           width={100}
@@ -57,7 +58,7 @@ export const IntroCard = ({
             <Button
               variant="default"
               size="icon"
-              className="dark rounded-full bg-white cursor-pointer"
+              className="dark cursor-pointer rounded-full bg-white"
             >
               <ArrowRight />
             </Button>

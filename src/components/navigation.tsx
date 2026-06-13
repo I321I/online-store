@@ -16,6 +16,7 @@ import { NavigationCart } from "./navigationCart";
 
 export async function Navigation({ lng }: { lng: string }) {
   const { t } = await getT("home", { lng });
+  const { t: tCommon } = await getT("common", { lng });
   const session = await auth();
   return (
     <nav>
@@ -23,7 +24,7 @@ export async function Navigation({ lng }: { lng: string }) {
         className={`container-1920 flex h-24 w-full flex-row flex-wrap justify-between border-b-2 border-solid px-8 py-3 pt-0 pb-7`}
       >
         <div className="flex flex-row flex-wrap items-end gap-10">
-          <Link href={`/${lng}`} className="g-full font-serif text-5xl/10">
+          <Link href={`/${lng}`} className="font-serif text-5xl/10">
             {t("title")}
           </Link>
           <DirectSelector
@@ -31,6 +32,12 @@ export async function Navigation({ lng }: { lng: string }) {
             selections={categories}
             witchSegment={2}
           />
+          <Link
+            href={`/${lng}/shoppingcart`}
+            className="cursor-pointer text-3xl/8 hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px max-md:hidden"
+          >
+            {tCommon("about")}
+          </Link>
         </div>
         <div className="flex h-full flex-row flex-wrap items-end gap-10">
           <LanguagesSelect lng={lng} />
@@ -43,14 +50,14 @@ export async function Navigation({ lng }: { lng: string }) {
             </Link>
           )}
           {session && (
-            <p className="flex h-fit cursor-default text-3xl/8 font-normal">
+            <p className="flex h-fit cursor-default text-3xl/8 font-normal max-md:hidden">
               {session?.user?.name}
             </p>
           )}
           {session && (
             <TooltipProvider>
               <Tooltip key="tooltip">
-                <TooltipTrigger asChild>
+                <TooltipTrigger asChild className="max-md:hidden">
                   <form
                     className="flex items-end"
                     action={async () => {
