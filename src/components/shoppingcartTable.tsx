@@ -167,6 +167,6 @@ export function ShoppingcartTable({
   ) : (
     show ? (
       <p className="m-auto w-fit text-xl text-amber-800">{t("cartEmpty")}</p>
-    ):<div className="h-[54vh] max-[600px]:h-[130vh]"/>
+    ):<div className="h-[54vh] max-[600px]:h-[80vh]"/>
   );
 }

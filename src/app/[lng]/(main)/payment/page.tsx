@@ -11,7 +11,7 @@ export default async function Page({
   const { lng } = await params;
   const { t } = await getT("common", { lng });
   return (
-    <div className="container-1920 flex max-w-[800px] flex-col gap-10 px-8">
+    <div className="container-1920 flex max-w-[800px] flex-col gap-10 px-8 min-h-[69.6vh]">
       <h2 className="flex justify-center text-3xl text-gray-700">
         {t("payment")}
       </h2>

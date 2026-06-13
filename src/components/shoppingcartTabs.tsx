@@ -115,7 +115,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   };
 
   return (
-    <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center px-10">
+    <div className="container-1920 flex min-h-[69.6vh] max-w-410 flex-col flex-wrap content-center px-10">
       <Tabs value={activeTab} className="flex w-full gap-8">
         <TabsList
           variant={null}
@@ -254,7 +254,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           )}
         </AnimatePresence>
       </Tabs>
-      <p className="m-auto h-8 text-red-600">
+      <p className="mx-auto min-h-8 text-red-600">
         {typeof total === "number" && total > 80000 && t("exceedWarning")}
       </p>
       {activeTab !== "confirmation" && (
