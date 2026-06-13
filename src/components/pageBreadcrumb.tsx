@@ -56,7 +56,7 @@ export function PageBreadcrumbBasic() {
               <DropdownMenuGroup>
                 {categories.map((item) => (
                   <DropdownMenuItem asChild key={item}>
-                    <Link href={direct(item)}>{tHome(`${item}`)}</Link>
+                    <Link className="cursor-pointer" href={direct(item)}>{tHome(`${item}`)}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>

@@ -42,7 +42,7 @@ export default function DirectSelector({
         <DropdownMenuGroup>
           {selections.map((item) => (
             <DropdownMenuItem asChild key={item}>
-              <Link prefetch={true} href={`${direct(item)}`}>
+              <Link className="cursor-pointer" prefetch={true} href={`${direct(item)}`}>
                 {t(`${item}`)}
               </Link>
             </DropdownMenuItem>

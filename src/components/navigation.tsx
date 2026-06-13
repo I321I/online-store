@@ -33,7 +33,7 @@ export async function Navigation({ lng }: { lng: string }) {
             witchSegment={2}
           />
           <Link
-            href={`/${lng}/shoppingcart`}
+            href={`/${lng}/about`}
             className="cursor-pointer text-3xl/8 hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px max-md:hidden"
           >
             {tCommon("about")}
