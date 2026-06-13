@@ -68,9 +68,8 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
     direction: -1 | 1;
   }>({ activeTab: "cart", direction: -1 });
   const handleNextSwitchTab = (tab: string) => {
-    if (tab === "cart")
-      setActiveTab({ activeTab: "information", direction: -1 });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (tab === "cart") window.scrollTo({ top: 0, behavior: "smooth" });
+    setActiveTab({ activeTab: "information", direction: -1 });
     if (tab === "information") {
       informationButtonRef.current?.click();
     }
@@ -205,6 +204,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
               transition={{ duration: 0.3, ease: "easeOut" }}
               key="cart"
               className="w-full"
+              style={{ display: activeTab === "cart" ? "block" : "none" }}
             >
               <ShoppingcartTable session={session} emitTotal={returnTotal} />
             </motion.div>
@@ -263,8 +263,8 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             <Button
               className="flex h-10 w-20 cursor-pointer rounded-none border border-gray-600 bg-white text-lg font-normal text-black"
               onClick={() => {
-                setActiveTab({ activeTab: "cart", direction: 1 });
                 window.scrollTo({ top: 0, behavior: "smooth" });
+                setActiveTab({ activeTab: "cart", direction: 1 });
               }}
             >
               {t("back")}

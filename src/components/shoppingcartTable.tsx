@@ -124,7 +124,7 @@ export function ShoppingcartTable({
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            <TableRow className="hover:bg-inherit">
+            <TableRow className="hover:bg-inherit max-[900px]:hidden">
               <TableHead className="text-center">{t("image")}</TableHead>
               <TableHead className="text-center">{t("product")}</TableHead>
               <TableHead className="text-center">{t("price")}</TableHead>
@@ -165,8 +165,8 @@ export function ShoppingcartTable({
       </div>
     </div>
   ) : (
-    show && (
+    show ? (
       <p className="m-auto w-fit text-xl text-amber-800">{t("cartEmpty")}</p>
-    )
+    ):<div className="h-[54vh] max-[600px]:h-[130vh]"/>
   );
 }
