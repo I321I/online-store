@@ -35,7 +35,7 @@ export const MySideBar = ({ lng }: { lng: string }) => {
     router.push(segments.join("/"));
   };
   return (
-    <Sidebar className="z-100">
+    <Sidebar className="z-100 overflow-auto">
       <SidebarHeader className="pt-9 pl-12">
         <SidebarMenu className="relative">
           <SidebarMenuItem className="relative">
@@ -56,7 +56,7 @@ export const MySideBar = ({ lng }: { lng: string }) => {
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarContent className="relative pt-5 pl-12">
+      <SidebarContent className="relative pt-5 pl-12 overflow-visible">
         <SidebarGroup />
         <SidebarGroupLabel className="cursor-default p-0 pt-5 text-2xl opacity-70">
           {t("products")}
@@ -110,7 +110,7 @@ export const MySideBar = ({ lng }: { lng: string }) => {
         </SidebarMenu>
       </SidebarContent>
 
-      <SidebarFooter className="pb-40">
+      <SidebarFooter className="pb-20">
         <SidebarMenu className="flx flex-col flex-wrap items-center gap-5">
           {session.data?.user != null ? (
             <SidebarMenuItem className="flex flex-col items-center gap-2">
