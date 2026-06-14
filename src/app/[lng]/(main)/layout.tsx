@@ -40,7 +40,7 @@ export default async function RootLayout({
         <I18nProvider language={lng} resources={resources}>
           <SessionProvider>
             <StoreProvider>
-              <SidebarProvider className="flex flex-col">
+              <SidebarProvider className="flex flex-col" defaultOpen={false}>
                 <Navigation lng={lng} />
                 {children}
                 <footer>
