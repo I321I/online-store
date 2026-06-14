@@ -28,7 +28,7 @@ export default function LanguagesSelect({ lng }: { lng?: string }) {
       <SelectContent position={"popper"}>
         <SelectGroup>
           {i18nConfig.supportedLngs.map((item) => (
-            <SelectItem key={t(`${item}`)} value={item}>
+            <SelectItem key={t(`${item}`)} value={item} className="cursor-pointer">
               {t(`${item}`)}
             </SelectItem>
           ))}

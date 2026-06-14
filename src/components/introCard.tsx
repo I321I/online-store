@@ -29,17 +29,18 @@ export const IntroCard = ({
   const segments = path.split("/");
   const lng = segments[1];
   return (
-    <Link href={`/${lng}/${direction}`}>
-      <Card
-        className={`mx-fit relative w-full max-w-sm shrink-0 ${tailwindBgColor} snap-start pt-0`}
-      >
+    <Link
+      href={`/${lng}/${direction}`}
+      className={`mx-fit relative w-full max-w-sm shrink-0 snap-start`}
+    >
+      <Card className={`${tailwindBgColor} snap-start pt-0`}>
         <Image
           src={`/images/${category}-intro.jpg`}
           width={100}
           height={100}
           sizes="100vw"
           alt={`${category}-intro-image`}
-          className="relative z-100 aspect-video w-full object-cover"
+          className="relative aspect-video w-full object-cover"
         />
         <CardAction className="ml-3">
           <Badge variant="secondary" className="bg-gray-100/50">
@@ -57,7 +58,7 @@ export const IntroCard = ({
             <Button
               variant="default"
               size="icon"
-              className="dark rounded-full bg-white cursor-pointer"
+              className="dark cursor-pointer rounded-full bg-white"
             >
               <ArrowRight />
             </Button>

@@ -5,7 +5,10 @@ import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import { useT } from "next-i18next/client";
 import { useEffect, useRef, useState } from "react";
-import { ShoppingcartTable } from "./shoppingcartTable";
+import {
+  mergeProductsInformation,
+  ShoppingcartTable,
+} from "./shoppingcartTable";
 import { ShoppoingcartInformation } from "./shoppingcartInformation";
 import { Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,6 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { TFunction } from "i18next";
 
 const NextButton = ({
   handleSwitchTab,
@@ -58,31 +62,47 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   }, []);
 
   const { t } = useT("shoppingCart");
+  const { t: tProducts } = useT("products");
   const [{ activeTab, direction }, setActiveTab] = useState<{
     activeTab: "cart" | "information" | "confirmation";
     direction: -1 | 1;
   }>({ activeTab: "cart", direction: -1 });
   const handleNextSwitchTab = (tab: string) => {
-    if (tab === "cart")
-      setActiveTab({ activeTab: "information", direction: -1 });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (tab === "cart") window.scrollTo({ top: 0, behavior: "smooth" });
+    setActiveTab({ activeTab: "information", direction: -1 });
     if (tab === "information") {
       informationButtonRef.current?.click();
     }
   };
 
-  const handleFormValid = async () => {
-    if (activeTab === "information") {
-      const res = await fetch(`/api/users/${session.user?.id}/cart`, {
-        method: "POST",
-      });
-      if (!res.ok) {
-        setWarning(true);
-        return;
+  const handleFormValid =
+    (tProducts: TFunction<"products", undefined>) => async () => {
+      if (activeTab === "information") {
+        const cartResponse = await fetch(`/api/users/${session.user?.id}/cart`);
+        const dbCart = (await cartResponse.json()) as
+          | {
+              id: string;
+              quantity: number;
+            }[]
+          | [];
+        const total = mergeProductsInformation(dbCart, tProducts).reduce(
+          (sum, item) => sum + item.subtotal,
+          0,
+        );
+        if (total > 80000) {
+          setWarning(true);
+          return;
+        }
+        const res = await fetch(`/api/users/${session.user?.id}/cart`, {
+          method: "POST",
+        });
+        if (!res.ok) {
+          setWarning(true);
+          return;
+        }
+        setActiveTab({ activeTab: "confirmation", direction: -1 });
       }
-      setActiveTab({ activeTab: "confirmation", direction: -1 });
-    }
-  };
+    };
 
   const variants = {
     enter: (dir: number) => {
@@ -95,7 +115,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   };
 
   return (
-    <div className="container-1920 flex max-w-410 flex-col flex-wrap content-center justify-center px-10">
+    <div className="container-1920 flex min-h-[69.6vh] flex-col flex-wrap content-center px-10 w-full">
       <Tabs value={activeTab} className="flex w-full gap-8">
         <TabsList
           variant={null}
@@ -184,6 +204,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
               transition={{ duration: 0.3, ease: "easeOut" }}
               key="cart"
               className="w-full"
+              style={{ display: activeTab === "cart" ? "block" : "none" }}
             >
               <ShoppingcartTable session={session} emitTotal={returnTotal} />
             </motion.div>
@@ -203,7 +224,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
                 <p className="h-15 content-center bg-slate-200 text-center text-lg font-light underline">{`${t("total")}NT$ ${total.toLocaleString()}`}</p>
                 <ShoppoingcartInformation
                   ref={informationButtonRef}
-                  switchTab={handleFormValid}
+                  switchTab={handleFormValid(tProducts)}
                 />
                 <p className="h-15 content-center bg-amber-700/10 text-center text-lg font-light text-amber-700">
                   {t("checkInformation")}
@@ -233,7 +254,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
           )}
         </AnimatePresence>
       </Tabs>
-      <p className="m-auto h-8 text-red-600">
+      <p className="mx-auto min-h-8 text-red-600">
         {typeof total === "number" && total > 80000 && t("exceedWarning")}
       </p>
       {activeTab !== "confirmation" && (
@@ -242,8 +263,8 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
             <Button
               className="flex h-10 w-20 cursor-pointer rounded-none border border-gray-600 bg-white text-lg font-normal text-black"
               onClick={() => {
+                window.scrollTo({ top: 0 });
                 setActiveTab({ activeTab: "cart", direction: 1 });
-                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
               {t("back")}
@@ -267,7 +288,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
                   className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
                   onClick={() => {
                     setWarning(false);
-                    window.location.reload()
+                    window.location.reload();
                   }}
                 >
                   {t("tryAgain")}

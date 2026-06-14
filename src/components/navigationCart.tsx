@@ -28,7 +28,7 @@ export const NavigationCart = ({
   return (
     <Link
       href={`/${lng}/shoppingcart`}
-      className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px max-md:hidden"
+      className="relative -top-0.5 h-[42%] cursor-pointer hover:shadow-[0_2px_0_0_black] active:not-aria-[haspopup]:translate-y-px"
       onClick={() => {
         if (path === `/${lng}/shoppingcart`) window.location.reload();
       }}

@@ -4,7 +4,6 @@ import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
 import { ProductsList } from "@/components/productsList";
 import { Categories } from "@/types/categories";
 
-// generateStaticParams
 export const categories = ["tables", "storage"] as const;
 
 export default async function Page({

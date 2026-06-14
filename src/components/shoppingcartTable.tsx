@@ -12,6 +12,34 @@ import { useT } from "next-i18next/client";
 import { useEffect, useMemo, useState } from "react";
 import { ShoppingcartTableItem } from "./shoppingcartTableItem";
 import { cn } from "@/lib/utils";
+import { TFunction } from "i18next";
+
+export const mergeProductsInformation = (
+  dbCart: {
+    id: string;
+    quantity: number;
+  }[],
+  tProducts: TFunction<"products", undefined>,
+) => {
+  const data = dbCart.map((item) => {
+    const localInformation = tProducts(item.id, {
+      returnObjects: true,
+    }) as ProductObject;
+    const convertNumWithNtAndComma = (num: string) => {
+      const strNumberWithComma = /([0-9,]+)/.exec(num)?.[0] ?? "";
+      const strNumber = strNumberWithComma.replace(/,/g, "");
+      return Number.parseInt(strNumber);
+    };
+    const subtotal =
+      convertNumWithNtAndComma(localInformation.price) * item.quantity;
+    return {
+      ...item,
+      ...localInformation,
+      subtotal,
+    };
+  });
+  return data;
+};
 
 export function ShoppingcartTable({
   session,
@@ -63,32 +91,8 @@ export function ShoppingcartTable({
 
   const { t } = useT("shoppingCart");
   const { t: tProducts } = useT("products");
-  const convertNumWithNtAndComma = (num: string) => {
-    const strNumberWithComma = /([0-9,]+)/.exec(num)?.[0] ?? "";
-    const strNumber = strNumberWithComma.replace(/,/g, "");
-    return Number.parseInt(strNumber);
-  };
-  const mergeProductsInformation = (
-    shoppingcart: {
-      id: string;
-      quantity: number;
-    }[],
-  ) => {
-    const data = shoppingcart.map((item) => {
-      const localInformation = tProducts(item.id, {
-        returnObjects: true,
-      }) as ProductObject;
-      const subtotal =
-        convertNumWithNtAndComma(localInformation.price) * item.quantity;
-      return {
-        ...item,
-        ...localInformation,
-        subtotal,
-      };
-    });
-    return data;
-  };
-  const data = mergeProductsInformation(cart);
+
+  const data = mergeProductsInformation(cart, tProducts);
   const [total, setTotal] = useState<number | string>(
     data.reduce((sum, item) => sum + item.subtotal, 0),
   );
@@ -120,7 +124,7 @@ export function ShoppingcartTable({
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            <TableRow className="hover:bg-inherit">
+            <TableRow className="hover:bg-inherit max-[900px]:hidden">
               <TableHead className="text-center">{t("image")}</TableHead>
               <TableHead className="text-center">{t("product")}</TableHead>
               <TableHead className="text-center">{t("price")}</TableHead>
@@ -161,8 +165,8 @@ export function ShoppingcartTable({
       </div>
     </div>
   ) : (
-    show && (
+    show ? (
       <p className="m-auto w-fit text-xl text-amber-800">{t("cartEmpty")}</p>
-    )
+    ):<div className="h-[54vh] max-[600px]:h-[80vh]"/>
   );
 }

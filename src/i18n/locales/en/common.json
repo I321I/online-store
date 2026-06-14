@@ -12,5 +12,12 @@
   "exceed": "Maximum quantity in cart reached",
   "confirm": "Confirm",
   "continue": "Continue",
-  "orContinueWith": "Or continue with"
+  "orContinueWith": "Or continue with",
+
+  "about": "About Us",
+  "aboutContent": "This website does not provide actual shipping services. No physical items will be delivered to the address entered in your shopping cart.\n\nPersonal information collected during checkout is for format verification and simulation purposes only. Your data is secure and will never be shared or leaked. Please feel free to test the features.\n\nTo simulate real e-commerce inventory management, product stock levels will automatically decrease once you complete the checkout process. You can verify this change directly on the product page.",
+  "logistics": "Shipping Methods",
+  "logisticsContent": "This website does not provide actual shipping services. You do not need to worry about receiving any items at the address entered in the shopping cart.\n\nPersonal data collected during checkout is purely for format validation and simulation purposes. Your information is safe and will not be leaked. Please feel free to test the system.\n\nTo simulate a real e-commerce inventory mechanism, product stock levels will be deducted once the checkout process is complete. You can verify this change directly on the product page.",
+  "payment": "Payment Methods",
+  "paymentContent": "The website does not implement actual payment methods. You do not need to worry about being charged when testing the shopping cart.\n\nTo simulate real e-commerce cash flow operations, this website features a permission logic that dynamically adjusts available payment methods based on the total order amount.\n\nIn live e-commerce environments, high-value orders typically restrict non-instant payment options, such as \"Cash on Delivery\" (COD). This restriction mitigates safety risks associated with cash collection, high shipping fees, and potential losses from malicious order cancellations.\n\nTherefore, the maximum checkout limit for a single shopping cart is strictly set to 80,000 TWD. Users will be blocked from checking out if the cumulative order total exceeds this threshold."
 }

@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { ProductPageFailedAlert } from "./productPageFailedAlert";
 import { ProductPageSuccessAlert } from "./productPageSuccessAlert";
 import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
+import { cn } from "@/lib/utils";
 
 export default function ProductPageComponent({
   session,
@@ -45,20 +46,24 @@ export default function ProductPageComponent({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="flex flex-row justify-between">
-      <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2">
+    <div
+      className={cn(
+        `max-[600px]:flex-wrap flex flex-row justify-between max-[600px]:flex-col max-[600px]:content-center`,
+      )}
+    >
+      <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2 max-[600px]:w-full">
         {/* sm */}
         <Image
           src={`/images/${categoryPathName}/${product}.jpg`}
           width={0}
           height={0}
-          sizes="100vw"
+          sizes="100vh"
           alt={`image of product ${product}`}
           loading="eager"
-          className="aspect-square h-auto w-auto overflow-hidden object-cover"
+          className="aspect-square h-full w-auto overflow-hidden object-cover"
         />
       </div>
-      <div className="box-border flex w-99/200 flex-col gap-5">
+      <div className="box-border flex w-99/200 flex-col gap-5 max-[600px]:w-full">
         <h1 className={`${lng === "zh-Hant" ? "-ml-0.5" : undefined} text-2xl`}>
           {productObject.title}
         </h1>
