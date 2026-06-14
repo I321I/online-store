@@ -23,7 +23,8 @@ export default async function Page({
         alt="payment image"
         placeholder="blur"
         sizes="100vw"
-        className="pointer-events-none h-80 object-cover"
+        className="pointer-events-none h-80 object-cover select-none"
+        style={{ pointerEvents: "none", userSelect: "none" }}
       />
     </div>
   );
