@@ -13,6 +13,7 @@ import {
 } from "./ui/tooltip";
 import NavigationMargin from "./navigationMargin";
 import { NavigationCart } from "./navigationCart";
+import { NavigationSidebarIcon } from "./navigationSidebarIcon";
 
 export async function Navigation({ lng }: { lng: string }) {
   const { t } = await getT("home", { lng });
@@ -80,6 +81,7 @@ export async function Navigation({ lng }: { lng: string }) {
             </TooltipProvider>
           )}
           <NavigationCart session={session} lng={lng} />
+          <NavigationSidebarIcon />
         </div>
       </div>
       <NavigationMargin />

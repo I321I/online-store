@@ -7,6 +7,8 @@ import { Footer } from "@/components/footer";
 import { SessionProvider } from "next-auth/react";
 import StoreProvider from "./storeProvider";
 import { Inter, Noto_Sans_TC } from "next/font/google";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { MySideBar } from "@/components/mySidebar";
 
 initServerI18next(i18nConfig);
 
@@ -38,11 +40,14 @@ export default async function RootLayout({
         <I18nProvider language={lng} resources={resources}>
           <SessionProvider>
             <StoreProvider>
-              <Navigation lng={lng} />
-              {children}
-              <footer>
-                <Footer />
-              </footer>
+              <SidebarProvider className="flex flex-col">
+                <Navigation lng={lng} />
+                {children}
+                <footer>
+                  <Footer />
+                </footer>
+                <MySideBar lng={lng} />
+              </SidebarProvider>
             </StoreProvider>
           </SessionProvider>
         </I18nProvider>
