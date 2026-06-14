@@ -48,7 +48,7 @@ export default function ProductPageComponent({
   return (
     <div
       className={cn(
-        `max-[600px]:flex-wrap flex flex-row justify-between max-[600px]:flex-col max-[600px]:content-center`,
+        `flex flex-row justify-between max-[600px]:flex-col max-[600px]:flex-wrap max-[600px]:content-center`,
       )}
     >
       <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2 max-[600px]:w-full">
@@ -60,7 +60,7 @@ export default function ProductPageComponent({
           sizes="100vh"
           alt={`image of product ${product}`}
           loading="eager"
-          className="aspect-square h-full w-auto overflow-hidden object-cover"
+          className="pointer-events-none aspect-square h-full w-auto overflow-hidden object-cover"
         />
       </div>
       <div className="box-border flex w-99/200 flex-col gap-5 max-[600px]:w-full">

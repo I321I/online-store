@@ -29,7 +29,7 @@ export const ProductsListImage = ({
           sizes="100vw"
           alt={`image of product ${productId}`}
           loading="eager"
-          className={`${isLoading ? "hidden" : "flex"} aspect-square h-full w-full cursor-pointer overflow-hidden object-cover`}
+          className={`${isLoading ? "hidden" : "flex"} pointer-events-none aspect-square h-full w-full cursor-pointer overflow-hidden object-cover`}
           priority
           onLoad={() => setIsLoading(false)}
         />

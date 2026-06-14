@@ -164,9 +164,9 @@ export function ShoppingcartTable({
         )}
       </div>
     </div>
+  ) : show ? (
+    <p className="m-auto w-fit text-xl text-amber-800">{t("cartEmpty")}</p>
   ) : (
-    show ? (
-      <p className="m-auto w-fit text-xl text-amber-800">{t("cartEmpty")}</p>
-    ):<div className="h-[54vh] max-[600px]:h-[80vh]"/>
+    <div className="h-[54vh] max-[600px]:h-[80vh]" />
   );
 }

@@ -24,7 +24,7 @@ export default async function Page({
           alt="about us image"
           placeholder="blur"
           fill
-          className="object-cover"
+          className="object-cover pointer-events-none"
         />
       </div>
     </div>

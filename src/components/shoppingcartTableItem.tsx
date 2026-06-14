@@ -93,7 +93,7 @@ export const ShoppingcartTableItem = ({
               alt={`image of product ${product.id}`}
               sizes="100vw"
               loading="eager"
-              className="aspect-square h-13 w-13 min-w-13 object-cover"
+              className="pointer-events-none aspect-square h-13 w-13 min-w-13 object-cover"
             />
           </TableCell>
           <TableCell className="text-center max-[600px]:flex max-[600px]:justify-between max-[600px]:px-4">
@@ -140,7 +140,7 @@ export const ShoppingcartTableItem = ({
             NT$ {product.subtotal.toLocaleString()}
           </TableCell>
           <TableCell className="max-[600px]:flex max-[600px]:justify-between max-[600px]:px-4">
-            <h4 className="hidden flex-wrap content-center max-[600px]:flex font-medium">
+            <h4 className="hidden flex-wrap content-center font-medium max-[600px]:flex">
               {t("remove")}
             </h4>
             <Trash2

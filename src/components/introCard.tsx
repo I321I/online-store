@@ -40,7 +40,7 @@ export const IntroCard = ({
           height={100}
           sizes="100vw"
           alt={`${category}-intro-image`}
-          className="relative aspect-video w-full object-cover"
+          className="pointer-events-none relative aspect-video w-full object-cover"
         />
         <CardAction className="ml-3">
           <Badge variant="secondary" className="bg-gray-100/50">
