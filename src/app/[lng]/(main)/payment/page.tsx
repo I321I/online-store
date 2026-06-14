@@ -18,13 +18,16 @@ export default async function Page({
       <p className="px-2 text-lg font-light text-gray-800 whitespace-pre-wrap">
         {t("paymentContent")}
       </p>
+       <div className="relative h-80">
       <Image
         src={paymentImage}
         alt="payment image"
         placeholder="blur"
         sizes="100vw"
-        className="h-80 object-cover"
-      />
+        fill
+        className="object-cover"
+        />
+        </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useT } from "next-i18next/client";
 import Link from "next/link";
-import { usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import { SiGithub } from "react-icons/si";
 export const Footer = () => {
   const { t } = useT("home");
@@ -41,7 +41,7 @@ export const Footer = () => {
             href="https://github.com/I321I/online-store"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex cursor-pointer flex-row text-center justify-center"
+            className="flex cursor-pointer flex-row justify-center text-center opacity-70"
           >
             <SiGithub className="h-auto" />
             I321I/online-store
