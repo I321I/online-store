@@ -1,7 +1,7 @@
 "use client";
 import { useT } from "next-i18next/client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname} from "next/navigation";
 import { SiGithub } from "react-icons/si";
 export const Footer = () => {
   const { t } = useT("home");
