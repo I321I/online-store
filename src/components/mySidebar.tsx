@@ -91,20 +91,20 @@ export const MySideBar = ({ lng }: { lng: string }) => {
           </SidebarMenuItem>
           <SidebarMenuItem className="underline-offset-4 hover:underline">
             <Link
-              key="sidebar payment"
-              href={[segments[0], segments[1], "payment"].join("/")}
-              onClick={toggleSidebar}
-            >
-              {t("payment")}
-            </Link>
-          </SidebarMenuItem>
-          <SidebarMenuItem className="underline-offset-4 hover:underline">
-            <Link
               key="sidebar logistics"
               href={[segments[0], segments[1], "logistics"].join("/")}
               onClick={toggleSidebar}
             >
               {t("logistics")}
+            </Link>
+          </SidebarMenuItem>
+          <SidebarMenuItem className="underline-offset-4 hover:underline">
+            <Link
+              key="sidebar payment"
+              href={[segments[0], segments[1], "payment"].join("/")}
+              onClick={toggleSidebar}
+            >
+              {t("payment")}
             </Link>
           </SidebarMenuItem>
         </SidebarMenu>

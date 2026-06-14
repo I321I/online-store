@@ -115,7 +115,7 @@ export default function ShoppingcartTabs({ session }: { session: Session }) {
   };
 
   return (
-    <div className="container-1920 flex min-h-[69.6vh] max-w-410 flex-col flex-wrap content-center px-10">
+    <div className="container-1920 flex min-h-[69.6vh] flex-col flex-wrap content-center px-10 w-full">
       <Tabs value={activeTab} className="flex w-full gap-8">
         <TabsList
           variant={null}
