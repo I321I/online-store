@@ -3,6 +3,7 @@ import "../../globals.css";
 import { I18nProvider } from "next-i18next/client";
 import { SessionProvider } from "next-auth/react";
 import i18nConfig from "../../../../../i18n.config";
+import NextTopLoader from "nextjs-toploader";
 
 initServerI18next(i18nConfig);
 export default async function RootLayout({
@@ -18,9 +19,12 @@ export default async function RootLayout({
 
   return (
     <html lang={lng}>
-      <body className=" overflow-x-hidden">
+      <body className="overflow-x-hidden">
         <I18nProvider language={lng} resources={resources}>
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            <NextTopLoader />
+            {children}
+          </SessionProvider>
         </I18nProvider>
       </body>
     </html>

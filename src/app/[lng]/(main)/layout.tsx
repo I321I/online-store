@@ -9,6 +9,7 @@ import StoreProvider from "./storeProvider";
 import { Inter, Noto_Sans_TC } from "next/font/google";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { MySideBar } from "@/components/mySidebar";
+import NextTopLoader from 'nextjs-toploader';
 
 initServerI18next(i18nConfig);
 
@@ -36,11 +37,14 @@ export default async function RootLayout({
 
   return (
     <html lang={lng} className={`${inter.variable} ${notoFont.variable}`}>
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className="overflow-x-hidden overflow-y-scroll">
         <I18nProvider language={lng} resources={resources}>
           <SessionProvider>
             <StoreProvider>
               <SidebarProvider className="flex flex-col" defaultOpen={false}>
+                <NextTopLoader
+                color="#888888"/>
                 <Navigation lng={lng} />
                 {children}
                 <footer>

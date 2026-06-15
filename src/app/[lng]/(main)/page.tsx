@@ -26,7 +26,7 @@ export default function Home() {
           loading="eager"
           priority
           fill
-          className="absolute left-0 mt-[-2] w-screen overflow-visible object-cover"
+          className="pointer-events-none absolute left-0 mt-[-2] w-screen overflow-visible object-cover"
         />
       </div>
       <section className="flex flex-col gap-8">
