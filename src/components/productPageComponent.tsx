@@ -11,12 +11,14 @@ import { ProductPageFailedAlert } from "./productPageFailedAlert";
 import { ProductPageSuccessAlert } from "./productPageSuccessAlert";
 import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
 import { cn } from "@/lib/utils";
+import { useTopLoader } from "nextjs-toploader";
 
 export default function ProductPageComponent({
   session,
 }: {
   session: Session | null;
 }) {
+  const topLoader = useTopLoader();
   const [amount, setAmount] = useState(1);
   const [stock, setStock] = useState<number | string>("");
   const [warning, setWarning] = useState<boolean>(false);
@@ -110,6 +112,7 @@ export default function ProductPageComponent({
           <Button
             className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
             onClick={async () => {
+              topLoader.start();
               if (!session) router.push(`/${lng}/login`);
               const callItemApi = await fetch(
                 `/api/users/${session?.user?.id}/cart/${product}`,
@@ -121,10 +124,12 @@ export default function ProductPageComponent({
                   method: "PATCH",
                   body: JSON.stringify({ quantity: amount }),
                 });
+                topLoader.done();
                 setSuccess(true);
                 refetch();
                 return;
               }
+              topLoader.done();
               setWarning(true);
             }}
           >
@@ -135,6 +140,7 @@ export default function ProductPageComponent({
           <Button
             className="flex h-10 cursor-pointer rounded-none bg-gray-600 text-lg font-normal"
             onClick={async () => {
+              topLoader.start();
               if (!session) router.push(`/${lng}/login`);
               const callItemApi = await fetch(
                 `/api/users/${session?.user?.id}/cart/${product}`,
@@ -147,8 +153,10 @@ export default function ProductPageComponent({
                   body: JSON.stringify({ quantity: amount }),
                 });
                 router.push(`/${lng}/shoppingcart`);
+                topLoader.done();
                 return;
               }
+              topLoader.done();
               setWarning(true);
             }}
           >

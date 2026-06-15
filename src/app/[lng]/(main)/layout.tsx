@@ -43,7 +43,8 @@ export default async function RootLayout({
           <SessionProvider>
             <StoreProvider>
               <SidebarProvider className="flex flex-col" defaultOpen={false}>
-                <NextTopLoader/>
+                <NextTopLoader
+                color="#888888"/>
                 <Navigation lng={lng} />
                 {children}
                 <footer>
