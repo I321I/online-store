@@ -48,7 +48,8 @@ export const MySideBar = ({ lng }: { lng: string }) => {
             </Link>
             <SidebarMenuAction
               onClick={toggleSidebar}
-              className="absolute  top-1 aspect-square w-9"
+              tabIndex={-1}
+              className="absolute top-1 aspect-square w-9"
             >
               <ChevronLeft className="!size-8 stroke-1" />
             </SidebarMenuAction>
@@ -56,7 +57,7 @@ export const MySideBar = ({ lng }: { lng: string }) => {
         </SidebarMenu>
       </SidebarHeader>
 
-      <SidebarContent className="relative pt-5 pl-12 overflow-visible">
+      <SidebarContent className="relative overflow-visible pt-5 pl-12">
         <SidebarGroup />
         <SidebarGroupLabel className="cursor-default p-0 pt-5 text-2xl opacity-70">
           {t("products")}
