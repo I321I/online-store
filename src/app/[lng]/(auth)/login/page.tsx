@@ -53,10 +53,15 @@ export default async function Page({
                     "peer h-15 rounded-md border-2 border-solid px-3 text-xl placeholder-transparent focus-visible:ring-0",
                   )}
                 />
+                <fieldset className="group absolute start-3 h-[1.5px] w-23 bg-gray-200 delay-50 peer-not-placeholder-shown:bg-gray-200 peer-focus:bg-gray-400 duration-0">
+                  <legend className="absolute start-1 -top-2 h-3 bg-white text-transparent opacity-0 delay-50 group-peer-not-placeholder-shown:opacity-100 group-peer-focus:opacity-100 duration-0">
+                    {t("emailAddress")}
+                  </legend>
+                </fieldset>
                 <label
                   htmlFor="email"
                   className={cn(
-                    "transistion-all absolute start-4 cursor-text bg-white text-xl text-gray-500 duration-200 select-none peer-placeholder-shown:top-4 dark:bg-black",
+                    "transistion-all absolute start-4 cursor-text text-xl text-gray-500 duration-200 select-none peer-placeholder-shown:top-4 dark:bg-black",
                     "peer-not-placeholder-shown:-translate-y-2 peer-not-placeholder-shown:text-sm",
                     "peer-focus:top-0 peer-focus:-translate-y-2 peer-focus:text-sm",
                   )}
@@ -86,7 +91,7 @@ export default async function Page({
                   }}
                 >
                   <button
-                    className="rounded-3xl border border-gray-400 p-1 cursor-pointer"
+                    className="cursor-pointer rounded-3xl border border-gray-400 p-1"
                     type="submit"
                   >
                     <FcGoogle size={30} />
@@ -99,7 +104,7 @@ export default async function Page({
                   }}
                 >
                   <button
-                    className="rounded-3xl border border-gray-400 p-1 cursor-pointer"
+                    className="cursor-pointer rounded-3xl border border-gray-400 p-1"
                     type="submit"
                   >
                     <SiGithub size={30} />
