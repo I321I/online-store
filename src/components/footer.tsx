@@ -9,7 +9,7 @@ export const Footer = () => {
   const segments = pathname.split("/");
 
   return (
-    <footer className="container-1920 mt-7 flex h-50 w-full flex-col justify-end border-t-2 max-[600px]:h-130">
+    <footer className="container-1920 mt-7 flex h-60 w-full flex-col justify-end border-t-2 max-[600px]:h-130">
       <div className="flex grow flex-row flex-wrap content-center justify-evenly max-[600px]:flex-col">
         <section className="flex flex-col gap-3">
           <h4 className="pb-3 text-center text-xl">Company</h4>
