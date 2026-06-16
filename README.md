@@ -36,5 +36,5 @@
 ## 部署
 本專案採用 **Vercel** 進行持續整合與部署 (CI/CD)。每次推送 (Push) 程式碼至 `main` 分支時，Vercel 皆會自動觸發建置並更新線上網頁。
 - **託管平台**：Vercel
-- **自動化流程**：GitHub Actions / Vercel Git Integration
+- **自動化流程**：Vercel Git Integration
 - **環境變數**：已於 Vercel Dashboard 安全加密設定
