@@ -10,6 +10,7 @@ import { Inter, Noto_Sans_TC } from "next/font/google";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { MySideBar } from "@/components/mySidebar";
 import NextTopLoader from 'nextjs-toploader';
+import { Analytics } from '@vercel/analytics/next';
 
 initServerI18next(i18nConfig);
 
@@ -55,6 +56,7 @@ export default async function RootLayout({
             </StoreProvider>
           </SessionProvider>
         </I18nProvider>
+        <Analytics />
       </body>
     </html>
   );
