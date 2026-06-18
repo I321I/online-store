@@ -4,6 +4,7 @@ import { I18nProvider } from "next-i18next/client";
 import { SessionProvider } from "next-auth/react";
 import i18nConfig from "../../../../../i18n.config";
 import NextTopLoader from "nextjs-toploader";
+import { Analytics } from '@vercel/analytics/next';
 
 initServerI18next(i18nConfig);
 export default async function RootLayout({
@@ -26,6 +27,7 @@ export default async function RootLayout({
             {children}
           </SessionProvider>
         </I18nProvider>
+        <Analytics />
       </body>
     </html>
   );
