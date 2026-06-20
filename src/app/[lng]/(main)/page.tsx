@@ -3,19 +3,9 @@ import { IntroCard } from "@/components/introCard";
 import Image from "next/image";
 //CSR
 import { useT } from "next-i18next/client";
+import Link from "next/link";
 export default function Home() {
   const { t } = useT("home");
-  // }
-  //SSR
-
-  // import { getT } from "next-i18next/server";
-  // export default async function Home({
-  //   params,
-  // }: {
-  //   params: Promise<{ lng: string }>;
-  // }) {
-  // const { lng } = await params;
-  // const { t } = await getT("home", { lng });
   return (
     <div className="container-1920 flex w-screen flex-col gap-8">
       <div className="relative h-[46vw]">

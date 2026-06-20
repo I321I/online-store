@@ -26,11 +26,11 @@ export const ProductsListImage = ({
           src={imagePath}
           width={0}
           height={0}
-          sizes="100vw"
+          sizes="495px"
           alt={`image of product ${productId}`}
-          loading="eager"
           className={`${isLoading ? "hidden" : "flex"} pointer-events-none aspect-square h-full w-full cursor-pointer overflow-hidden object-cover`}
           priority
+          fetchPriority="high"
           onLoad={() => setIsLoading(false)}
         />
         <button
