@@ -12,7 +12,6 @@ import { ProductPageSuccessAlert } from "./productPageSuccessAlert";
 import { useGetQuantityQuery } from "@/lib/cartItemQuantity";
 import { cn } from "@/lib/utils";
 import { useTopLoader } from "nextjs-toploader";
-import { Skeleton } from "./ui/skeleton";
 
 export default function ProductPageComponent({
   session,
@@ -48,7 +47,6 @@ export default function ProductPageComponent({
     callStockApi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   return (
     <div
       className={cn(
@@ -57,19 +55,15 @@ export default function ProductPageComponent({
     >
       <div className="flex aspect-square w-99/200 flex-col gap-6 border-2 p-2 max-[600px]:w-full">
         {/* sm */}
-        <Skeleton
-          className={`${isLoading ? "flex" : "hidden"} aspect-square h-lvh w-auto overflow-hidden`}
-        />
         <Image
           src={`/images/${categoryPathName}/${product}.jpg`}
           width={0}
           height={0}
-          sizes="100vh"
+          sizes="50vw"
           alt={`image of product ${product}`}
           priority
           fetchPriority="high"
-          className={`${isLoading ? "hidden" : "flex"} pointer-events-none aspect-square h-full w-auto overflow-hidden object-cover`}
-          onLoad={() => setIsLoading(false)}
+          className="pointer-events-none aspect-square h-full w-auto overflow-hidden object-cover"
         />
       </div>
       <div className="box-border flex w-99/200 flex-col gap-5 max-[600px]:w-full">
