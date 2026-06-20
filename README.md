@@ -2,7 +2,11 @@
 此專案旨在建立一網站模擬電子商務網站的服務與功能，主要就瀏覽商品、登入至購物車結帳進行設計，提供完整且流暢的消費流程體驗。
 <br><br>
 ## 關於專案
-此專案是自主開發，目的在於深化自身實作網頁前端設計能力。網站具響應式網頁設計(RWD)。專案採 **Next.js 全端框架** 與 **Firebase 無伺服器資料庫 (Serverless DB)** 開發，嚴格遵守前後端分離，將前後端以 RESTful API 串接，並且以 Adapter Pattern 設計後端與資料庫溝通，以取得更好的維護性。
+此專案是自主開發，目的在於深化自身實作網頁前端設計能力。
+
+此電商網站具響應式網頁設計(RWD)，陳列的產品均為模擬資料，未實際提供物流及金流服務，因此可隨意瀏覽操作及點擊。
+
+專案採 **Next.js 全端框架** 與 **Firebase 無伺服器資料庫 (Serverless DB)** 開發，嚴格遵守前後端分離，將前後端以 RESTful API 串接，並且以 Adapter Pattern 設計後端與資料庫溝通，以取得更好的維護性。
 <br><br>
 [**點此造訪專案網站**](https://i321ionline.store/zh-Hant)
 
@@ -36,5 +40,5 @@
 ## 部署
 本專案採用 **Vercel** 進行持續整合與部署 (CI/CD)。每次推送 (Push) 程式碼至 `main` 分支時，Vercel 皆會自動觸發建置並更新線上網頁。
 - **託管平台**：Vercel
-- **自動化流程**：GitHub Actions / Vercel Git Integration
+- **自動化流程**：Vercel Git Integration
 - **環境變數**：已於 Vercel Dashboard 安全加密設定
