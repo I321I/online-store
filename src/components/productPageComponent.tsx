@@ -57,9 +57,9 @@ export default function ProductPageComponent({
         {/* sm */}
         <Image
           src={`/images/${categoryPathName}/${product}.jpg`}
-          width={0}
-          height={0}
-          sizes="50vw"
+          width={1920}
+          height={1080}
+          sizes="(max-width: 720px) 100vw, 1344px"
           alt={`image of product ${product}`}
           priority
           fetchPriority="high"

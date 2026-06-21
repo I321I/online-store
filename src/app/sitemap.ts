@@ -4,7 +4,7 @@ import { products } from "./[lng]/(main)/[categories]/[product]/page";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://i321ionline.store/",
+      url: "https://i321ionline.store",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
@@ -24,18 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           "zh-Hant": "https://i321ionline.store/zh-Hant/login",
           en: "https://i321ionline.store/en/login",
-        },
-      },
-    },
-    {
-      url: "https://i321ionline.store/zh-Hant/shoppingcart",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-      alternates: {
-        languages: {
-          "zh-Hant": "https://i321ionline.store/zh-Hant/shoppingcart",
-          en: "https://i321ionline.store/en/shoppingcart",
         },
       },
     },

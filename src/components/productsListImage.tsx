@@ -26,7 +26,7 @@ export const ProductsListImage = ({
           src={imagePath}
           width={495}
           height={495}
-          sizes="495px"
+          sizes="(max-width: 950px) 100vw, 950px"
           alt={`image of product ${productId}`}
           className={`${isLoading ? "hidden" : "flex"} pointer-events-none aspect-square h-full w-full cursor-pointer overflow-hidden object-cover`}
           priority
