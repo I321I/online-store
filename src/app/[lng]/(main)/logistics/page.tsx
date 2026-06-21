@@ -23,6 +23,16 @@ export async function generateMetadata({
         en: "/en/logistics",
       },
     },
+    openGraph: {
+      title: `${t("logistics")} - Donuts`,
+      images: [
+        {
+          url: "/images/logistics.jpg",
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
   };
 }
 

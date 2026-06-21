@@ -41,6 +41,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Donuts",
+    images: [
+      {
+        url: "/images/home.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 

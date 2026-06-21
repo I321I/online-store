@@ -23,6 +23,16 @@ export async function generateMetadata({
         en: "/en/payment",
       },
     },
+    openGraph: {
+      title: `${t("payment")} - Donuts`,
+      images: [
+        {
+          url: "/images/payment.jpg",
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
   };
 }
 

@@ -28,6 +28,16 @@ export async function generateMetadata({
         en: `/en/${categories}/${product}`,
       },
     },
+    openGraph: {
+      title: `${productObject.title} - Donuts`,
+      images: [
+        {
+          url: `/images/${categories}/${product}.jpg`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
   };
 }
 
