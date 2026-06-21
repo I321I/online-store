@@ -30,9 +30,6 @@ export async function generateMetadata({
         en: `/en/login`,
       },
     },
-    verification: {
-      google: "86c95c42f2dcfe58",
-    },
   };
 }
 

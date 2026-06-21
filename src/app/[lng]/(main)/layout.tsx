@@ -39,9 +39,6 @@ export const metadata: Metadata = {
       en: "/en",
     },
   },
-  verification: {
-    google: "86c95c42f2dcfe58",
-  },
   openGraph: {
     title: "Donuts",
     images: [
