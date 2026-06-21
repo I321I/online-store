@@ -31,7 +31,7 @@ export async function generateMetadata({
       },
     },
     verification: {
-      google: "google86c95c42f2dcfe58.html",
+      google: "86c95c42f2dcfe58",
     },
   };
 }
