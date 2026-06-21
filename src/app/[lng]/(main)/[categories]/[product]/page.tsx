@@ -1,8 +1,35 @@
 import { auth } from "@/auth";
 import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
 import ProductPageComponent from "@/components/productPageComponent";
+import { ProductObject } from "@/types/product";
+import { Metadata } from "next";
 import { getT } from "next-i18next/server";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ product: string; lng: string; categories: string }>;
+}): Promise<Metadata> {
+  const { lng } = await params;
+  const { categories } = await params;
+  const { product } = await params;
+  const { t } = await getT("products", { lng });
+  const productObject = t(product, { returnObjects: true }) as ProductObject;
+  return {
+    title: productObject.title,
+    description: productObject.description,
+    metadataBase: new URL("https://i321ionline.store"),
+    alternates: {
+      canonical: `/zh-Hant/${categories}/${product}`,
+      languages: {
+        "x-default": `/zh-Hant/${categories}/${product}`,
+        "zh-Hant": `/zh-Hant/${categories}/${product}`,
+        en: `/en/${categories}/${product}`,
+      },
+    },
+  };
+}
 
 const createProducts = (productName: string, number: number) => {
   let num = number;
@@ -32,7 +59,7 @@ export default async function Page({
   const session = await auth();
   if (!products.find((item) => item === product)) return notFound();
   return (
-    <div className="container-1920 flex flex-col gap-7 px-8 w-full">
+    <div className="container-1920 flex w-full flex-col gap-7 px-8">
       <div className="flex justify-center text-3xl">{t("curatedProducts")}</div>
       <PageBreadcrumbBasic />
       <ProductPageComponent session={session} />

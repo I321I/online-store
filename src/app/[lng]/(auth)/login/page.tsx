@@ -3,11 +3,35 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import { getT } from "next-i18next/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { SiGithub } from "react-icons/si";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lng: string };
+}): Promise<Metadata> {
+  const { lng } = params;
+  const { t } = await getT("common", { lng });
+  return {
+    title: `${t("login")} - Donuts`,
+    description:
+      "登入後，頁面右上的ICON顯示購物車內的商品數量。並且在購物車內可直接透過按鈕快速增減數量，當下同步後端與資料庫。填寫收件者資料則由Zod檢查輸入格式，確保有效資料的傳遞。商品結帳後將從庫存扣除相應數量。",
+    metadataBase: new URL("https://i321ionline.store"),
+    alternates: {
+      canonical: `/zh-Hant/login`,
+      languages: {
+        "x-default": `/zh-Hant/login`,
+        "zh-Hant": `/zh-Hant/login`,
+        en: `/en/login`,
+      },
+    },
+  };
+}
 
 export default async function Page({
   params,
@@ -20,7 +44,7 @@ export default async function Page({
   const session = await auth();
   if (session != null) redirect("/");
   return (
-    <div className="container-1920 flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
+    <div className="flex h-screen w-full flex-col flex-nowrap content-center bg-gray-100">
       <Link
         href={`/${lng}`}
         className="g-full mt-15 mb-5 flex justify-center font-serif text-5xl"
@@ -53,8 +77,8 @@ export default async function Page({
                     "peer h-15 rounded-md border-2 border-solid px-3 text-xl placeholder-transparent focus-visible:ring-0",
                   )}
                 />
-                <fieldset className="group absolute start-3 h-[1.5px] w-23 bg-gray-200 delay-50 peer-not-placeholder-shown:bg-gray-200 peer-focus:bg-gray-400 duration-0">
-                  <legend className="absolute start-1 -top-2 h-3 bg-white text-transparent opacity-0 delay-50 group-peer-not-placeholder-shown:opacity-100 group-peer-focus:opacity-100 duration-0">
+                <fieldset className="group absolute start-3 h-[1.5px] w-23 bg-gray-200 delay-50 duration-0 peer-not-placeholder-shown:bg-gray-200 peer-focus:bg-gray-400">
+                  <legend className="absolute start-1 -top-2 h-3 bg-white text-transparent opacity-0 delay-50 duration-0 group-peer-not-placeholder-shown:opacity-100 group-peer-focus:opacity-100">
                     {t("emailAddress")}
                   </legend>
                 </fieldset>

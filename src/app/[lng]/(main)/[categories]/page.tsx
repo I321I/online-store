@@ -2,9 +2,31 @@ import { getT } from "next-i18next/server";
 import { notFound } from "next/navigation";
 import { PageBreadcrumbBasic } from "@/components/pageBreadcrumb";
 import { ProductsList } from "@/components/productsList";
-import { Categories } from "@/types/categories";
+import { categories, type Categories } from "@/types/categories";
+import { Metadata } from "next";
 
-export const categories = ["tables", "storage"] as const;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ categories: Categories; lng: string }>;
+}): Promise<Metadata> {
+  const { lng } = await params;
+  const { categories } = await params;
+  const { t } = await getT("home", { lng });
+  return {
+    title: t(categories),
+    description: t(`card-${categories}-content`),
+    metadataBase: new URL("https://i321ionline.store"),
+    alternates: {
+      canonical: `/zh-Hant/${categories}`,
+      languages: {
+        "x-default": `/zh-Hant/${categories}`,
+        "zh-Hant": `/zh-Hant/${categories}`,
+        en: `/en/${categories}`,
+      },
+    },
+  };
+}
 
 export default async function Page({
   params,

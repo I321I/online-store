@@ -2,6 +2,29 @@ import { getT } from "next-i18next/server";
 import { Categories } from "@/types/categories";
 import Image from "next/image";
 import aboutImage from "../../../../../public/images/about.jpg";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lng: string };
+}): Promise<Metadata> {
+  const { lng } = params;
+  const { t } = await getT("common", { lng });
+  return {
+    title: t("about"),
+    description: t("aboutContent"),
+    metadataBase: new URL("https://i321ionline.store"),
+    alternates: {
+      canonical: "/zh-Hant/about",
+      languages: {
+        "x-default": "/zh-Hant/about",
+        "zh-Hant": "/zh-Hant/about",
+        en: "/en/about",
+      },
+    },
+  };
+}
 
 export default async function Page({
   params,
@@ -23,8 +46,10 @@ export default async function Page({
           src={aboutImage}
           alt="about us image"
           placeholder="blur"
-          fill
-          className="object-cover pointer-events-none"
+          sizes="(max-w-800px) 100vw, 800px"
+          priority
+          fetchPriority="high"
+          className="pointer-events-none object-cover"
         />
       </div>
     </div>

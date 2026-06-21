@@ -9,8 +9,9 @@ import StoreProvider from "./storeProvider";
 import { Inter, Noto_Sans_TC } from "next/font/google";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { MySideBar } from "@/components/mySidebar";
-import NextTopLoader from 'nextjs-toploader';
-import { Analytics } from '@vercel/analytics/next';
+import NextTopLoader from "nextjs-toploader";
+import { Analytics } from "@vercel/analytics/next";
+import { Metadata } from "next";
 
 initServerI18next(i18nConfig);
 
@@ -24,6 +25,24 @@ const notoFont = Noto_Sans_TC({
   variable: "--font-noto",
   adjustFontFallback: false,
 });
+
+export const metadata: Metadata = {
+  title: { default: "Donuts", template: "%s - Donuts" },
+  description:
+    "此專案是自主開發，目的在於深化自身實作網頁前端設計能力。此電商網站具響應式網頁設計(RWD)，陳列的產品均為模擬資料，未實際提供物流及金流服務，因此可隨意瀏覽操作及點擊。專案採 Next.js 全端框架 與 Firebase 無伺服器資料庫 (Serverless DB) 開發，嚴格遵守前後端分離，將前後端以 RESTful API 串接，並且以 Adapter Pattern 設計後端與資料庫溝通，以取得更好的維護性。Donuts成立於2026年，提供諸多家飾以供選擇。網站內的產品均為模擬資料，可隨意瀏覽操作點擊。登入/註冊方面，採取Magic Link和OAuth，使用時除了Email及ID外，未經使用者授權的第三方帳戶資料不會被開發者存取，請放心使用登入/註冊的功能。",
+  metadataBase: new URL("https://i321ionline.store"),
+  alternates: {
+    canonical: "/zh-Hant",
+    languages: {
+      "x-default": "/zh-Hant",
+      "zh-Hant": "/zh-Hant",
+      en: "/en",
+    },
+  },
+  openGraph: {
+    title: "Donuts",
+  },
+};
 
 export default async function RootLayout({
   children,
@@ -44,8 +63,7 @@ export default async function RootLayout({
           <SessionProvider>
             <StoreProvider>
               <SidebarProvider className="flex flex-col" defaultOpen={false}>
-                <NextTopLoader
-                color="#888888"/>
+                <NextTopLoader color="#888888" />
                 <Navigation lng={lng} />
                 {children}
                 <footer>

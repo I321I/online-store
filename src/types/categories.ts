@@ -1,3 +1,2 @@
-import { categories } from "@/app/[lng]/(main)/[categories]/page";
-
+export const categories = ["tables", "storage"] as const;
 export type Categories = (typeof categories)[number];

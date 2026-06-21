@@ -15,10 +15,10 @@ import {
 import { ChevronLeft, User2 } from "lucide-react";
 import Link from "next/link";
 import { useT } from "next-i18next/client";
-import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { signOut, useSession } from "next-auth/react";
+import { categories } from "@/types/categories";
 
 export const MySideBar = ({ lng }: { lng: string }) => {
   const { t } = useT("home");

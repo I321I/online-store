@@ -1,5 +1,4 @@
 "use client";
-import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { categories } from "@/types/categories";
 import { ProductObject } from "@/types/product";
 import { useT } from "next-i18next/client";
 import Link from "next/link";

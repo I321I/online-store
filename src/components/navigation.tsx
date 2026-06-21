@@ -1,7 +1,6 @@
 import Link from "next/link";
 import LanguagesSelect from "./navigationLanguagesSelector";
 import { LogOut } from "lucide-react";
-import { categories } from "@/app/[lng]/(main)/[categories]/page";
 import DirectSelector from "./navigationDirectSelector";
 import { getT } from "next-i18next/server";
 import { auth, signOut } from "@/auth";
@@ -14,6 +13,7 @@ import {
 import NavigationMargin from "./navigationMargin";
 import { NavigationCart } from "./navigationCart";
 import { NavigationSidebarIcon } from "./navigationSidebarIcon";
+import { categories } from "@/types/categories";
 
 export async function Navigation({ lng }: { lng: string }) {
   const { t } = await getT("home", { lng });
