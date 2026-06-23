@@ -10,11 +10,6 @@
 <br><br>
 [**點此造訪專案網站**](https://i321ionline.store/zh-Hant)
 
-## 畫面預覽
-|桌面端介面|行動端介面|
-|---|---|
-|<img src="https://i.meee.com.tw/OnXrDuv.png" width="1200" height="800"/>|<img src="https://i.meee.com.tw/YJUZgBN.png" width="450" height="800"/>|
-
 ## 網頁功能：
 - **搜尋引擎優化(SEO)**：每個網頁皆具Metadata以助於爬蟲提升網站曝光度，於搜尋結果顯示子網站索引，且在分享網站時顯示縮圖提高使用者觸及意願。
 - **流暢的跨裝置體驗**：全網站具響應式網頁設計(RWD)，並在行動端使用Sidebar以顧及便利性。
@@ -23,6 +18,14 @@
 - **現代化安全登入**：以Magic Link來Email登入，將藉由傳送信件至信箱，點擊連接登入；擁有現今主流的單一登入(SSO)，採用OAuth以免使用者擔心資料外洩。並且整合登入與購物車功能，在帳戶間切換間享有各自的購物車資料。
 - **購物車**：登入後，頁面右上的ICON顯示購物車內的商品數量。並且在購物車內可直接透過按鈕快速增減數量，當下同步後端與資料庫。填寫收件者資料則由Zod檢查輸入格式，確保有效資料的傳遞。商品結帳後將從庫存扣除相應數量。
 - **庫存**：整合購物車與庫存系統，商品頁面可察看結帳後扣除的數量。 
+
+## 畫面預覽
+|桌面端介面|行動端介面|
+|---|---|
+|<img src="https://i.meee.com.tw/4PZ9Oh1.png" width="1920" height="1010"/>|<img src="https://i.meee.com.tw/cK6kX2P.png" width="588" height="980"/>|
+|<img src="https://i.meee.com.tw/FKmjRX7.png" width="1920" height="1010"/>|<img src="https://i.meee.com.tw/XCatZKs.png" width="588" height="980"/>|
+|<img src="https://i.meee.com.tw/8Z75Ys5.png" width="1920" height="1010"/>|<img src="https://i.meee.com.tw/xSwCnD3.png" width="588" height="980"/>|
+|<img src="https://i.meee.com.tw/COyNk1l.png" width="1920" height="1010"/>|<img src="https://i.meee.com.tw/79ECjux.png" width="588" height="980"/>|
 
 ## 技術棧
 ### 前端
