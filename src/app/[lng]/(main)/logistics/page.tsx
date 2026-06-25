@@ -1,7 +1,7 @@
 import { getT } from "next-i18next/server";
 import { Categories } from "@/types/categories";
 import Image from "next/image";
-import aboutImage from "../../../../../public/images/logistics.jpg";
+import logisticsImage from "../../../../../public/images/logistics.jpg";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -52,7 +52,7 @@ export default async function Page({
         {t("logisticsContent")}
       </p>
       <Image
-        src={aboutImage}
+        src={logisticsImage}
         alt="logistics image"
         placeholder="blur"
         sizes="(max-w-800px) 100vw, 800px"

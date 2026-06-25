@@ -51,17 +51,15 @@ export default async function Page({
       <p className="px-2 text-lg font-light whitespace-pre-wrap text-gray-800">
         {t("aboutContent")}
       </p>
-      <div className="relative h-80">
-        <Image
-          src={aboutImage}
-          alt="about us image"
-          placeholder="blur"
-          sizes="(max-w-800px) 100vw, 800px"
-          priority
-          fetchPriority="high"
-          className="pointer-events-none object-cover"
-        />
-      </div>
+      <Image
+        src={aboutImage}
+        alt="about image"
+        placeholder="blur"
+        sizes="(max-w-800px) 100vw, 800px"
+        priority
+        fetchPriority="high"
+        className="pointer-events-none h-90 object-cover object-[25%_70%]"
+      />
     </div>
   );
 }
