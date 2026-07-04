@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://i321ionline.store",
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 1.0,
       alternates: {
         languages: {
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://i321ionline.store/zh-Hant/login",
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.9,
       alternates: {
         languages: {
@@ -69,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://i321ionline.store/zh-Hant/tables",
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.7,
       alternates: {
         languages: {
@@ -81,7 +81,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://i321ionline.store/zh-Hant/storage",
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.7,
       alternates: {
         languages: {
@@ -95,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       .map((item) => ({
         url: `https://i321ionline.store/zh-Hant/tables/${item}`,
         lastModified: new Date(),
-        changeFrequency: "weekly" as const,
+        changeFrequency: "monthly" as const,
         priority: 0.5,
         alternates: {
           languages: {
@@ -109,7 +109,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       .map((item) => ({
         url: `https://i321ionline.store/zh-Hant/storage/${item}`,
         lastModified: new Date(),
-        changeFrequency: "weekly" as const,
+        changeFrequency: "monthly" as const,
         priority: 0.5,
         alternates: {
           languages: {
