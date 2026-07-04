@@ -18,7 +18,7 @@ export const ProductsListImage = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   return (
     <Suspense fallback={<ProductsListImageSkeleton />}>
-      <Link href={`${direct}`}>
+      <Link href={`${direct}`} className="group">
         <Skeleton
           className={`${isLoading ? "flex" : "hidden"} aspect-square h-auto w-full overflow-hidden`}
         />
@@ -28,7 +28,7 @@ export const ProductsListImage = ({
           height={495}
           sizes="(max-width: 950px) 100vw, 950px"
           alt={`image of product ${productId}`}
-          className={`${isLoading ? "hidden" : "flex"} pointer-events-none aspect-square h-full w-full cursor-pointer overflow-hidden object-cover`}
+          className={`${isLoading ? "hidden" : "flex"} pointer-events-none aspect-square h-full w-full cursor-pointer overflow-hidden object-cover transition-transform group-hover:scale-102 group-hover:shadow-md`}
           priority
           fetchPriority="high"
           onLoad={() => setIsLoading(false)}
